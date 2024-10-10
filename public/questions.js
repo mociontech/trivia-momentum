@@ -157,5 +157,54 @@ export const questions = {
       ],
       correct_answer: 3,
     },
+    {
+      question: "¿Qué beneficios inmediatos ofrece la IA en Bancolombia?",
+      options: [
+        "Aumenta los costos operativos y añade más trabajo manual.",
+        "Elimina la necesidad de seguridad y regulaciones en el banco.",
+        "Automatiza tareas repetitivas, mejora la eficiencia, optimiza la atención al cliente y ayuda a detectar fraudes. ",
+      ],
+      correct_answer: 3,
+    },
+    {
+      question:
+        "¿Cuáles son las principales limitaciones de la IA en el sector financiero?",
+      options: [
+        "La IA siempre es precisa y entiende todo sin necesidad de datos.",
+        "Falta de comprensión total del contexto, posibles errores, necesidad de muchos datos, sesgos y preocupaciones de privacidad. ",
+        "No tiene limitaciones y funciona perfectamente en todas las situaciones.",
+      ],
+      correct_answer: 2,
+    },
+    {
+      question:
+        "¿Qué regulaciones se deben considerar al implementar IA en un banco?",
+      options: [
+        "Leyes de protección de datos, normativas de ciberseguridad, directrices financieras y políticas de transparencia.",
+        "No hay regulaciones; la IA puede usarse libremente en bancos.",
+        "Solo deben seguirse las políticas internas, ignorando regulaciones externas.",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Cómo ayuda AI TRim a gestionar los riesgos de IA en Bancolombia?",
+      options: [
+        "Reemplaza a los empleados en todas sus funciones.",
+        "Permite usar IA sin necesidad de supervisión o control.",
+        "Evalúa y reduce riesgos como errores y sesgos, asegurando calidad y cumplimiento de normas.",
+      ],
+      correct_answer: 3,
+    },
+    {
+      question:
+        "¿Cómo aseguramos que la IA complementa y no reemplaza a los empleados?",
+      options: [
+        "Usando la IA para tareas rutinarias, permitiendo que los empleados se enfoquen en tareas creativas y estratégicas.",
+        "Dejando que la IA haga todo el trabajo y eliminando puestos de trabajo.",
+        "Evitando completamente el uso de IA en el banco.",
+      ],
+      correct_answer: 1,
+    },
   ],
 };
