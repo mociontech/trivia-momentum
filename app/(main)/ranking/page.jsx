@@ -110,7 +110,7 @@ export default function LoginPage() {
                   className={`flex gap-5 justify-between items-center text-base sm:text-[45px] sm:p-5  rounded-xl p-1 px-3`}
                 >
                   <div className="flex sm:gap-5 gap-2">
-                    <p className="oracle-regular line-clamp-1 mr-2">
+                    <p className="oracle-regular line-clamp-1 sm:leading-[1] mr-2 sm:h-[35px]">
                       {record.nombre}
                     </p>
                   </div>
@@ -127,10 +127,10 @@ export default function LoginPage() {
         )}
         {logged && (
           <button
-            className="oracle-regular text-[48px] rounded-3xl absolute bottom-[170px] z-50 text-white p-8 bg-[#D6544E]"
+            className="oracle-regular text-[48px] rounded-3xl absolute bottom-[170px] z-50 text-white py-2 px-8 bg-[#D6544E]"
             onClick={nextPage}
           >
-            volver a jugar
+            Regresar
           </button>
         )}
       </div>
