@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Be_Vietnam_Pro, Montserrat } from "next/font/google";
 import { useRouter } from "next/navigation";
-import { useMail } from "@/hooks/useUser";
+import { useUser } from "@/hooks/useUser";
 import { register } from "@/utils/db";
 
 const Vietnam = Be_Vietnam_Pro({
@@ -20,7 +20,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [nameInput, setNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
-  const { setMail } = useMail();
+  const { setMail, setLogged } = useUser();
 
   async function submitForm() {
     try {
@@ -29,6 +29,7 @@ export default function LoginPage() {
         return alert("Por favor, completa todos los campos");
 
       setMail(emailInput); // Guarda el correo
+      setLogged(true);
       register(nameInput, emailInput);
       router.push("/trivia");
     } catch (error) {

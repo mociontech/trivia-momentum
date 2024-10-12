@@ -4,12 +4,12 @@ import { useRouter } from "next/navigation";
 import { questions } from "@/public/questions";
 import { useEffect, useState } from "react";
 import { registerRecord } from "@/utils/db";
-import { useMail } from "@/hooks/useUser";
+import { useUser } from "@/hooks/useUser";
 import { formatTime } from "@/utils/utils";
 
 export default function TriviaPage() {
   const router = useRouter();
-  const { mail } = useMail();
+  const { mail } = useUser();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedQuestions, setSelectedQuestions] = useState();
 
@@ -65,7 +65,7 @@ export default function TriviaPage() {
         registerRecord(mail, timeTaken, finalScore * 20);
 
         setTimeout(() => {
-          router.push("/login");
+          router.push("/ranking");
         }, 3000);
         return;
       } else {
@@ -89,7 +89,7 @@ export default function TriviaPage() {
       </video>
       <img
         src="/assets/logo-oracle.svg"
-        alt="Logo de humano"
+        alt="Logo de oracle"
         className="absolute top-[100px] left-[120px]"
       />
       {selectedQuestions && !isFinished && (

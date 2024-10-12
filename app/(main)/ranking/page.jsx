@@ -1,11 +1,15 @@
 "use client";
 
 import Loader from "@/components/loader";
+import { useUser } from "@/hooks/useUser";
 import { getRecords } from "@/utils/db";
 import { formatTime } from "@/utils/utils";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const { logged } = useUser();
   const [records, setRecords] = useState();
   const [top5, setTop5] = useState();
 
@@ -34,10 +38,16 @@ export default function LoginPage() {
     getAllRecords();
   }, []);
 
+  function nextPage() {
+    router.push("/login");
+  }
+
   return (
-    <div className="relative h-screen w-screen flex flex-col justify-center items-center">
+    <div
+      className={`h-screen w-screen flex flex-col justify-center items-center`}
+    >
       <video
-        className="absolute top-0 left-0 h-full w-full object-cover"
+        className="absolute h-screen w-screen top-0 left-0 -z-10 object-cover"
         autoPlay
         loop
         muted
@@ -45,67 +55,90 @@ export default function LoginPage() {
         <source src="/assets/Pantallas.mp4" />
       </video>
       {!records && <Loader />}
-      {top5 && (
-        <div className="flex flex-col z-50 gap-3 text-3xl text-black w-[80%]">
-          <p className="oracle-regular text-[80px] flex justify-center mb-[80px]">
-            Top 5
-          </p>
-          <div className="oracle-regular flex justify-end text-[48px]">
-            <div className="flex gap-10 mb-5 mr-5">
-              <p>Puntaje</p>
-              <p>Tiempo</p>
-            </div>
-          </div>
-          {top5.map((record, i) => (
-            <div
-              key={i}
-              className={`flex gap-5 justify-between items-center text-[45px] px-5 py-5 rounded-xl ${
-                i === 0
-                  ? "bg-yellow-400"
-                  : i === 1
-                  ? "bg-slate-400"
-                  : i === 2
-                  ? "bg-orange-500"
-                  : "bg-transparent"
-              }`}
-            >
-              <div className="flex gap-5">
-                <p>{i + 1}</p>
-                <p className="oracle-regular">{record.nombre}</p>
-              </div>
-              <div className="flex gap-[70px] text-center">
-                <p className="oracle-regular mr-[10px]">{record.puntaje}</p>
-                <p>{formatTime(record.tiempo)}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-      {records && (
-        <div className="flex flex-col z-50 text-3xl text-black w-[80%] pt-3 mt-20 ">
-          <div className="flex justify-center">
-            <p className="oracle-regular text-[45px] mb-10 flex justify-center">
-              Todos los participantes
+      <div className="flex flex-col justify-center items-center sm:pb-[200px]">
+        {top5 && (
+          <div className="flex flex-col sm:mt-[100px] mt-10 z-50 gap-1 text-3xl text-black w-[80%] ">
+            <p className="oracle-regular sm:text-[80px] text-xl flex justify-center sm:mb-[80px] mb-[10px]">
+              Top 5
             </p>
-          </div>
-          <div className="overflow-y-auto max-h-[700px]">
-            {records.map((record, i) => (
+            <div className="oracle-regular flex justify-end sm:text-[48px] text-base">
+              <div className="flex sm:gap-10 gap-3 sm:mb-5 sm:mr-5 mr-2">
+                <p>Puntaje</p>
+                <p>Tiempo</p>
+              </div>
+            </div>
+            {top5.map((record, i) => (
               <div
                 key={i}
-                className={`flex gap-5 justify-between items-center text-[45px] px-5 py-5 rounded-xl`}
+                className={`flex sm:gap-5 justify-between items-center text-base sm:text-[45px] sm:p-5  rounded-xl px-3 ${
+                  i === 0
+                    ? "bg-yellow-400"
+                    : i === 1
+                    ? "bg-slate-400"
+                    : i === 2
+                    ? "bg-orange-500"
+                    : "bg-transparent"
+                }`}
               >
-                <div className="flex gap-5">
-                  <p className="oracle-regular">{record.nombre}</p>
+                <div className="flex sm:gap-5 gap-2 items-center">
+                  <p>{i + 1}</p>
+                  <p className="oracle-regular line-clamp-1 leading-[1.2] mr-2">
+                    {record.nombre}
+                  </p>
                 </div>
-                <div className="flex gap-[70px] text-center">
-                  <p className="oracle-regular mr-[10px]">{record.puntaje}</p>
+                <div className="flex sm:gap-[70px] gap-[20px] text-center">
+                  <p className="oracle-regular sm:mr-[10px]">
+                    {record.puntaje}
+                  </p>
                   <p>{formatTime(record.tiempo)}</p>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      )}
+        )}
+        {records && (
+          <div className="flex flex-col z-50 text-3xl text-black w-[80%] pt-3 sm:mt-20 mt-[10px]">
+            <div className="flex justify-center">
+              <p className="oracle-regular sm:text-[80px] text-xl flex justify-center sm:mb-[80px] mb-[20px]">
+                Todos los participantes
+              </p>
+            </div>
+            <div className="overflow-y-auto sm:max-h-[500px] max-h-[300px]">
+              {records.map((record, i) => (
+                <div
+                  key={i}
+                  className={`flex gap-5 justify-between items-center text-base sm:text-[45px] sm:p-5  rounded-xl p-1 px-3`}
+                >
+                  <div className="flex sm:gap-5 gap-2">
+                    <p className="oracle-regular line-clamp-1 mr-2">
+                      {record.nombre}
+                    </p>
+                  </div>
+                  <div className="flex sm:gap-[70px] gap-[20px] text-center">
+                    <p className="oracle-regular sm:mr-[10px]">
+                      {record.puntaje}
+                    </p>
+                    <p>{formatTime(record.tiempo)}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        {logged && (
+          <button
+            className="oracle-regular text-[48px] rounded-3xl absolute bottom-[170px] z-50 text-white p-8 bg-[#D6544E]"
+            onClick={nextPage}
+          >
+            volver a jugar
+          </button>
+        )}
+      </div>
+      <img
+        src="/assets/logo-oracle.svg"
+        alt="Logo de oracle"
+        className="absolute top-[10px] h-[20px] sm:h-[48px] sm:top-[100px] sm:left-[120px]"
+      />
     </div>
   );
 }
