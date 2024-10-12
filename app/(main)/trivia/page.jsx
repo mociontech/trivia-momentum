@@ -65,7 +65,7 @@ export default function TriviaPage() {
         registerRecord(mail, timeTaken, finalScore * 20);
 
         setTimeout(() => {
-          router.push("/bye");
+          router.push("/login");
         }, 3000);
         return;
       } else {
@@ -83,40 +83,75 @@ export default function TriviaPage() {
   }
 
   return (
-    <div className="relative h-screen w-screen flex justify-center items-center text-black text-3xl">
+    <div className="h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden text-black px-20">
       <video className="absolute top-0 left-0 -z-10" autoPlay loop muted>
         <source src="/assets/Pantallas.mp4" />
       </video>
+      <img
+        src="/assets/logo-oracle.svg"
+        alt="Logo de humano"
+        className="absolute top-[100px] left-[120px]"
+      />
       {selectedQuestions && !isFinished && (
         <div className="flex flex-col">
-          <p>{selectedQuestions[currentQuestion].question}</p>
-          <div className="flex flex-col gap-7">
+          <p className="relative z-50 oracle-regular text-[60px] leading-[68px] text-center mb-[81px]">
+            {selectedQuestions[currentQuestion].question}
+          </p>
+          <div className="flex flex-col gap-8">
             {selectedQuestions[currentQuestion].options.map((answer, i) => (
               <button
                 key={i}
-                className={`p-5 ${
+                className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl ${
                   isAnswered
                     ? i + 1 === correctAnswer
-                      ? "bg-green-500" // Respuesta correcta en verde
+                      ? "bg-[#D6544E] text-white" // Respuesta correcta en verde
                       : i === selectedAnswer
-                      ? "bg-red-500" // Respuesta incorrecta seleccionada en rojo
-                      : "bg-slate-500"
-                    : "bg-slate-500"
+                      ? "bg-[#D6544E] text-white" // Respuesta incorrecta seleccionada en rojo
+                      : "bg-[#D4E6E5]"
+                    : "bg-[#D4E6E5]"
                 }`}
                 onClick={() => selectAnswer(i)}
                 disabled={isAnswered} // Deshabilitar los botones después de seleccionar
               >
-                <p>{answer}</p>
+                {answer}
               </button>
             ))}
           </div>
         </div>
       )}
-      {isFinished && (
-        <div>
-          Felicitaciones lograste {score * 20} puntos en {totalTime} segundos
-        </div>
-      )}
+      {isFinished &&
+        (score >= 4 ? (
+          <div className="flex flex-col justify-center items-center">
+            <p className="oracle-regular text-[100px] text-center text-[#5B6B6B] leading-[90px] mb-[40px]">
+              ¡Felicidades!
+            </p>
+            <p className="oracle-light text-[45px] text-center text-[#36312D] leading-[48px] mb-[110px]">
+              Contestaste correctamente:
+            </p>
+            <div className="oracle-regular flex flex-col w-full rounded-3xl text-[#FCFCFC] py-4 bg-[#D6544E] text-center justify-center text-[80px]">
+              {score}/5<p className="text-[40px]">En {totalTime} segundos</p>
+            </div>
+            <p className="oracle-light mt-6 text-[45px]">
+              ¡Gracias por participar!
+            </p>
+          </div>
+        ) : (
+          <div className="flex flex-col justify-center items-center">
+            <p className="oracle-regular text-[100px] text-center text-[#5B6B6B] leading-[90px] mb-[40px]">
+              Puedes <br />
+              hacerlo mejor
+            </p>
+            <p className="oracle-light text-[45px] text-center text-[#36312D] leading-[48px] mb-[110px]">
+              Contestaste correctamente:
+            </p>
+            <div className="oracle-regular flex flex-col w-full rounded-3xl text-[#FCFCFC] py-4 bg-[#D6544E] text-center justify-center text-[80px]">
+              {score}/5<p className="text-[40px]">En {totalTime} segundos</p>
+            </div>
+            <p className="oracle-light mt-6 text-[45px]">
+              ¡Gracias por participar!
+            </p>
+          </div>
+        ))}
     </div>
   );
 }

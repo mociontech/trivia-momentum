@@ -1,74 +1,110 @@
 "use client";
 
+import { useState } from "react";
+import { Be_Vietnam_Pro, Montserrat } from "next/font/google";
+import { useRouter } from "next/navigation";
 import { useMail } from "@/hooks/useUser";
 import { register } from "@/utils/db";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+
+const Vietnam = Be_Vietnam_Pro({
+  subsets: ["latin"],
+  weight: ["300", "400", "600"],
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+});
 
 export default function LoginPage() {
   const router = useRouter();
+  const [nameInput, setNameInput] = useState("");
+  const [emailInput, setEmailInput] = useState("");
   const { setMail } = useMail();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    setMail(email); // Guarda el correo
-    register(name, email);
-    router.push("/trivia");
+  async function submitForm() {
+    try {
+      // Checkea que ningun campo este vacio
+      if (!nameInput || !emailInput)
+        return alert("Por favor, completa todos los campos");
+
+      setMail(emailInput); // Guarda el correo
+      register(nameInput, emailInput);
+      router.push("/trivia");
+    } catch (error) {
+      console.log({ error: error });
+    }
   }
 
   return (
-    <div className="relative h-screen w-screen flex justify-center items-center text-black">
-      <video
-        className="absolute top-0 left-0 h-full w-full object-cover"
-        autoPlay
-        loop
-        muted
-      >
+    <div className="h-screen w-screen flex flex-col justify-center items-center relative">
+      <video className="absolute top-0 left-0" autoPlay loop muted>
         <source src="/assets/Pantallas.mp4" />
       </video>
-      <div className="relative z-10 bg-white bg-opacity-70 p-8 rounded-lg shadow-lg">
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Nombre
+      <img
+        src="/assets/logo-oracle.svg"
+        alt="Logo de humano"
+        className="absolute top-[100px] left-[120px] font"
+      />
+
+      <div className="flex flex-col gap-24 w-auto">
+        <section className="flex flex-col gap-7">
+          <img
+            src="/assets/registrate.svg"
+            alt="Registrate text"
+            className="relative z-50 mb-12 h-[100px]"
+          />
+
+          <div className="relative flex">
+            <label htmlFor="name">
+              <img
+                src="/assets/name.svg"
+                alt="Icono de una persona"
+                className="absolute z-50 text-black/40 top-[36px] left-[68px]"
+              />
             </label>
             <input
               type="text"
               id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className="mt-1 block w-full text-3xl px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              value={nameInput}
+              placeholder="Escribe tu nombre"
+              className={`font-normal text-[40px] flex flex-1 h-[110px] w-[855px] pl-[138px] 
+              text-black bg-white/15 rounded-3xl border-[1.5px] border-[#D6544E]`}
+              autoComplete="off"
+              onChange={(e) => {
+                setNameInput(e.target.value);
+              }}
             />
           </div>
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Correo
+          <div className="relative flex">
+            <label htmlFor="email">
+              <img
+                src="/assets/email.svg"
+                alt="Icono de una persona"
+                className="absolute z-50 text-black/40 top-[36px] left-[56px]"
+              />
             </label>
             <input
               type="email"
               id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="mt-1 block w-full text-3xl px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              value={emailInput}
+              className={`${Vietnam.className} font-normal text-[40px] flex flex-1 h-[110px] w-[855px] pl-[138px]
+              text-black bg-white/15 rounded-3xl border-[1.5px] border-[#D6544E]`}
+              placeholder="Escribe tu correo"
+              autoComplete="off"
+              onChange={(e) => {
+                setEmailInput(e.target.value);
+              }}
             />
           </div>
-          <button
-            type="submit"
-            className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Ingresar
-          </button>
-        </form>
+        </section>
+        <button
+          className={`${montserrat.className} relative z-50 flex justify-center items-center text-3xl px-10 py-16 
+        bg-[#D6544E] text-white h-[48px] text-center text-[50px] rounded-3xl`}
+          onClick={submitForm}
+        >
+          <img src="/assets/juega-ahora.svg" alt="juega ahora text" />
+        </button>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import Loader from "@/components/loader";
 import { getRecords } from "@/utils/db";
 import { formatTime } from "@/utils/utils";
 import { useEffect, useState } from "react";
@@ -43,23 +44,37 @@ export default function LoginPage() {
       >
         <source src="/assets/Pantallas.mp4" />
       </video>
+      {!records && <Loader />}
       {top5 && (
-        <div className="flex flex-col z-50 text-3xl text-black w-[80%]">
-          <div className="flex justify-between">
-            <p>Top 5</p>
-            <div className="flex gap-16">
+        <div className="flex flex-col z-50 gap-3 text-3xl text-black w-[80%]">
+          <p className="oracle-regular text-[80px] flex justify-center mb-[80px]">
+            Top 5
+          </p>
+          <div className="oracle-regular flex justify-end text-[48px]">
+            <div className="flex gap-10 mb-5 mr-5">
               <p>Puntaje</p>
               <p>Tiempo</p>
             </div>
           </div>
           {top5.map((record, i) => (
-            <div key={i} className="flex gap-5 justify-between">
+            <div
+              key={i}
+              className={`flex gap-5 justify-between items-center text-[45px] px-5 py-5 rounded-xl ${
+                i === 0
+                  ? "bg-yellow-400"
+                  : i === 1
+                  ? "bg-slate-400"
+                  : i === 2
+                  ? "bg-orange-500"
+                  : "bg-transparent"
+              }`}
+            >
               <div className="flex gap-5">
                 <p>{i + 1}</p>
-                <p>{record.nombre}</p>
+                <p className="oracle-regular">{record.nombre}</p>
               </div>
               <div className="flex gap-[70px] text-center">
-                <p>{record.puntaje}</p>
+                <p className="oracle-regular mr-[10px]">{record.puntaje}</p>
                 <p>{formatTime(record.tiempo)}</p>
               </div>
             </div>
@@ -67,21 +82,28 @@ export default function LoginPage() {
         </div>
       )}
       {records && (
-        <div className="flex flex-col z-50 text-3xl text-black w-[80%] mt-20 overflow-y-auto max-h-[700px]">
-          <div className="flex justify-between">
-            <p>Todos los participantes</p>
+        <div className="flex flex-col z-50 text-3xl text-black w-[80%] pt-3 mt-20 ">
+          <div className="flex justify-center">
+            <p className="oracle-regular text-[45px] mb-10 flex justify-center">
+              Todos los participantes
+            </p>
           </div>
-          {records.map((record, i) => (
-            <div key={i} className="flex gap-5 justify-between">
-              <div className="flex gap-5">
-                <p>{record.nombre}</p>
+          <div className="overflow-y-auto max-h-[700px]">
+            {records.map((record, i) => (
+              <div
+                key={i}
+                className={`flex gap-5 justify-between items-center text-[45px] px-5 py-5 rounded-xl`}
+              >
+                <div className="flex gap-5">
+                  <p className="oracle-regular">{record.nombre}</p>
+                </div>
+                <div className="flex gap-[70px] text-center">
+                  <p className="oracle-regular mr-[10px]">{record.puntaje}</p>
+                  <p>{formatTime(record.tiempo)}</p>
+                </div>
               </div>
-              <div className="flex gap-[70px] text-center">
-                <p>{record.puntaje}</p>
-                <p>{formatTime(record.tiempo)}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
     </div>
