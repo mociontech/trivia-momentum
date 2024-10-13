@@ -104,7 +104,7 @@ export default function TriviaPage() {
                 className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl ${
                   isAnswered
                     ? i + 1 === correctAnswer
-                      ? "bg-[#D6544E] text-white" // Respuesta correcta en verde
+                      ? "bg-[#628B48] text-white" // Respuesta correcta en verde
                       : i === selectedAnswer
                       ? "bg-[#D6544E] text-white" // Respuesta incorrecta seleccionada en rojo
                       : "bg-[#D4E6E5]"

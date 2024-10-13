@@ -32,7 +32,7 @@ export default function LoginPage() {
       console.log(sortedData);
 
       setRecords(records);
-      setTop5(sortedData.slice(0, 5));
+      setTop5(sortedData.slice(0, 3));
     }
 
     getAllRecords();
@@ -59,7 +59,7 @@ export default function LoginPage() {
         {top5 && (
           <div className="flex flex-col sm:mt-[100px] mt-10 z-50 gap-1 text-3xl text-black w-[80%] ">
             <p className="oracle-regular sm:text-[80px] text-xl flex justify-center sm:mb-[80px] mb-[10px]">
-              Top 5
+              Mejores Resultados
             </p>
             <div className="oracle-regular flex justify-end sm:text-[48px] text-base">
               <div className="flex sm:gap-10 gap-3 sm:mb-5 sm:mr-5 mr-2">
@@ -67,35 +67,39 @@ export default function LoginPage() {
                 <p>Tiempo</p>
               </div>
             </div>
-            {top5.map((record, i) => (
-              <div
-                key={i}
-                className={`flex sm:gap-5 justify-between items-center text-base sm:text-[45px] sm:p-5  rounded-xl px-3 ${
-                  i === 0
-                    ? "bg-yellow-400"
-                    : i === 1
-                    ? "bg-slate-400"
-                    : i === 2
-                    ? "bg-orange-500"
-                    : "bg-transparent"
-                }`}
-              >
-                <div className="flex sm:gap-5 gap-2 items-center">
-                  <p>{i + 1}</p>
-                  <p className="oracle-regular line-clamp-1 leading-[1.2] mr-2">
-                    {record.nombre}
-                  </p>
+
+            <div className="flex flex-col justify-center gap-3">
+              {top5.map((record, i) => (
+                <div
+                  key={i}
+                  className={`flex sm:gap-5 justify-between items-center text-base sm:text-[45px] rounded-xl sm:p-5 sm:rounded-3xl px-3 ${
+                    i === 0
+                      ? "bg-yellow-400"
+                      : i === 1
+                      ? "bg-slate-400"
+                      : i === 2
+                      ? "bg-orange-500"
+                      : "bg-transparent"
+                  }`}
+                >
+                  <div className="flex sm:gap-5 gap-2 items-center">
+                    <p>{i + 1}</p>
+                    <p className="oracle-regular line-clamp-1 leading-[1.2] mr-2">
+                      {record.nombre}
+                    </p>
+                  </div>
+                  <div className="flex sm:gap-[70px] gap-[20px] text-center">
+                    <p className="oracle-regular sm:mr-[10px]">
+                      {record.puntaje}
+                    </p>
+                    <p>{formatTime(record.tiempo)}</p>
+                  </div>
                 </div>
-                <div className="flex sm:gap-[70px] gap-[20px] text-center">
-                  <p className="oracle-regular sm:mr-[10px]">
-                    {record.puntaje}
-                  </p>
-                  <p>{formatTime(record.tiempo)}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
+
         {records && (
           <div className="flex flex-col z-50 text-3xl text-black w-[80%] pt-3 sm:mt-20 mt-[10px]">
             <div className="flex justify-center">
