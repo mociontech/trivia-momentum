@@ -72,7 +72,7 @@ export default function LoginPage() {
               <img
                 src="/assets/name.svg"
                 alt="Icono de una persona"
-                className="absolute z-50 text-black/40 top-[36px] left-[68px]"
+                className="absolute z-50 text-black/40 top-[30px] left-[68px]"
               />
             </label>
             <input
@@ -80,7 +80,7 @@ export default function LoginPage() {
               id="name"
               value={nameInput}
               placeholder="Escribe tu nombre"
-              className={`font-normal text-[40px] flex flex-1 h-[110px] w-[855px] pl-[138px] 
+              className={`oracle-regular font-normal text-[40px] flex flex-1 h-[110px] w-[855px] pl-[138px] 
               text-black bg-white/15 rounded-3xl border-[1.5px] border-[#D6544E]`}
               autoComplete="off"
               onChange={(e) => {
@@ -93,14 +93,14 @@ export default function LoginPage() {
               <img
                 src="/assets/email.svg"
                 alt="Icono de una persona"
-                className="absolute z-50 text-black/40 top-[36px] left-[56px]"
+                className="absolute z-50 text-black/40 top-[30px] left-[56px]"
               />
             </label>
             <input
               type="email"
               id="email"
               value={emailInput}
-              className={`${Vietnam.className} font-normal text-[40px] flex flex-1 h-[110px] w-[855px] pl-[138px]
+              className={`oracle-regular font-normal text-[40px] flex flex-1 h-[110px] w-[855px] pl-[138px]
               text-black bg-white/15 rounded-3xl border-[1.5px] border-[#D6544E]`}
               placeholder="Escribe tu correo"
               autoComplete="off"
