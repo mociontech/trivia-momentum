@@ -20,6 +20,7 @@ export default function TriviaPage() {
   const [isAnswered, setIsAnswered] = useState(false); // Saber si la pregunta ya fue respondida
 
   const [isFinished, setIsFinished] = useState(false);
+  const [isFinishedTimer, setIsFinishedTimer] = useState(false);
 
   const [startTime, setStartTime] = useState(null); // Para registrar el tiempo de inicio
   const [totalTime, setTotalTime] = useState(null);
@@ -37,7 +38,7 @@ export default function TriviaPage() {
     setStartTime(start);
 
     // Actualizar el temporizador cada segundo
-    if (!isFinished) {
+    if (!isFinishedTimer) {
       const timer = setInterval(() => {
         setElapsedTime(Math.floor(Date.now() - start));
       }, 100);
@@ -45,7 +46,7 @@ export default function TriviaPage() {
     }
   }, []);
 
-  function selectAnswer(answerPos) {
+  async function selectAnswer(answerPos) {
     if (isAnswered) return; // Evitar que se seleccione más de una vez
     setSelectedAnswer(answerPos);
     setCorrectAnswer(selectedQuestions[currentQuestion].correct_answer);
@@ -56,11 +57,9 @@ export default function TriviaPage() {
     }
 
     if (currentQuestion > 3) {
-      setIsFinished(true);
-
-      // mostrar puntaje
+      setIsFinishedTimer(true);
       const endTime = Date.now();
-      const timeTaken = Math.floor(endTime - startTime); // Tiempo en segundos
+      const timeTaken = Math.floor(endTime - startTime); // Tiempo en milisegundos
 
       // Calcula el puntaje final en una variable local
       const finalScore =
@@ -73,16 +72,21 @@ export default function TriviaPage() {
 
       // subir a base de datos
       registerRecord(mail, timeTaken, finalScore * 20);
-
-      setTimeout(() => {
-        router.push("/ranking");
-      }, 3000);
-      return;
-    } else {
-      setTimeout(() => {
-        nextQuestion();
-      }, 1000);
     }
+
+    setTimeout(() => {
+      if (currentQuestion > 3) {
+        // mostrar puntaje
+        setIsFinished(true);
+
+        setTimeout(() => {
+          router.push("/ranking");
+        }, 3000);
+        return;
+      } else {
+        nextQuestion();
+      }
+    }, 1000);
   }
 
   console.log(score);
@@ -103,11 +107,19 @@ export default function TriviaPage() {
         alt="Logo de oracle"
         className="absolute top-[100px] left-[120px]"
       />
-      {!isFinished && (
+
+      {!isFinishedTimer ? (
         <div className="absolute top-[75px] oracle-regular right-[70px] bg-opacity-80 text-black p-4 rounded-lg text-[48px] font-bold z-50">
           {formatTime(elapsedTime)}
         </div>
+      ) : (
+        !isFinished && (
+          <div className="absolute top-[75px] oracle-regular right-[70px] bg-opacity-80 text-black p-4 rounded-lg text-[48px] font-bold z-50">
+            {totalTime}
+          </div>
+        )
       )}
+
       {selectedQuestions && !isFinished && (
         <div className="flex flex-col">
           <p className="relative z-50 oracle-regular text-[60px] leading-[68px] text-center mb-[81px]">
