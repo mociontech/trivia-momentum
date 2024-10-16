@@ -23,6 +23,7 @@ export default function TriviaPage() {
 
   const [startTime, setStartTime] = useState(null); // Para registrar el tiempo de inicio
   const [totalTime, setTotalTime] = useState(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
 
   useEffect(() => {
     function getRandomQuestions(questionsArray, count) {
@@ -32,7 +33,16 @@ export default function TriviaPage() {
 
     const selectedQuestions = getRandomQuestions(questions.questions, 5);
     setSelectedQuestions(selectedQuestions);
-    setStartTime(Date.now());
+    const start = Date.now();
+    setStartTime(start);
+
+    // Actualizar el temporizador cada segundo
+    if (!isFinished) {
+      const timer = setInterval(() => {
+        setElapsedTime(Math.floor(Date.now() - start));
+      }, 100);
+      return () => clearInterval(timer);
+    }
   }, []);
 
   function selectAnswer(answerPos) {
@@ -45,33 +55,34 @@ export default function TriviaPage() {
       setScore((prevScore) => prevScore + 1);
     }
 
-    setTimeout(() => {
-      if (currentQuestion > 3) {
-        // mostrar puntaje
-        setIsFinished(true);
-        const endTime = Date.now();
-        const timeTaken = Math.floor(endTime - startTime); // Tiempo en segundos
+    if (currentQuestion > 3) {
+      setIsFinished(true);
 
-        // Calcula el puntaje final en una variable local
-        const finalScore =
-          answerPos + 1 === selectedQuestions[currentQuestion].correct_answer
-            ? score + 1
-            : score;
+      // mostrar puntaje
+      const endTime = Date.now();
+      const timeTaken = Math.floor(endTime - startTime); // Tiempo en segundos
 
-        setTotalTime(formatTime(timeTaken));
-        console.log(finalScore);
+      // Calcula el puntaje final en una variable local
+      const finalScore =
+        answerPos + 1 === selectedQuestions[currentQuestion].correct_answer
+          ? score + 1
+          : score;
 
-        // subir a base de datos
-        registerRecord(mail, timeTaken, finalScore * 20);
+      setTotalTime(formatTime(timeTaken));
+      console.log(finalScore);
 
-        setTimeout(() => {
-          router.push("/ranking");
-        }, 3000);
-        return;
-      } else {
+      // subir a base de datos
+      registerRecord(mail, timeTaken, finalScore * 20);
+
+      setTimeout(() => {
+        router.push("/ranking");
+      }, 3000);
+      return;
+    } else {
+      setTimeout(() => {
         nextQuestion();
-      }
-    }, 1000);
+      }, 1000);
+    }
   }
 
   console.log(score);
@@ -92,6 +103,11 @@ export default function TriviaPage() {
         alt="Logo de oracle"
         className="absolute top-[100px] left-[120px]"
       />
+      {!isFinished && (
+        <div className="absolute top-[75px] oracle-regular right-[70px] bg-opacity-80 text-black p-4 rounded-lg text-[48px] font-bold z-50">
+          {formatTime(elapsedTime)}
+        </div>
+      )}
       {selectedQuestions && !isFinished && (
         <div className="flex flex-col">
           <p className="relative z-50 oracle-regular text-[60px] leading-[68px] text-center mb-[81px]">
