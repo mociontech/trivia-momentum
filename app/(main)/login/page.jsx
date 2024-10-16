@@ -5,6 +5,7 @@ import { Be_Vietnam_Pro, Montserrat } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
 import { register } from "@/utils/db";
+import Loader from "@/components/loader";
 
 const Vietnam = Be_Vietnam_Pro({
   subsets: ["latin"],
@@ -21,6 +22,7 @@ export default function LoginPage() {
   const [nameInput, setNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [registered, setRegistered] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { setMail, setLogged } = useUser();
 
   async function submitForm() {
@@ -28,12 +30,14 @@ export default function LoginPage() {
       // Checkea que ningun campo este vacio
       if (!nameInput || !emailInput)
         return alert("Por favor, completa todos los campos");
+      setLoading(true);
 
       setMail(emailInput); // Guarda el correo
       setLogged(true);
       const user = await register(nameInput, emailInput);
       if (user === "existing") {
         setRegistered(true);
+        setLoading(false);
         return;
       } else {
         router.push("/trivia");
@@ -53,6 +57,7 @@ export default function LoginPage() {
         alt="Logo de humano"
         className="absolute top-[100px] left-[120px] font"
       />
+      {loading && <Loader />}
 
       <div className="flex flex-col w-auto">
         <section className="flex flex-col gap-7">
@@ -104,7 +109,11 @@ export default function LoginPage() {
               }}
             />
           </div>
-          {registered && <p className="relative oracle-regular text-[#D6544E] z-50 text-[48px]">¡Ya has participado!</p>}
+          {registered && (
+            <p className="relative oracle-regular text-[#D6544E] z-50 text-[48px]">
+              ¡Ya has participado!
+            </p>
+          )}
         </section>
         <button
           className={`${montserrat.className} relative z-50 flex justify-center items-center text-3xl px-10 py-16 

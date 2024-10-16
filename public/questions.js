@@ -206,5 +206,335 @@ export const questions = {
       ],
       correct_answer: 1,
     },
+    {
+      question:
+        "¿Cuál es la principal ventaja de utilizar inteligencia artificial generativa en las aplicaciones empresariales de Oracle?",
+      options: [
+        "Automatizar la creación de módulos de software complejos",
+        "Mejorar la seguridad de los datos en la nube",
+        "Reducir el tiempo de procesamiento en bases de datos relacionales",
+        "Personalizar la experiencia del cliente en tiempo real",
+      ],
+      correct_answer: 4,
+    },
+    {
+      question:
+        "¿Qué tipo de aplicaciones permite Oracle Fusion con la integración de AI?",
+      options: [
+        "Aplicaciones específicas para la gestión de bases de datos",
+        "Aplicaciones empresariales automatizadas con AI integrada en los flujos de trabajo",
+        "Aplicaciones de blockchain para la autenticación de usuarios",
+        "Aplicaciones de IoT para la gestión de dispositivos",
+      ],
+      correct_answer: 2,
+    },
+    {
+      question:
+        "¿Qué tecnología de Oracle está diseñada para escalar automáticamente en función de las necesidades de procesamiento?",
+      options: [
+        "Autonomous Database",
+        "Oracle Cloud Infrastructure (OCI)",
+        "Oracle Blockchain Service",
+        "Oracle Machine Learning",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Cuál es uno de los beneficios clave de la interconexión multicloud ofrecida por Oracle?",
+      options: [
+        "La capacidad de eliminar completamente el uso de servidores físicos",
+        "La posibilidad de mover cargas de trabajo entre diferentes nubes sin latencia significativa",
+        "La creación de aplicaciones sin necesidad de desarrolladores",
+        "La reducción de costos operativos en bases de datos locales",
+      ],
+      correct_answer: 2,
+    },
+    {
+      question:
+        "¿Qué tipo de inteligencia artificial utiliza Oracle para mejorar la ciberseguridad en sus soluciones cloud?",
+      options: [
+        "IA generativa para automatizar respuestas a amenazas",
+        "IA predictiva para detectar y prevenir ataques cibernéticos",
+        "IA conversacional para mejorar la experiencia del cliente",
+        "IA de redes neuronales para el análisis de datos",
+      ],
+      correct_answer: 2,
+    },
+    {
+      question:
+        "¿Cuál es una ventaja clave del uso de Oracle Autonomous Database?",
+      options: [
+        "Reducción de la intervención humana en la gestión de bases de datos",
+        "Eliminación de la necesidad de almacenamiento en la nube",
+        "Mayor velocidad de procesamiento para sistemas locales",
+        "Compatibilidad exclusiva con sistemas de bases de datos no relacionales",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Cómo mejora Oracle Cloud Infrastructure (OCI) la velocidad en la ejecución de aplicaciones empresariales?",
+      options: [
+        "Ofreciendo conectividad de baja latencia y recursos escalables",
+        "Eliminando la necesidad de redes físicas",
+        "Optimizando el uso de bases de datos distribuidas",
+        "Aumentando el número de servidores locales",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Qué solución de Oracle permite la personalización de experiencias del cliente en industrias como retail y hospitalidad?",
+      options: [
+        "Oracle Fusion CX",
+        "Oracle Blockchain Applications",
+        "Oracle Transportation Management",
+        "Oracle Cloud for Telecommunications",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Qué característica de Oracle Cloud Infrastructure (OCI) facilita el manejo de grandes volúmenes de datos en tiempo real?",
+      options: [
+        "La escalabilidad automatizada de almacenamiento y procesamiento",
+        "La integración exclusiva con sistemas locales",
+        "La capacidad para eliminar bases de datos relacionales",
+        "El uso de dispositivos de IoT para la gestión de datos",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Qué ventaja principal ofrece Oracle AI en la optimización de la cadena de suministro?",
+      options: [
+        "Generar informes de ventas automáticos",
+        "Predecir la demanda y ajustar el inventario en tiempo real",
+        "Automatizar los pagos de proveedores",
+        "Mejorar la gestión de recursos humanos",
+      ],
+      correct_answer: 2,
+    },
+    {
+      question:
+        "¿Qué solución de Oracle permite la integración nativa con AWS para gestionar bases de datos en la nube?",
+      options: [
+        "Oracle Exadata Cloud at Customer",
+        "Oracle Autonomous Database en AWS",
+        "Oracle Machine Learning in the Cloud",
+        "Oracle Fusion Financials",
+      ],
+      correct_answer: 2,
+    },
+    {
+      question:
+        "¿Cuál es una función clave de Oracle Generative AI en el desarrollo de aplicaciones?",
+      options: [
+        "Generar automáticamente partes del código de una aplicación",
+        "Eliminar la necesidad de personalizar las aplicaciones",
+        "Desplegar servidores físicos en múltiples ubicaciones",
+        "Reducir el uso de recursos en tiempo real",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Qué tecnología de Oracle está diseñada para mejorar la seguridad en las transacciones financieras?",
+      options: [
+        "Oracle Blockchain Platform",
+        "Oracle Cloud Guard",
+        "Oracle IoT Cloud",
+        "Oracle Digital Assistant",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Qué ventaja ofrece Oracle en la gestión de datos en la nube mediante AI?",
+      options: [
+        "Optimización automática del rendimiento de bases de datos",
+        "Reducción de costos de almacenamiento en hardware",
+        "Eliminación completa del trabajo manual en bases de datos",
+        "Exclusividad en el uso de bases de datos no relacionales",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Cómo ayuda Oracle AI a mejorar el proceso de ventas en empresas?",
+      options: [
+        "Generando automáticamente propuestas y cotizaciones",
+        "Eliminando la necesidad de interacción humana en el proceso de ventas",
+        "Desarrollando nuevas interfaces de usuario",
+        "Optimizando el uso de hardware en servidores locales",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Qué solución de Oracle está diseñada para automatizar la administración de recursos humanos?",
+      options: [
+        "Oracle HCM Cloud",
+        "Oracle AI Cloud for HR",
+        "Oracle Blockchain HR",
+        "Oracle Exadata for HR",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Qué característica de Oracle Cloud Infrastructure mejora la seguridad en los entornos cloud?",
+      options: [
+        "Implementación de redes distribuidas locales",
+        "Uso de ciberdefensa autónoma basada en AI",
+        "Exclusividad en el almacenamiento de datos no relacionales",
+        "Eliminar la necesidad de contraseñas",
+      ],
+      correct_answer: 2,
+    },
+    {
+      question:
+        "¿Qué funcionalidad permite Oracle AI en las aplicaciones empresariales de ventas?",
+      options: [
+        "Generar respuestas automáticas para correos electrónicos",
+        "Eliminar el trabajo manual en la atención al cliente",
+        "Crear bases de datos locales para clientes",
+        "Desplegar redes automatizadas en tiempo real",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Cómo contribuye Oracle Cloud a la transformación de la industria de la salud?",
+      options: [
+        "Automatizando procesos de alta de pacientes con AI",
+        "Eliminando la necesidad de registros médicos físicos",
+        "Reemplazando sistemas financieros tradicionales",
+        "Creando nuevas interfaces de usuario para la administración hospitalaria",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Qué solución de Oracle está diseñada para ofrecer flexibilidad en la ejecución de aplicaciones en diferentes nubes?",
+      options: [
+        "Oracle Cloud VMware Solution",
+        "Oracle Exadata Cloud at Customer",
+        "Oracle Cloud Infrastructure (OCI)",
+        "Oracle Autonomous Database",
+      ],
+      correct_answer: 3,
+    },
+    {
+      question:
+        "¿Qué tecnología de Oracle permite una escalabilidad automática en tiempo real para grandes volúmenes de datos?",
+      options: [
+        "Oracle Autonomous Database",
+        "Oracle Blockchain Platform",
+        "Oracle Fusion ERP",
+        "Oracle IoT Cloud",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Qué solución de Oracle fue diseñada para facilitar la migración de datos entre diferentes nubes sin afectar el rendimiento?",
+      options: [
+        "Oracle Interconnect",
+        "Oracle Data Migration Tool",
+        "Oracle Fusion Cloud",
+        "Oracle Blockchain",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Cómo ayuda Oracle Cloud Infrastructure a mejorar la eficiencia en el desarrollo de aplicaciones?",
+      options: [
+        "Simplificando la gestión de bases de datos no relacionales",
+        "Eliminar la necesidad de desarrollar aplicaciones personalizadas",
+        "Generar automáticamente informes financieros",
+        "Reduciendo el tiempo de despliegue con herramientas nativas de AI",
+      ],
+      correct_answer: 4,
+    },
+    {
+      question:
+        "¿Qué solución ofrece Oracle para gestionar grandes volúmenes de datos en múltiples industrias?",
+      options: [
+        "Oracle Digital Assistant",
+        "Oracle Cloud Guard",
+        "Oracle Autonomous Data Warehouse",
+        "Oracle Blockchain Service",
+      ],
+      correct_answer: 3,
+    },
+    {
+      question:
+        "¿Cómo mejora Oracle AI la atención al cliente en sectores como telecomunicaciones y energía?",
+      options: [
+        "Proporcionando resúmenes automáticos de interacciones previas",
+        "Eliminando la necesidad de agentes de servicio",
+        "Creando nuevas interfaces de pago automatizadas",
+        "Generando automáticamente contratos legales",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Qué solución de Oracle permite a las empresas predecir la demanda de productos y ajustar inventarios en tiempo real?",
+      options: [
+        "Oracle Supply Chain Management Cloud (SCM)",
+        "Oracle AI Cloud for Inventory",
+        "Oracle Autonomous Inventory",
+        "Oracle Blockchain Inventory Management",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Qué mejora ofrece Oracle Cloud Infrastructure en términos de almacenamiento de datos?",
+      options: [
+        "Eliminar el almacenamiento de datos físicos",
+        "Reducción de la necesidad de bases de datos relacionales",
+        "Mayor seguridad sin necesidad de AI",
+        "Escalabilidad en tiempo real sin intervención manual",
+      ],
+      correct_answer: 4,
+    },
+    {
+      question:
+        "¿Qué solución de Oracle permite una mejor gestión financiera a través de la automatización de AI?",
+      options: [
+        "Oracle Fusion Financials Cloud",
+        "Oracle Autonomous Finance",
+        "Oracle Blockchain for Financial Services",
+        "Oracle AI Finance Assistant",
+      ],
+      correct_answer: 1,
+    },
+    {
+      question:
+        "¿Qué solución de Oracle está diseñada para permitir la personalización en tiempo real de productos y servicios?",
+      options: [
+        "Oracle Blockchain Customer Solutions",
+        "Oracle Fusion CX",
+        "Oracle Autonomous Customer Management",
+        "Oracle Machine Learning for CX",
+      ],
+      correct_answer: 2,
+    },
+    {
+      question:
+        "¿Qué ventaja ofrece la integración de AI en Oracle Cloud para el desarrollo de aplicaciones empresariales?",
+      options: [
+        "Automatización de la creación de código",
+        "Eliminación de la necesidad de desarrolladores",
+        "Mejora en la seguridad sin intervención manual",
+        "Despliegue automático de servidores físicos",
+      ],
+      correct_answer: 1,
+    },
   ],
 };
