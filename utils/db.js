@@ -29,7 +29,7 @@ export async function register(name, mail) {
   try {
     const isExisting = await getDoc(doc(db, "DBTriviasOracle", mail));
     if (isExisting.data()) {
-      return;
+      return "existing";
     } else {
       await setDoc(doc(db, "DBTriviasOracle", mail), {
         nombre: name,
@@ -59,6 +59,5 @@ export async function getRecords() {
     ...doc.data(), // Los datos del documento
   }));
 
-  console.log(documentos);
   return documentos;
 }

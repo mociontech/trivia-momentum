@@ -20,6 +20,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [nameInput, setNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
+  const [registered, setRegistered] = useState(false);
   const { setMail, setLogged } = useUser();
 
   async function submitForm() {
@@ -30,8 +31,13 @@ export default function LoginPage() {
 
       setMail(emailInput); // Guarda el correo
       setLogged(true);
-      register(nameInput, emailInput);
-      router.push("/trivia");
+      const user = await register(nameInput, emailInput);
+      if (user === "existing") {
+        setRegistered(true);
+        return;
+      } else {
+        router.push("/trivia");
+      }
     } catch (error) {
       console.log({ error: error });
     }
@@ -48,7 +54,7 @@ export default function LoginPage() {
         className="absolute top-[100px] left-[120px] font"
       />
 
-      <div className="flex flex-col gap-24 w-auto">
+      <div className="flex flex-col w-auto">
         <section className="flex flex-col gap-7">
           <img
             src="/assets/registrate.svg"
@@ -98,10 +104,11 @@ export default function LoginPage() {
               }}
             />
           </div>
+          {registered && <p className="relative oracle-regular text-[#D6544E] z-50 text-[48px]">¡Ya has participado!</p>}
         </section>
         <button
           className={`${montserrat.className} relative z-50 flex justify-center items-center text-3xl px-10 py-16 
-        bg-[#D6544E] text-white h-[48px] text-center text-[50px] rounded-3xl`}
+        bg-[#D6544E] text-white h-[48px] text-center text-[50px] rounded-3xl mt-[40px]`}
           onClick={submitForm}
         >
           <img src="/assets/juega-ahora.svg" alt="juega ahora text" />
