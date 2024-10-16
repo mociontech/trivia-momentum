@@ -89,8 +89,6 @@ export default function TriviaPage() {
     }, 1000);
   }
 
-  console.log(score);
-
   function nextQuestion() {
     setCurrentQuestion((prevQuestion) => prevQuestion + 1);
     setSelectedAnswer(null);

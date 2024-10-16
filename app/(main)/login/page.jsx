@@ -34,14 +34,9 @@ export default function LoginPage() {
 
       setMail(emailInput); // Guarda el correo
       setLogged(true);
-      const user = await register(nameInput, emailInput);
-      if (user === "existing") {
-        setRegistered(true);
-        setLoading(false);
-        return;
-      } else {
-        router.push("/trivia");
-      }
+      register(nameInput, emailInput);
+
+      router.push("/trivia");
     } catch (error) {
       console.log({ error: error });
     }
