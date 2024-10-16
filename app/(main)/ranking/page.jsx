@@ -55,9 +55,9 @@ export default function LoginPage() {
         <source src="/assets/Pantallas.mp4" />
       </video>
       {!records && <Loader />}
-      <div className="flex flex-col justify-center items-center sm:min-w-[670px] sm:pb-[200px] ">
+      <div className="flex flex-col justify-center items-center sm:min-w-[820px] sm:pb-[200px] ">
         {top5 && (
-          <div className="flex flex-col sm:mt-[100px] mt-10 z-50 gap-1 text-3xl sm:min-w-[670px] text-black w-[80%] ">
+          <div className="flex flex-col sm:mt-[100px] mt-10 z-50 gap-1 text-3xl sm:min-w-[820px] text-black w-[80%] ">
             <p className="oracle-regular sm:text-[60px] font-bold text-sm flex justify-center sm:mb-[80px] mb-[10px]">
               Mejores Resultados
             </p>
@@ -68,11 +68,11 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div className="flex flex-col justify-center sm:min-w-[670px] gap-3">
+            <div className="flex flex-col justify-center sm:min-w-[820px] gap-3">
               {top5.map((record, i) => (
                 <div
                   key={i}
-                  className={`flex sm:gap-5 justify-between items-center sm:min-w-[670px] text-base sm:text-[45px] rounded-xl sm:p-5 sm:rounded-3xl px-3 ${
+                  className={`flex sm:gap-5 justify-between items-center sm:min-w-[820px] text-base sm:text-[45px] rounded-xl sm:p-5 sm:rounded-3xl px-3 ${
                     i === 0
                       ? "bg-yellow-400"
                       : i === 1
@@ -82,8 +82,8 @@ export default function LoginPage() {
                       : "bg-transparent"
                   }`}
                 >
-                  <div className="flex sm:gap-5 gap-2 items-center">
-                    <p>{i + 1}</p>
+                  <div className="flex sm:gap-5 gap-2 items-center ">
+                    <p className="mb-[5px]">{i + 1}</p>
                     <p className="oracle-regular line-clamp-1 leading-[1.2] mr-2">
                       {record.nombre}
                     </p>
@@ -101,7 +101,7 @@ export default function LoginPage() {
         )}
 
         {records && (
-          <div className="flex flex-col z-50 text-3xl sm:min-w-[670px] text-black w-[80%] pt-3 sm:mt-20 mt-[10px]">
+          <div className="flex flex-col z-50 text-3xl sm:min-w-[820px] text-black w-[80%] pt-3 sm:mt-20 mt-[10px]">
             <div className="flex justify-center">
               <p className="oracle-regular sm:text-[60px] font-bold text-sm flex justify-center sm:mb-[80px] mb-[20px]">
                 Todos los participantes
