@@ -27,11 +27,11 @@ const db = getFirestore(app);
 
 export async function register(name, mail) {
   try {
-    const isExisting = await getDoc(doc(db, "DBTriviasOracle", mail));
+    const isExisting = await getDoc(doc(db, "DBMillonario", mail));
     if (isExisting.data()) {
       return "existing";
     } else {
-      await setDoc(doc(db, "DBTriviasOracle", mail), {
+      await setDoc(doc(db, "DBMillonario", mail), {
         nombre: name,
         correo: mail,
         puntaje: 0,
@@ -45,14 +45,14 @@ export async function register(name, mail) {
 }
 
 export async function registerRecord(mail, time, score) {
-  await updateDoc(doc(db, "DBTriviasOracle", mail), {
+  await updateDoc(doc(db, "DBMillonario", mail), {
     puntaje: score,
     tiempo: time,
   });
 }
 
 export async function getRecords() {
-  const collectionRef = collection(db, "DBTriviasOracle"); // Cambia el nombre de la colección
+  const collectionRef = collection(db, "DBMillonario"); // Cambia el nombre de la colección
   const snapshot = await getDocs(collectionRef);
   const documentos = snapshot.docs.map((doc) => ({
     id: doc.id, // Si deseas obtener el ID del documento

@@ -6,6 +6,12 @@ import { useEffect, useState } from "react";
 import { registerRecord } from "@/utils/db";
 import { useUser } from "@/hooks/useUser";
 import { formatTime } from "@/utils/utils";
+const options = {
+  0: "A: ",
+  1: "B: ",
+  2: "C: ",
+  3: "D: ",
+};
 
 export default function TriviaPage() {
   const router = useRouter();
@@ -96,88 +102,59 @@ export default function TriviaPage() {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden text-black px-20">
-      <video className="absolute top-0 left-0 -z-10" autoPlay loop muted>
-        <source src="/assets/Pantallas.mp4" />
-      </video>
-      <img
-        src="/assets/logo-oracle.svg"
-        alt="Logo de oracle"
-        className="absolute top-[100px] left-[120px]"
-      />
-
-      {!isFinishedTimer ? (
-        <div className="absolute top-[75px] oracle-regular right-[70px] bg-opacity-80 text-black p-4 rounded-lg text-[48px] font-bold z-50">
-          {formatTime(elapsedTime)}
-        </div>
-      ) : (
-        !isFinished && (
-          <div className="absolute top-[75px] oracle-regular right-[70px] bg-opacity-80 text-black p-4 rounded-lg text-[48px] font-bold z-50">
-            {totalTime}
-          </div>
-        )
-      )}
+    <div className="gradient-bg h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden text-black px-20">
+      <div className="relative flex justify-center px-4 rounded-md items-center mill-regular top-[15px] z-50 text-[20px] bg-gradient-to-r from-[#c37900] via-[#fbe86a] to-[#c37900] text-[#33200f] font-bold">
+        {!isFinishedTimer ? (
+          <div>{formatTime(elapsedTime)}</div>
+        ) : (
+          !isFinished && <div>{totalTime}</div>
+        )}
+      </div>
 
       {selectedQuestions && !isFinished && (
         <div className="flex flex-col">
-          <p className="relative z-50 oracle-regular text-[60px] leading-[68px] text-center mb-[81px]">
+          <p className="relative w-screen p-[20px] pt-[35px] bg-gradient-to-b from-[#035680] via-[#020a34] to-[#035680] z-40 mill-regular text-[25px] text-center border-y border-white text-white">
             {selectedQuestions[currentQuestion].question}
           </p>
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col p-[20px] gap-3">
             {selectedQuestions[currentQuestion].options.map((answer, i) => (
               <button
                 key={i}
-                className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl ${
+                className={`mill-regular flex gap-2 text-[20px] items-start justify-start text-start border border-white text-white p-2 rounded-lg ${
                   isAnswered
                     ? i + 1 === correctAnswer
-                      ? "bg-[#628B48] text-white" // Respuesta correcta en verde
+                      ? "bg-gradient-to-b from-[#93e91f] via-[#2c9405] to-[#93e91f]" // Respuesta correcta en verde
                       : i === selectedAnswer
-                      ? "bg-[#D6544E] text-white" // Respuesta incorrecta seleccionada en rojo
-                      : "bg-[#D4E6E5]"
-                    : "bg-[#D4E6E5]"
+                      ? "bg-gradient-to-b from-[#e91f1f] via-[#940505] to-[#e91f1f]" // Respuesta incorrecta seleccionada en rojo
+                      : "bg-gradient-to-b from-[#035680] via-[#020a34] to-[#035680]"
+                    : "bg-gradient-to-b from-[#035680] via-[#020a34] to-[#035680]"
                 }`}
                 onClick={() => selectAnswer(i)}
                 disabled={isAnswered} // Deshabilitar los botones después de seleccionar
               >
+                <p className="text-[#f1b341]">{options[i]}</p>
                 {answer}
               </button>
             ))}
           </div>
         </div>
       )}
-      {isFinished &&
-        (score >= 4 ? (
-          <div className="flex flex-col justify-center items-center">
-            <p className="oracle-regular text-[100px] text-center text-[#5B6B6B] leading-[90px] mb-[40px]">
-              ¡Felicidades!
-            </p>
-            <p className="oracle-light text-[45px] text-center text-[#36312D] leading-[48px] mb-[110px]">
-              Contestaste correctamente:
-            </p>
-            <div className="oracle-regular flex flex-col w-full rounded-3xl text-[#FCFCFC] py-4 bg-[#D6544E] text-center justify-center text-[80px]">
-              {score}/5<p className="text-[40px]">En {totalTime} segundos</p>
-            </div>
-            <p className="oracle-light mt-6 text-[45px]">
-              ¡Gracias por participar!
-            </p>
+      {isFinished && (
+        <div className="flex flex-col justify-center items-center text-white">
+          <p className="mill-regular text-[40px] text-center">
+            ¡Felicidades!
+          </p>
+          <p className="mill-regular text-[35px] text-center">
+            Contestaste correctamente:
+          </p>
+          <div className="mill-regular flex flex-col w-full rounded-3xl text-[#33200f] py-4 bg-gradient-to-r from-[#c37900] via-[#fbe86a] to-[#c37900] text-center justify-center text-[40px] font-bold mt-6">
+            {score}/5<p className="text-[20px] font-normal">En {totalTime} segundos</p>
           </div>
-        ) : (
-          <div className="flex flex-col justify-center items-center">
-            <p className="oracle-regular text-[100px] text-center text-[#5B6B6B] leading-[90px] mb-[40px]">
-              Puedes <br />
-              hacerlo mejor
-            </p>
-            <p className="oracle-light text-[45px] text-center text-[#36312D] leading-[48px] mb-[110px]">
-              Contestaste correctamente:
-            </p>
-            <div className="oracle-regular flex flex-col w-full rounded-3xl text-[#FCFCFC] py-4 bg-[#D6544E] text-center justify-center text-[80px]">
-              {score}/5<p className="text-[40px]">En {totalTime} segundos</p>
-            </div>
-            <p className="oracle-light mt-6 text-[45px]">
-              ¡Gracias por participar!
-            </p>
-          </div>
-        ))}
+          <p className="mill-regular mt-6 text-[35px] text-white text-center">
+            ¡Gracias por participar!
+          </p>
+        </div>
+      )}
     </div>
   );
 }

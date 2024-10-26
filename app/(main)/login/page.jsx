@@ -34,7 +34,13 @@ export default function LoginPage() {
 
       setMail(emailInput); // Guarda el correo
       setLogged(true);
-      register(nameInput, emailInput);
+      const response = await register(nameInput, emailInput);
+
+      if (response === "existing") {
+        setRegistered(true);
+        setLoading(false);
+        return;
+      }
 
       router.push("/trivia");
     } catch (error) {
@@ -43,24 +49,74 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col justify-center items-center relative">
-      <video className="absolute top-0 left-0" autoPlay loop muted>
-        <source src="/assets/Pantallas.mp4" />
-      </video>
+    <div className="h-screen w-screen gradient-bg flex flex-col justify-center items-center">
       <img
-        src="/assets/logo-oracle.svg"
-        alt="Logo de humano"
-        className="absolute top-[100px] left-[120px] font"
+        src="/assets/logo.png"
+        alt="Logo de wwtbam"
+        className="w-[220px] h-auto"
       />
       {loading && <Loader />}
 
-      <div className="flex flex-col w-auto">
-        <section className="flex flex-col gap-7">
-          <img
-            src="/assets/registrate.svg"
-            alt="Registrate text"
-            className="relative z-50 mb-12 h-[100px]"
+      <div className="flex flex-col justify-center gap-3">
+        <p className="mill-regular flex justify-center font-bold text-[38px] text-white">
+          Regístrate
+        </p>
+        <div className="relative flex">
+          <label htmlFor="name">
+            <img
+              src="/assets/name.svg"
+              alt="Icono de una persona"
+              className="absolute z-50 h-[25px] left-[25px] top-[22px]"
+            />
+          </label>
+          <input
+            type="text"
+            id="name"
+            value={nameInput}
+            placeholder="Escribe tu correo"
+            className={`mill-regular bg-[#1c1665]/50 text-[25px] pl-[60px] p-4 rounded-lg`}
+            autoComplete="off"
+            onChange={(e) => {
+              setNameInput(e.target.value);
+            }}
           />
+        </div>
+        <div className="relative flex">
+          <label htmlFor="email">
+            <img
+              src="/assets/email.svg"
+              alt="Icono de una persona"
+              className="absolute z-50 h-[25px] left-[15px] top-[22px]"
+            />
+          </label>
+          <input
+            type="email"
+            id="email"
+            value={emailInput}
+            placeholder="Escribe tu nombre"
+            className={`mill-regular bg-[#1c1665]/50 text-[25px] pl-[60px] p-4 rounded-lg`}
+            autoComplete="off"
+            onChange={(e) => {
+              setEmailInput(e.target.value);
+            }}
+          />
+        </div>
+        {registered && (
+          <p className="flex justify-center oracle-regular text-white z-50 text-[20px]">
+            ¡Ya has participado!
+          </p>
+        )}
+        <button
+          className="mill-regular font-bold flex items-center justify-center bg-gradient-to-r from-[#080d3d] via-[#084774] to-[#080d3d] text-[35px] rounded-lg"
+          onClick={submitForm}
+        >
+          Jugar
+        </button>
+      </div>
+
+      {/* <div className="flex flex-col">
+        <section className="flex flex-col gap-7">
+          <p className="text-white">Regístrate</p>
 
           <div className="relative flex">
             <label htmlFor="name">
@@ -75,7 +131,7 @@ export default function LoginPage() {
               id="name"
               value={nameInput}
               placeholder="Escribe tu nombre"
-              className={`oracle-regular font-normal text-[40px] flex flex-1 h-[110px] w-[855px] pl-[138px] 
+              className={`oracle-regular font-normal flex flex-1
               text-black bg-white/15 rounded-3xl border-[1.5px] border-[#D6544E]`}
               autoComplete="off"
               onChange={(e) => {
@@ -95,7 +151,7 @@ export default function LoginPage() {
               type="email"
               id="email"
               value={emailInput}
-              className={`oracle-regular font-normal text-[40px] flex flex-1 h-[110px] w-[855px] pl-[138px]
+              className={`oracle-regular font-normal text-[40px] flex flex-1 pl-[138px]
               text-black bg-white/15 rounded-3xl border-[1.5px] border-[#D6544E]`}
               placeholder="Escribe tu correo"
               autoComplete="off"
@@ -111,13 +167,10 @@ export default function LoginPage() {
           )}
         </section>
         <button
-          className={`${montserrat.className} relative z-50 flex justify-center items-center text-3xl px-10 py-16 
-        bg-[#D6544E] text-white h-[48px] text-center text-[50px] rounded-3xl mt-[40px]`}
+          className={`${montserrat.className} relative z-50 flex justify-center items-center text-3xl px-10 py-16 bg-[#D6544E] text-white h-[48px] text-center rounded-3xl mt-[40px]`}
           onClick={submitForm}
-        >
-          <img src="/assets/juega-ahora.svg" alt="juega ahora text" />
-        </button>
-      </div>
+        ></button>
+      </div> */}
     </div>
   );
 }

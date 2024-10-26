@@ -32,7 +32,7 @@ export default function LoginPage() {
       console.log(sortedData);
 
       setRecords(records);
-      setTop5(sortedData.slice(0, 3));
+      setTop5(sortedData.slice(0, 5));
     }
 
     getAllRecords();
@@ -44,54 +44,45 @@ export default function LoginPage() {
 
   return (
     <div
-      className={`h-screen w-screen flex flex-col justify-center items-center`}
+      className={`mill-regular h-screen w-screen flex flex-col justify-start gradient-bg text-white`}
     >
-      <video
-        className="absolute h-screen w-screen top-0 left-0 -z-10 object-cover"
-        autoPlay
-        loop
-        muted
-      >
-        <source src="/assets/Pantallas.mp4" />
-      </video>
       {!records && <Loader />}
-      <div className="flex flex-col justify-center items-center sm:min-w-[820px] sm:pb-[200px] ">
+      <div className="flex flex-col">
         {top5 && (
-          <div className="flex flex-col sm:mt-[100px] mt-10 z-50 gap-1 text-3xl sm:min-w-[820px] text-black w-[80%] ">
-            <p className="oracle-regular sm:text-[60px] font-bold text-sm flex justify-center sm:mb-[80px] mb-[10px]">
+          <div className="flex flex-col sm:mt-[100px] z-50 gap-1 text-3xl bg-gradient-to-b from-[#035680] via-[#020a34] to-[#035680] px-4 py-2 border-y border-white">
+            <p className="text-[30px] font-bold flex justify-center">
               Mejores Resultados
             </p>
-            <div className="oracle-regular flex justify-end sm:text-[48px] text-base">
-              <div className="flex sm:gap-10 gap-3 sm:mb-5 sm:mr-5 mr-2">
-                <p>Puntaje</p>
+            <div className="flex justify-end text-[25px] text-base">
+              <div className="flex gap-3 mr-[23px]">
+                <p className="mr-[10px]">Puntaje</p>
                 <p>Tiempo</p>
               </div>
             </div>
 
-            <div className="flex flex-col justify-center sm:min-w-[820px] gap-3">
+            <div className="flex flex-col justify-center gap-2">
               {top5.map((record, i) => (
                 <div
                   key={i}
-                  className={`flex sm:gap-5 justify-between items-center sm:min-w-[820px] text-base sm:text-[45px] rounded-xl sm:p-5 sm:rounded-3xl px-3 ${
+                  className={`flex justify-between items-center text-base rounded-xl sm:rounded-3xl px-3 py-1 ${
                     i === 0
-                      ? "bg-yellow-400"
+                      ? "bg-gradient-to-r from-[#c37900] via-[#fbe86a] to-[#c37900] text-[#33200f]"
                       : i === 1
-                      ? "bg-slate-400"
+                      ? "bg-gradient-to-r from-slate-500 via-slate-300 to-slate-500 text-[#33200f]"
                       : i === 2
-                      ? "bg-orange-500"
+                      ? "bg-gradient-to-r from-orange-500 via-orange-300 to-orange-500 text-[#33200f]"
                       : "bg-transparent"
                   }`}
                 >
-                  <div className="flex sm:gap-5 gap-2 items-center ">
-                    <p className="mb-[5px]">{i + 1}</p>
-                    <p className="oracle-regular line-clamp-1 leading-[1.2] mr-2">
-                      {record.nombre}
-                    </p>
+                  <div className="flex gap-2 items-center text-[22px]">
+                    <p>{i + 1}</p>
+                    <div className="flex flex-col gap-0">
+                      <p className="line-clamp-1 mr-2">{record.nombre}</p>
+                      <p className="text-[10px] -mt-2">{record.correo}</p>
+                    </div>
                   </div>
-                  <div className="flex sm:gap-[70px] gap-[20px] text-center">
-                    <p className="oracle-regular sm:mr-[10px]">
-                      {record.puntaje}
-                    </p>
+                  <div className="flex gap-[20px] text-center text-[20px]">
+                    <p>{record.puntaje}</p>
                     <p>{formatTime(record.tiempo)}</p>
                   </div>
                 </div>
@@ -101,9 +92,9 @@ export default function LoginPage() {
         )}
 
         {records && (
-          <div className="flex flex-col z-50 text-3xl sm:min-w-[820px] text-black w-[80%] pt-3 sm:mt-20 mt-[10px]">
+          <div className="flex flex-col z-50 text-3xl text-black pt-2 sm:mt-20 mt-[10px]">
             <div className="flex justify-center">
-              <p className="oracle-regular sm:text-[60px] font-bold text-sm flex justify-center sm:mb-[80px] mb-[20px]">
+              <p className="oracle-regular font-bold text-lg flex justify-center mb-[20px]">
                 Todos los participantes
               </p>
             </div>
@@ -113,7 +104,7 @@ export default function LoginPage() {
                   key={i}
                   className={`flex gap-5 justify-between items-center text-base sm:text-[45px] sm:p-5  rounded-xl p-1 px-3`}
                 >
-                  <div className="flex sm:gap-5 gap-2">
+                  <div className="flex gap-2">
                     <p className="oracle-regular line-clamp-1 sm:leading-[1] mr-2 sm:h-[35px]">
                       {record.nombre}
                     </p>
@@ -131,18 +122,13 @@ export default function LoginPage() {
         )}
         {logged && (
           <button
-            className="oracle-regular text-[48px] rounded-3xl absolute bottom-[170px] z-50 text-white py-2 px-8 bg-[#D6544E]"
+            className="mill-regular text-[20px] rounded-lg mx-2 z-50 text-white py-2 px-8 bg-gradient-to-r from-[#080d3d] via-[#084774] to-[#080d3d]"
             onClick={nextPage}
           >
             Regresar
           </button>
         )}
       </div>
-      <img
-        src="/assets/logo-oracle.svg"
-        alt="Logo de oracle"
-        className="absolute top-[10px] h-[20px] sm:h-[48px] sm:top-[100px] sm:left-[120px]"
-      />
     </div>
   );
 }

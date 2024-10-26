@@ -16,13 +16,9 @@ export default function Home() {
 
   return (
     <div
-      className="relative h-screen w-screen flex justify-center items-center"
+      className="relative gradient-bg h-screen w-screen flex justify-center items-center"
       onClick={nextPage}
     >
-      <video className="absolute top-0 left-0" autoPlay loop muted>
-        <source src="/assets/Pantallas.mp4" />
-      </video>
-      Bienvenido
     </div>
   );
 }

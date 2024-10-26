@@ -24,26 +24,28 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .gradient-bg {
+    @apply bg-gradient-to-b from-[#3f3662] via-[#6e61a3] to-[#3f3662];
+  }
 }
 
 @font-face {
-  font-family: "oracle-regular";
-  src: url("/fonts/oracle-sans/OracleSans-Regular.woff2") format("woff2"),
-    url("/fonts/oracle-sans/OracleSans-Regular.woff") format("woff");
+  font-family: "mill-regular";
+  src: url("/fonts/Conduit-ITC.woff") format("woff");
   font-weight: normal; /* o bold, dependiendo de la variante */
   font-style: normal; /* o italic, si es cursiva */
 }
-.oracle-regular {
-  font-family: "oracle-regular", sans-serif;
+.mill-regular {
+  font-family: "mill-regular", sans-serif;
 }
 
 @font-face {
-  font-family: "oracle-light";
-  src: url("/fonts/oracle-sans/OracleSans-Light.woff2") format("woff2"),
-    url("/fonts/oracle-sans/OracleSans-Light.woff") format("woff");
-  font-weight: normal; /* o bold, dependiendo de la variante */
+  font-family: "mill-bold";
+  src: url("/fonts/Conduit-ITC-Bold.woff") format("woff");
+  font-weight: bold; /* o bold, dependiendo de la variante */
   font-style: normal; /* o italic, si es cursiva */
 }
 .oracle-light {
-  font-family: "oracle-light", sans-serif;
+  font-family: "mill-bold", sans-serif;
 }
