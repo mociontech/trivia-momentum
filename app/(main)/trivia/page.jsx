@@ -120,7 +120,7 @@ export default function TriviaPage() {
             {selectedQuestions[currentQuestion].options.map((answer, i) => (
               <button
                 key={i}
-                className={`mill-regular flex gap-2 text-[20px] items-start justify-start text-start border border-white text-white p-2 rounded-lg ${
+                className={`mill-regular flex gap-2 text-[25px] items-start justify-start text-start border border-white text-white p-2 rounded-lg ${
                   isAnswered
                     ? i + 1 === correctAnswer
                       ? "bg-gradient-to-b from-[#93e91f] via-[#2c9405] to-[#93e91f]" // Respuesta correcta en verde
@@ -140,7 +140,7 @@ export default function TriviaPage() {
         </div>
       )}
       {isFinished && (
-        <div className="flex flex-col justify-center items-center text-white">
+        <div className="w-screen h-screen flex flex-col justify-center items-center text-white bg-gradient-to-b from-[#035680] via-[#020a34] to-[#035680] px-3">
           <p className="mill-regular text-[40px] text-center">
             ¡Felicidades!
           </p>

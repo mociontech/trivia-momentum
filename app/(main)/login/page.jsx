@@ -50,11 +50,13 @@ export default function LoginPage() {
 
   return (
     <div className="h-screen w-screen gradient-bg flex flex-col justify-center items-center">
-      <img
-        src="/assets/logo.png"
-        alt="Logo de wwtbam"
-        className="w-[220px] h-auto"
-      />
+      <p className="bg-gradient-to-b from-[#035680] via-[#020a34] to-[#035680] w-screen flex justify-center py-5 border-y border-white">
+        <img
+          src="/assets/logo.png"
+          alt="Logo de wwtbam"
+          className="w-[220px] h-auto"
+        />
+      </p>
       {loading && <Loader />}
 
       <div className="flex flex-col justify-center gap-3">
