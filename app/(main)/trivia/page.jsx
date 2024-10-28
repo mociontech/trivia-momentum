@@ -38,7 +38,7 @@ export default function TriviaPage() {
       return shuffled.slice(0, count);
     }
 
-    const selectedQuestions = getRandomQuestions(questions.questions, 5);
+    const selectedQuestions = getRandomQuestions(questions.questions, 4);
     setSelectedQuestions(selectedQuestions);
     const start = Date.now();
     setStartTime(start);
@@ -62,7 +62,7 @@ export default function TriviaPage() {
       setScore((prevScore) => prevScore + 1);
     }
 
-    if (currentQuestion > 3) {
+    if (currentQuestion > 2) {
       setIsFinishedTimer(true);
       const endTime = Date.now();
       const timeTaken = Math.floor(endTime - startTime); // Tiempo en milisegundos
@@ -81,7 +81,7 @@ export default function TriviaPage() {
     }
 
     setTimeout(() => {
-      if (currentQuestion > 3) {
+      if (currentQuestion > 2) {
         // mostrar puntaje
         setIsFinished(true);
 
@@ -148,7 +148,7 @@ export default function TriviaPage() {
             Contestaste correctamente:
           </p>
           <div className="mill-regular flex flex-col w-full rounded-3xl text-[#33200f] py-4 bg-gradient-to-r from-[#c37900] via-[#fbe86a] to-[#c37900] text-center justify-center text-[40px] font-bold mt-6">
-            {score}/5<p className="text-[20px] font-normal">En {totalTime} segundos</p>
+            {score}/4<p className="text-[20px] font-normal">En {totalTime} segundos</p>
           </div>
           <p className="mill-regular mt-6 text-[35px] text-white text-center">
             ¡Gracias por participar!
