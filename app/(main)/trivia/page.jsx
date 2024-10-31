@@ -113,7 +113,7 @@ export default function TriviaPage() {
 
       {selectedQuestions && !isFinished && (
         <div className="flex flex-col">
-          <p className="relative w-screen p-[20px] pt-[35px] bg-gradient-to-b from-[#035680] via-[#020a34] to-[#035680] z-40 mill-regular text-[25px] text-center border-y border-white text-white">
+          <p className="relative w-screen p-[20px] pt-[35px] bg-[#E1251B] z-40 mill-regular text-[25px] text-center border-y border-white text-white">
             {selectedQuestions[currentQuestion].question}
           </p>
           <div className="flex flex-col p-[20px] gap-3">
@@ -126,8 +126,8 @@ export default function TriviaPage() {
                       ? "bg-gradient-to-b from-[#93e91f] via-[#2c9405] to-[#93e91f]" // Respuesta correcta en verde
                       : i === selectedAnswer
                       ? "bg-gradient-to-b from-[#e91f1f] via-[#940505] to-[#e91f1f]" // Respuesta incorrecta seleccionada en rojo
-                      : "bg-gradient-to-b from-[#035680] via-[#020a34] to-[#035680]"
-                    : "bg-gradient-to-b from-[#035680] via-[#020a34] to-[#035680]"
+                      : "bg-[#E1251B]"
+                    : "bg-[#E1251B]"
                 }`}
                 onClick={() => selectAnswer(i)}
                 disabled={isAnswered} // Deshabilitar los botones después de seleccionar
@@ -140,15 +140,14 @@ export default function TriviaPage() {
         </div>
       )}
       {isFinished && (
-        <div className="w-screen h-screen flex flex-col justify-center items-center text-white bg-gradient-to-b from-[#035680] via-[#020a34] to-[#035680] px-3">
-          <p className="mill-regular text-[40px] text-center">
-            ¡Felicidades!
-          </p>
+        <div className="w-screen h-screen flex flex-col justify-center items-center text-white bg-gradient-to-b from-[#e91f1f] to-[#4D4D4D] px-3">
+          <p className="mill-regular text-[40px] text-center">¡Felicidades!</p>
           <p className="mill-regular text-[35px] text-center">
             Contestaste correctamente:
           </p>
           <div className="mill-regular flex flex-col w-full rounded-3xl text-[#33200f] py-4 bg-gradient-to-r from-[#c37900] via-[#fbe86a] to-[#c37900] text-center justify-center text-[40px] font-bold mt-6">
-            {score}/4<p className="text-[20px] font-normal">En {totalTime} segundos</p>
+            {score}/4
+            <p className="text-[20px] font-normal">En {totalTime} segundos</p>
           </div>
           <p className="mill-regular mt-6 text-[35px] text-white text-center">
             ¡Gracias por participar!

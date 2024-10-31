@@ -31,8 +31,8 @@ export default function LoginPage() {
 
       console.log(sortedData);
 
-      setRecords(records);
-      setTop5(sortedData.slice(0, 5));
+      // setRecords(records);
+      setTop5(sortedData);
     }
 
     getAllRecords();
@@ -44,12 +44,12 @@ export default function LoginPage() {
 
   return (
     <div
-      className={`mill-regular h-screen w-screen flex flex-col justify-start gradient-bg text-white`}
+      className={`mill-regular h-screen w-screen flex flex-col justify-center gradient-bg text-white`}
     >
       {!records && <Loader />}
       <div className="flex flex-col">
         {top5 && (
-          <div className="flex flex-col sm:mt-[100px] z-50 gap-1 text-3xl bg-gradient-to-b from-[#035680] via-[#020a34] to-[#035680] px-4 py-2 border-y border-white">
+          <div className="flex flex-col sm:mt-[100px] z-50 gap-1 text-3xl bg-gradient-to-b from-[#e91f1f] to-[#000000] max-h-screen overflow-y-auto overflow-x-hidden px-4 py-2">
             <p className="text-[30px] font-bold flex justify-center">
               Mejores Resultados
             </p>
@@ -91,7 +91,7 @@ export default function LoginPage() {
           </div>
         )}
 
-        {records && (
+        {/* {records && (
           <div className="flex flex-col z-50 text-3xl text-black pt-2 sm:mt-20 mt-[10px]">
             <div className="flex justify-center">
               <p className="oracle-regular font-bold text-lg flex justify-center mb-[20px]">
@@ -127,7 +127,7 @@ export default function LoginPage() {
           >
             Regresar
           </button>
-        )}
+        )} */}
       </div>
     </div>
   );

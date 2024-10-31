@@ -50,7 +50,7 @@ export default function LoginPage() {
 
   return (
     <div className="h-screen w-screen gradient-bg flex flex-col justify-center items-center">
-      <p className="bg-gradient-to-b from-[#035680] via-[#020a34] to-[#035680] w-screen flex justify-center py-5 border-y border-white">
+      <p className="bg-[#E1251B] w-screen flex justify-center py-5 border-y border-white">
         <img
           src="/assets/logo.png"
           alt="Logo de wwtbam"
@@ -75,8 +75,8 @@ export default function LoginPage() {
             type="text"
             id="name"
             value={nameInput}
-            placeholder="Escribe tu correo"
-            className={`mill-regular bg-[#1c1665]/50 text-[25px] pl-[60px] p-4 rounded-lg`}
+            placeholder="Escribe tu nombre"
+            className={`mill-regular bg-[#4D4D4D] border border-black text-[20px] pl-[60px] p-4 rounded-lg`}
             autoComplete="off"
             onChange={(e) => {
               setNameInput(e.target.value);
@@ -95,8 +95,8 @@ export default function LoginPage() {
             type="email"
             id="email"
             value={emailInput}
-            placeholder="Escribe tu nombre"
-            className={`mill-regular bg-[#1c1665]/50 text-[25px] pl-[60px] p-4 rounded-lg`}
+            placeholder="Escribe tu correo"
+            className={`mill-regular bg-[#4D4D4D] border border-black text-[20px] pl-[60px] p-4 rounded-lg`}
             autoComplete="off"
             onChange={(e) => {
               setEmailInput(e.target.value);
@@ -109,70 +109,12 @@ export default function LoginPage() {
           </p>
         )}
         <button
-          className="mill-regular font-bold flex items-center justify-center bg-gradient-to-r from-[#080d3d] via-[#084774] to-[#080d3d] text-[35px] rounded-lg"
+          className="mill-regular font-bold flex items-center justify-center bg-[#E1251B] text-[35px] rounded-lg"
           onClick={submitForm}
         >
           Jugar
         </button>
       </div>
-
-      {/* <div className="flex flex-col">
-        <section className="flex flex-col gap-7">
-          <p className="text-white">Regístrate</p>
-
-          <div className="relative flex">
-            <label htmlFor="name">
-              <img
-                src="/assets/name.svg"
-                alt="Icono de una persona"
-                className="absolute z-50 text-black/40 top-[30px] left-[68px]"
-              />
-            </label>
-            <input
-              type="text"
-              id="name"
-              value={nameInput}
-              placeholder="Escribe tu nombre"
-              className={`oracle-regular font-normal flex flex-1
-              text-black bg-white/15 rounded-3xl border-[1.5px] border-[#D6544E]`}
-              autoComplete="off"
-              onChange={(e) => {
-                setNameInput(e.target.value);
-              }}
-            />
-          </div>
-          <div className="relative flex">
-            <label htmlFor="email">
-              <img
-                src="/assets/email.svg"
-                alt="Icono de una persona"
-                className="absolute z-50 text-black/40 top-[30px] left-[56px]"
-              />
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={emailInput}
-              className={`oracle-regular font-normal text-[40px] flex flex-1 pl-[138px]
-              text-black bg-white/15 rounded-3xl border-[1.5px] border-[#D6544E]`}
-              placeholder="Escribe tu correo"
-              autoComplete="off"
-              onChange={(e) => {
-                setEmailInput(e.target.value);
-              }}
-            />
-          </div>
-          {registered && (
-            <p className="relative oracle-regular text-[#D6544E] z-50 text-[48px]">
-              ¡Ya has participado!
-            </p>
-          )}
-        </section>
-        <button
-          className={`${montserrat.className} relative z-50 flex justify-center items-center text-3xl px-10 py-16 bg-[#D6544E] text-white h-[48px] text-center rounded-3xl mt-[40px]`}
-          onClick={submitForm}
-        ></button>
-      </div> */}
     </div>
   );
 }
