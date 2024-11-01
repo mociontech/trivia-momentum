@@ -46,7 +46,7 @@ export default function LoginPage() {
     <div
       className={`mill-regular h-screen w-screen flex flex-col justify-center gradient-bg text-white`}
     >
-      {!records && <Loader />}
+      {!top5 && <Loader />}
       <div className="flex flex-col">
         {top5 && (
           <div className="flex flex-col sm:mt-[100px] z-50 gap-1 text-3xl bg-gradient-to-b from-[#e91f1f] to-[#000000] max-h-screen overflow-y-auto overflow-x-hidden px-4 py-2">
