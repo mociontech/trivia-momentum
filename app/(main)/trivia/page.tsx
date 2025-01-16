@@ -52,7 +52,7 @@ export default function TriviaPage() {
     }
   }, []);
 
-  async function selectAnswer(answerPos) {
+  async function selectAnswer(answerPos: number) {
     if (isAnswered) return; // Evitar que se seleccione más de una vez
     setSelectedAnswer(answerPos);
     setCorrectAnswer(selectedQuestions[currentQuestion].correct_answer);
