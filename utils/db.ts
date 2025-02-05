@@ -10,6 +10,7 @@ import {
   collection,
   getDocs,
 } from "firebase/firestore";
+import { Record } from "./types";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDAg8fcs_rBQlB7xCxGm1Xq-1X9ISe-stY",
@@ -49,13 +50,6 @@ export async function registerRecord(mail, time, score) {
     puntaje: score,
     tiempo: time,
   });
-}
-
-interface Record {
-  id: string;
-  nombre: string;
-  puntaje: number;
-  tiempo: number;
 }
 
 export async function getRecords(): Promise<Record[]> {

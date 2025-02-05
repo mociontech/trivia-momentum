@@ -23,6 +23,7 @@ export default function LoginPage() {
   useEffect(() => {
     async function getAllRecords() {
       const records: Record[] = await getRecords();
+      console.log('DATA: ', records)
       const filteredData = records.filter(
         (item) => item.puntaje && item.tiempo
       );
