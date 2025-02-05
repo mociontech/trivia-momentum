@@ -23,7 +23,6 @@ export default function LoginPage() {
   useEffect(() => {
     async function getAllRecords() {
       const records: Record[] = await getRecords();
-      console.log('DATA: ', records)
       const filteredData = records.filter(
         (item) => item.puntaje && item.tiempo
       );
@@ -119,7 +118,7 @@ export default function LoginPage() {
                   className={`flex gap-5 justify-between items-center text-base sm:text-[45px] sm:p-5  rounded-xl p-1 px-3`}
                 >
                   <div className="flex sm:gap-5 gap-2">
-                    <p className="oracle-regular line-clamp-1 sm:leading-[1] mr-2 sm:h-[35px]">
+                    <p className="oracle-regular line-clamp-1 sm:leading-[1] mr-2 sm:h-[40px]">
                       {record.nombre}
                     </p>
                   </div>
