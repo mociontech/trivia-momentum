@@ -51,12 +51,21 @@ export async function registerRecord(mail, time, score) {
   });
 }
 
-export async function getRecords() {
+interface Record {
+  id: string;
+  nombre: string;
+  puntaje: number;
+  tiempo: number;
+}
+
+export async function getRecords(): Promise<Record[]> {
   const collectionRef = collection(db, "DBTriviasOracle"); // Cambia el nombre de la colección
   const snapshot = await getDocs(collectionRef);
   const documentos = snapshot.docs.map((doc) => ({
     id: doc.id, // Si deseas obtener el ID del documento
-    ...doc.data(), // Los datos del documento
+    nombre: doc.data().nombre,
+    puntaje: doc.data().puntaje,
+    tiempo: doc.data().tiempo,
   }));
 
   return documentos;

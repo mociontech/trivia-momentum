@@ -7,15 +7,21 @@ import { registerRecord } from "@/utils/db";
 import { useUser } from "@/hooks/useUser";
 import { formatTime } from "@/utils/utils";
 
+interface Question {
+  question: string;
+  options: string[];
+  correct_answer: number;
+}
+
 export default function TriviaPage() {
   const router = useRouter();
   const { mail } = useUser();
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedQuestions, setSelectedQuestions] = useState();
+  const [selectedQuestions, setSelectedQuestions] = useState<Question[]>([]);
 
   const [score, setScore] = useState(0);
 
-  const [correctAnswer, setCorrectAnswer] = useState();
+  const [correctAnswer, setCorrectAnswer] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null); // Guardar la respuesta seleccionada
   const [isAnswered, setIsAnswered] = useState(false); // Saber si la pregunta ya fue respondida
 
@@ -27,12 +33,12 @@ export default function TriviaPage() {
   const [elapsedTime, setElapsedTime] = useState(0);
 
   useEffect(() => {
-    function getRandomQuestions(questionsArray, count) {
+    function getRandomQuestions(questionsArray: Question[], count: number) {
       const shuffled = [...questionsArray].sort(() => 0.5 - Math.random());
       return shuffled.slice(0, count);
     }
 
-    const selectedQuestions = getRandomQuestions(questions.questions, 5);
+    const selectedQuestions = getRandomQuestions(questions, 5);
     setSelectedQuestions(selectedQuestions);
     const start = Date.now();
     setStartTime(start);
@@ -46,7 +52,7 @@ export default function TriviaPage() {
     }
   }, []);
 
-  async function selectAnswer(answerPos) {
+  async function selectAnswer(answerPos: number) {
     if (isAnswered) return; // Evitar que se seleccione más de una vez
     setSelectedAnswer(answerPos);
     setCorrectAnswer(selectedQuestions[currentQuestion].correct_answer);
@@ -68,8 +74,6 @@ export default function TriviaPage() {
           : score;
 
       setTotalTime(formatTime(timeTaken));
-      console.log(finalScore);
-
       // subir a base de datos
       registerRecord(mail, timeTaken, finalScore * 20);
     }
@@ -118,7 +122,7 @@ export default function TriviaPage() {
         )
       )}
 
-      {selectedQuestions && !isFinished && (
+      {selectedQuestions && !isFinished && selectedQuestions[currentQuestion] && (
         <div className="flex flex-col">
           <p className="relative z-50 oracle-regular text-[60px] leading-[68px] text-center mb-[81px]">
             {selectedQuestions[currentQuestion].question}

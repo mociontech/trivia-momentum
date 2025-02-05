@@ -7,29 +7,33 @@ import { formatTime } from "@/utils/utils";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+interface Record {
+  id: string;
+  nombre: string;
+  puntaje: number;
+  tiempo: number;
+}
+
 export default function LoginPage() {
   const router = useRouter();
   const { logged } = useUser();
-  const [records, setRecords] = useState();
-  const [top5, setTop5] = useState();
+  const [records, setRecords] = useState<Record[] | null>(null);
+  const [top5, setTop5] = useState<Record[] | null>(null);
 
   useEffect(() => {
     async function getAllRecords() {
-      const records = await getRecords();
+      const records: Record[] = await getRecords();
       const filteredData = records.filter(
-        (item) => item.puntaje !== "" && item.tiempo !== ""
+        (item) => item.puntaje && item.tiempo
       );
 
-      // Ordenamos primero por puntaje descendente y luego por tiempo ascendente
       const sortedData = filteredData.sort((a, b) => {
         if (b.puntaje !== a.puntaje) {
-          return b.puntaje - a.puntaje; // Orden descendente por puntaje
+          return b.puntaje - a.puntaje;
         } else {
-          return a.tiempo - b.tiempo; // Orden ascendente por tiempo si los puntajes son iguales
+          return a.tiempo - b.tiempo;
         }
       });
-
-      console.log(sortedData);
 
       setRecords(records);
       setTop5(sortedData.slice(0, 3));
