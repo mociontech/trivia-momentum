@@ -43,24 +43,24 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col justify-center items-center relative">
-      <video className="absolute top-0 left-0" autoPlay loop muted>
+    <div className="login h-screen w-screen flex flex-col justify-center items-center relative">
+      {/* <video className="absolute top-0 left-0" autoPlay loop muted>
         <source src="/assets/Pantallas.mp4" />
-      </video>
-      <img
+      </video> */}
+      {/* <img
         src="/assets/logo-oracle.svg"
         alt="Logo de humano"
         className="absolute top-[100px] left-[120px] font"
-      />
+      /> */}
       {loading && <Loader />}
 
       <div className="flex flex-col w-auto">
         <section className="flex flex-col gap-7">
-          <img
+          {/* <img
             src="/assets/registrate.svg"
             alt="Registrate text"
             className="relative z-50 mb-12 h-[100px]"
-          />
+          /> */}
 
           <div className="relative flex">
             <label htmlFor="name">

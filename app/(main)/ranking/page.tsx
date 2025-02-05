@@ -43,21 +43,21 @@ export default function LoginPage() {
   }, []);
 
   function nextPage() {
-    router.push("/login");
+    router.push("/bye");
   }
 
   return (
     <div
       className={`h-screen w-screen flex flex-col justify-center items-center`}
     >
-      <video
+      {/* <video
         className="absolute h-screen w-screen top-0 left-0 -z-10 object-cover"
         autoPlay
         loop
         muted
       >
         <source src="/assets/Pantallas.mp4" />
-      </video>
+      </video> */}
       {!records && <Loader />}
       <div className="flex flex-col justify-center items-center sm:min-w-[820px] sm:pb-[200px] ">
         {top5 && (
@@ -138,15 +138,15 @@ export default function LoginPage() {
             className="oracle-regular text-[48px] rounded-3xl absolute bottom-[170px] z-50 text-white py-2 px-8 bg-[#D6544E]"
             onClick={nextPage}
           >
-            Regresar
+            Finalizar
           </button>
         )}
       </div>
-      <img
+      {/* <img
         src="/assets/logo-oracle.svg"
         alt="Logo de oracle"
         className="absolute top-[10px] h-[20px] sm:h-[48px] sm:top-[100px] sm:left-[120px]"
-      />
+      /> */}
     </div>
   );
 }

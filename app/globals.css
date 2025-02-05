@@ -47,3 +47,19 @@ body {
 .oracle-light {
   font-family: "oracle-light", sans-serif;
 }
+
+.welcome {
+  background-image: url("/Pantalla 01 - Bienvenida.jpg");
+}
+
+.login {
+  background-image: url("/Pantalla 02 - Registro.jpg");
+}
+
+.trivia {
+  background-image: url("/Pantalla 03 - Pregunta.jpg");
+}
+
+.final {
+  background-image: url("/Pantalla 05 - Gracias.jpg");
+}

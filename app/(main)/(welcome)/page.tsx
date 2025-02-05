@@ -10,19 +10,18 @@ export default function Home() {
     router.push("/login");
   }
 
-  useEffect(() => {
-    nextPage();
-  }, []);
+  // useEffect(() => {
+  //   nextPage();
+  // }, []);
 
   return (
     <div
-      className="relative h-screen w-screen flex justify-center items-center"
+      className="welcome relative h-screen w-screen flex justify-center items-center"
       onClick={nextPage}
     >
-      <video className="absolute top-0 left-0" autoPlay loop muted>
+      {/* <video className="absolute top-0 left-0" autoPlay loop muted>
         <source src="/assets/Pantallas.mp4" />
-      </video>
-      Bienvenido
+      </video> */}
     </div>
   );
 }
