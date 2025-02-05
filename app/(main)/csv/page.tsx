@@ -47,7 +47,8 @@ export default function CSV() {
 
   useEffect(() => {
     async function getData() {
-      const data = await getRecords();
+      const data: Record[] = JSON.parse(localStorage.getItem("data-local"));
+      // const data = await getRecords();
       downloadCSV(convertToCSV(data));
       push("/");
     }

@@ -44,7 +44,7 @@ export default function LoginPage() {
 
   return (
     <div
-      className={`h-screen w-screen flex flex-col justify-center items-center`}
+      className={`ranking h-screen w-screen flex flex-col justify-center items-center`}
     >
       {!records && <Loader />}
       <div className="flex flex-col justify-center items-center sm:min-w-[820px] sm:pb-[200px] ">
