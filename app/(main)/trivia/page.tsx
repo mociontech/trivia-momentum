@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { registerRecord } from "@/utils/db";
 import { useUser } from "@/hooks/useUser";
 import { formatTime } from "@/utils/utils";
+import { Record } from "@/utils/types";
 
 interface Question {
   question: string;
@@ -75,7 +76,7 @@ export default function TriviaPage() {
 
       setTotalTime(formatTime(timeTaken));
       // subir a base de datos
-      registerRecord(mail, timeTaken, finalScore * 20);
+      setUserOnLocal(timeTaken, finalScore * 20);
     }
 
     setTimeout(() => {
@@ -91,9 +92,18 @@ export default function TriviaPage() {
         nextQuestion();
       }
     }, 1000);
+  }
 
-    console.log("CURRENT QUESTION: ", currentQuestion);
-    console.log("IS FINISHED: ", isFinished);
+  function setUserOnLocal(time: number, score: number) {
+    const data: Record[] = JSON.parse(
+      localStorage.getItem("data-local") || "[]"
+    );
+    const result = data.find((item) => item.correo === mail);
+    if (result !== undefined) {
+      result.tiempo = time;
+      result.puntaje = score;
+      localStorage.setItem("data-local", JSON.stringify(data));
+    }
   }
 
   function nextQuestion() {

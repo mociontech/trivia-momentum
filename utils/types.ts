@@ -1,5 +1,6 @@
 export interface Record {
-  id: string;
+  correo: string;
+  fecha: Date;
   nombre: string;
   puntaje: number;
   tiempo: number;

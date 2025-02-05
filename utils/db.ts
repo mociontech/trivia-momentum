@@ -45,7 +45,11 @@ export async function register(name, mail) {
   }
 }
 
-export async function registerRecord(mail: string, time: number, score: number) {
+export async function registerRecord(
+  mail: string,
+  time: number,
+  score: number
+) {
   await updateDoc(doc(db, "DBTriviasUNacional", mail), {
     puntaje: score,
     tiempo: time,
@@ -56,10 +60,11 @@ export async function getRecords(): Promise<Record[]> {
   const collectionRef = collection(db, "DBTriviasUNacional"); // Cambia el nombre de la colección
   const snapshot = await getDocs(collectionRef);
   const documentos = snapshot.docs.map((doc) => ({
-    id: doc.id, // Si deseas obtener el ID del documento
+    fecha: doc.data().fecha,
     nombre: doc.data().nombre,
     puntaje: doc.data().puntaje,
     tiempo: doc.data().tiempo,
+    correo: doc.data().correo,
   }));
 
   return documentos;

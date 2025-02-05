@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Be_Vietnam_Pro, Montserrat } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
-import { register } from "@/utils/db";
 import Loader from "@/components/loader";
+import { Record } from "@/utils/types";
 
 const Vietnam = Be_Vietnam_Pro({
   subsets: ["latin"],
@@ -30,38 +30,41 @@ export default function LoginPage() {
       // Checkea que ningun campo este vacio
       if (!nameInput || !emailInput)
         return alert("Por favor, completa todos los campos");
-      setLoading(true);
 
-      setMail(emailInput); // Guarda el correo
-      setLogged(true);
-      register(nameInput, emailInput);
-
-      router.push("/trivia");
+      registerOnLocal();
     } catch (error) {
       console.log({ error: error });
     }
   }
 
+  const registerOnLocal = () => {
+    const data: Record[] = JSON.parse(localStorage.getItem("data-local"));
+    const resultIndex = data.findIndex((item) => item.correo === emailInput);
+    const user: Record = {
+      fecha: new Date(),
+      nombre: nameInput,
+      correo: emailInput,
+      puntaje: 0,
+      tiempo: 0,
+    };
+    if (resultIndex !== -1) {
+      return alert("Ya existe ese correo!");
+    } else {
+      data.push(user);
+      localStorage.setItem("data-local", JSON.stringify(data));
+      setLoading(true);
+      setMail(emailInput); // Guarda el correo
+      setLogged(true);
+      router.push("/trivia");
+    }
+  };
+
   return (
     <div className="login h-screen w-screen flex flex-col justify-center items-center relative">
-      {/* <video className="absolute top-0 left-0" autoPlay loop muted>
-        <source src="/assets/Pantallas.mp4" />
-      </video> */}
-      {/* <img
-        src="/assets/logo-oracle.svg"
-        alt="Logo de humano"
-        className="absolute top-[100px] left-[120px] font"
-      /> */}
       {loading && <Loader />}
 
       <div className="flex flex-col w-auto">
         <section className="flex flex-col gap-7">
-          {/* <img
-            src="/assets/registrate.svg"
-            alt="Registrate text"
-            className="relative z-50 mb-12 h-[100px]"
-          /> */}
-
           <div className="relative flex">
             <label htmlFor="name">
               <img

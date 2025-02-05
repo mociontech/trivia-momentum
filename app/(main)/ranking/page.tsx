@@ -2,17 +2,10 @@
 
 import Loader from "@/components/loader";
 import { useUser } from "@/hooks/useUser";
-import { getRecords } from "@/utils/db";
+import { Record } from "@/utils/types";
 import { formatTime } from "@/utils/utils";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
-interface Record {
-  id: string;
-  nombre: string;
-  puntaje: number;
-  tiempo: number;
-}
 
 export default function LoginPage() {
   const router = useRouter();
@@ -22,7 +15,10 @@ export default function LoginPage() {
 
   useEffect(() => {
     async function getAllRecords() {
-      const records: Record[] = await getRecords();
+      const records: Record[] = JSON.parse(
+        localStorage.getItem("data-local") || "[]"
+      );
+
       const filteredData = records.filter(
         (item) => item.puntaje && item.tiempo
       );
@@ -50,14 +46,6 @@ export default function LoginPage() {
     <div
       className={`h-screen w-screen flex flex-col justify-center items-center`}
     >
-      {/* <video
-        className="absolute h-screen w-screen top-0 left-0 -z-10 object-cover"
-        autoPlay
-        loop
-        muted
-      >
-        <source src="/assets/Pantallas.mp4" />
-      </video> */}
       {!records && <Loader />}
       <div className="flex flex-col justify-center items-center sm:min-w-[820px] sm:pb-[200px] ">
         {top5 && (
@@ -142,11 +130,6 @@ export default function LoginPage() {
           </button>
         )}
       </div>
-      {/* <img
-        src="/assets/logo-oracle.svg"
-        alt="Logo de oracle"
-        className="absolute top-[10px] h-[20px] sm:h-[48px] sm:top-[100px] sm:left-[120px]"
-      /> */}
     </div>
   );
 }
