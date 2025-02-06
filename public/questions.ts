@@ -1,102 +1,66 @@
 export const questions: Question[] = [
   {
-    question: "¿En cuánto tiempo te pagamos tu auto?",
-    options: ["En 4 meses", "Hasta en 24 horas", "En dos años"],
-    correct_answer: 1,
-  },
-  {
-    question: "¿Cuánto tiempo tardamos en darte una oferta por tu auto?",
-    options: ["2 Minutos", "1 año", "30 días"],
-    correct_answer: 0,
-  },
-  {
-    question: "¿Cuál es el máximo de meses que te damos para PAGAR tu auto?",
-    options: ["36 meses", "18 meses", "Hasta 60 meses"],
-    correct_answer: 2,
-  },
-  {
-    question: "¿Qué te ofrece KAVAK al comprar o vender un auto?",
+    question: "¿Cuál es la principal diferencia entre los rayos UVA y UVB?",
     options: [
-      "SEGURIDAD en todo el proceso",
-      "Un paquete de CALCOMANÍAS",
-      "TAPETES para tu auto",
+      "Los rayos UVA causan quemaduras solares, mientras que los UVB solo broncean la piel.",
+      "Los rayos UVA son menos dañinos que los UVB y no afectan la piel.",
+      "Los rayos UVA pueden penetrar más profundamente en la piel, mientras que los UVB tienen más energía y pueden causar quemaduras solares.",
+      "No hay diferencia, ambos afectan la piel de la misma manera.",
     ],
-    correct_answer: 0,
-  },
-  {
-    question: "¿Cuántos autos tiene KAVAK en su catálogo?",
-    options: ["Entre 100 y 400", "Entre 4 mil y 6 mil", "Entre 20 y 30"],
-    correct_answer: 1,
-  },
-  {
-    question: "¿Kavak es patrocinador OFICIAL de la CONCACAF CHAMPIONS CUP?",
-    options: ["No", "Nunca", "Sí"],
     correct_answer: 2,
   },
   {
-    question: "¿Quién ganó la copa CCC en 2024?",
-    options: ["Monterrey", "Pachuca", "Guadalajara"],
-    correct_answer: 0,
+    question: "¿Qué significa SPF en un protector solar?",
+    options: [
+      "Sistema de Protección Facial",
+      "Super Protección de Fotones",
+      "Factor de Protección Solar",
+      "Filtro Protector Fijo",
+    ],
+    correct_answer: 2,
   },
   {
     question:
-      "¿En qué año se celebró la primera edición de la Copa de Campeones de la Concacaf?",
-    options: ["1959", "1962", "1965"],
+      "¿Por qué es importante aplicar protector solar incluso en invierno?",
+    options: [
+      "Porque los rayos solares solo afectan en climas fríos.",
+      "Porque los rayos UV pueden atravesar nubes y ventanas, dañando la piel incluso en días nublados.",
+      "Porque el frío hace que la piel se vuelva más sensible.",
+      "Porque solo protege contra el viento y la resequedad.",
+    ],
+    correct_answer: 1,
+  },
+  {
+    question: "¿Cada cuánto tiempo se recomienda reaplicar el protector solar?",
+    options: [
+      "Solo una vez al día es suficiente.",
+      "Cada 2 horas o después de sudar, nadar o secarse con una toalla.",
+      "Solo si la piel empieza a enrojecerse.",
+      "Cada 6 horas sin importar la actividad.",
+    ],
     correct_answer: 1,
   },
   {
     question:
-      "¿Cuál es el club con más títulos en la historia de la Copa de Campeones de la Concacaf?",
-    options: ["Cruz Azul", "Club América", "CF Monterrey"],
-    correct_answer: 1,
+      "¿Qué tipo de protector solar se recomienda para piel grasa o con acné?",
+    options: [
+      "Un protector solar denso y oleoso para mayor hidratación.",
+      "Cualquier protector solar, no importa el tipo de piel.",
+      "Un protector solar matificante y no comedogénico para evitar obstrucción de poros.",
+      "No se recomienda el uso de protector solar en piel grasa.",
+    ],
+    correct_answer: 2,
   },
   {
     question:
-      "¿Qué jugador mexicano ostenta el récord de más títulos ganados en la Copa de Campeones de la Concacaf?",
-    options: ["Carlos Hermosillo", "Paul Aguilar", "Miguel Calero"],
-    correct_answer: 1,
-  },
-  {
-    question:
-      "¿Cuál fue el primer club caribeño en ganar la Copa de Campeones de la Concacaf?",
-    options: ["Racing Club Haitien", "Defence Force FC", "SV Transvaal"],
-    correct_answer: 0,
-  },
-  {
-    question:
-      "¿Qué equipo estableció la racha de victorias más larga en la historia de la Liga de Campeones de la Concacaf?",
-    options: ["Club América", "CF Monterrey", "Deportivo Saprissa"],
-    correct_answer: 1,
-  },
-  {
-    question:
-      "¿Qué jugador es el máximo goleador histórico de la Copa de Campeones de la Concacaf?",
-    options: ["Oribe Peralta", "Javier Orozco", "Darwin Quintero"],
-    correct_answer: 1,
-  },
-  {
-    question:
-      "¿Cuál fue el primer equipo de Estados Unidos en ganar la Copa de Campeones de la Concacaf?",
-    options: ["Los Angeles Galaxy", "D.C. United", "Seattle Sounders"],
-    correct_answer: 1,
-  },
-  {
-    question:
-      "¿Qué club centroamericano ha ganado más títulos en la Copa de Campeones de la Concacaf?",
-    options: ["LD Alajuelense", "Deportivo Saprissa", "CD Olimpia"],
-    correct_answer: 1,
-  },
-  {
-    question:
-      "¿Qué equipo mexicano logró la mayor goleada en la historia del torneo, con un marcador de 11-0?",
-    options: ["Cruz Azul", "Pachuca", "América"],
-    correct_answer: 1,
-  },
-  {
-    question:
-      "¿Qué jugador anotó un hat-trick en la final de la Copa de Campeones de la Concacaf 2015, contribuyendo significativamente al título de su equipo?",
-    options: ["Oribe Peralta", "Darío Benedetto", "André-Pierre Gignac"],
-    correct_answer: 1,
+      "¿Cuál de estas NO es una de las presentaciones de la línea Total Block de Yanbal?",
+    options: [
+      "Dermafusión, con protección y tratamiento facial.",
+      "Mineral, ideal para pieles sensibles y amigable con el medio ambiente.",
+      "Ultraprotección, con protección de amplio espectro para toda la familia.",
+      "Hidratante Extremo, con efecto bronceador progresivo.",
+    ],
+    correct_answer: 3,
   },
 ];
 
