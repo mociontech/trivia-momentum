@@ -85,7 +85,7 @@ export default function TriviaPage() {
         setIsFinished(true);
 
         setTimeout(() => {
-          router.push("/ranking");
+          // router.push("/ranking");
         }, 3000);
         return;
       } else {
@@ -113,16 +113,11 @@ export default function TriviaPage() {
   }
 
   return (
-    <div className="trivia h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden text-black px-20">
-      {/* <video className="absolute top-0 left-0 -z-10" autoPlay loop muted>
-        <source src="/assets/Pantallas.mp4" />
-      </video>
-      <img
-        src="/assets/logo-oracle.svg"
-        alt="Logo de oracle"
-        className="absolute top-[100px] left-[120px]"
-      /> */}
-
+    <div
+      className={`${
+        isFinished ? "trivia2" : "trivia"
+      } h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden text-black px-20`}
+    >
       {!isFinishedTimer ? (
         <div className="absolute bottom-[75px] oracle-regular right-[70px] bg-opacity-80 text-black p-4 rounded-lg text-[48px] font-bold z-50">
           {formatTime(elapsedTime)}
@@ -151,7 +146,7 @@ export default function TriviaPage() {
                       ? i + 1 === correctAnswer
                         ? "bg-[#628B48] text-white" // Respuesta correcta en verde
                         : i === selectedAnswer
-                        ? "bg-[#D6544E] text-white" // Respuesta incorrecta seleccionada en rojo
+                        ? "bg-[#fe5723] text-white" // Respuesta incorrecta seleccionada en rojo
                         : "bg-[#D4E6E5]"
                       : "bg-[#D4E6E5]"
                   }`}
@@ -173,7 +168,7 @@ export default function TriviaPage() {
             <p className="oracle-light text-[45px] text-center text-[#36312D] leading-[48px] mb-[110px]">
               Contestaste correctamente:
             </p>
-            <div className="oracle-regular flex flex-col w-full rounded-3xl text-[#FCFCFC] py-4 bg-[#D6544E] text-center justify-center text-[80px]">
+            <div className="oracle-regular flex flex-col w-full rounded-3xl text-[#FCFCFC] py-4 bg-[#fe5723] text-center justify-center text-[80px]">
               {score}/5<p className="text-[40px]">En {totalTime} segundos</p>
             </div>
             <p className="oracle-light mt-6 text-[45px]">
@@ -189,7 +184,7 @@ export default function TriviaPage() {
             <p className="oracle-light text-[45px] text-center text-[#36312D] leading-[48px] mb-[110px]">
               Contestaste correctamente:
             </p>
-            <div className="oracle-regular flex flex-col w-full rounded-3xl text-[#FCFCFC] py-4 bg-[#D6544E] text-center justify-center text-[80px]">
+            <div className="oracle-regular flex flex-col w-full rounded-3xl text-[#FCFCFC] py-4 bg-[#fe5723] text-center justify-center text-[80px]">
               {score}/5<p className="text-[40px]">En {totalTime} segundos</p>
             </div>
             <p className="oracle-light mt-6 text-[45px]">

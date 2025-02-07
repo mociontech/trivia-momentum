@@ -123,7 +123,7 @@ export default function LoginPage() {
         )}
         {logged && (
           <button
-            className="oracle-regular text-[48px] rounded-3xl absolute bottom-[170px] z-50 text-white py-2 px-8 bg-[#D6544E]"
+            className="oracle-regular text-[48px] rounded-3xl absolute bottom-[170px] z-50 text-white py-2 px-8 bg-[#fe5723]"
             onClick={nextPage}
           >
             Finalizar

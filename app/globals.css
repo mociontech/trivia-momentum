@@ -60,6 +60,10 @@ body {
   background-image: url("/Pantalla 03 - Pregunta.jpg");
 }
 
+.trivia2 {
+  background-image: url("/Pantalla 03 - Resultados.jpg");
+}
+
 .final {
   background-image: url("/Pantalla 05 - Gracias.jpg");
 }

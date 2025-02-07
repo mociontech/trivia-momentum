@@ -79,7 +79,7 @@ export default function LoginPage() {
               value={nameInput}
               placeholder="Escribe tu nombre"
               className={`oracle-regular font-normal text-[40px] flex flex-1 h-[110px] w-[855px] pl-[138px] 
-              text-black bg-white/15 rounded-3xl border-[1.5px] border-[#D6544E]`}
+              text-black bg-white/15 rounded-3xl border-[1.5px] border-[#fe5723]`}
               autoComplete="off"
               onChange={(e) => {
                 setNameInput(e.target.value);
@@ -99,7 +99,7 @@ export default function LoginPage() {
               id="email"
               value={emailInput}
               className={`oracle-regular font-normal text-[40px] flex flex-1 h-[110px] w-[855px] pl-[138px]
-              text-black bg-white/15 rounded-3xl border-[1.5px] border-[#D6544E]`}
+              text-black bg-white/15 rounded-3xl border-[1.5px] border-[#fe5723]`}
               placeholder="Escribe tu correo"
               autoComplete="off"
               onChange={(e) => {
@@ -115,7 +115,7 @@ export default function LoginPage() {
         </section>
         <button
           className={`${montserrat.className} relative z-50 flex justify-center items-center text-3xl px-10 py-16 
-        bg-[#D6544E] text-white h-[48px] text-center text-[50px] rounded-3xl mt-[40px]`}
+        bg-[#fe5723] text-white h-[48px] text-center text-[50px] rounded-3xl mt-[40px]`}
           onClick={submitForm}
         >
           <img src="/assets/juega-ahora.svg" alt="juega ahora text" />
