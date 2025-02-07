@@ -101,15 +101,6 @@ body {
   font-family: "telegraf-regular", sans-serif;
 }
 
-.ranking {
-  margin: 0; /* Elimina el margen por defecto del body */
-  padding: 0; /* Elimina el padding por defecto del body */
-  background-image: url("/ranking.png");
-  background-size: cover; /* Ajusta la imagen para cubrir todo el body */
-  background-position: center; /* Centra la imagen en el body */
-  background-repeat: repeat;
-}
-
 .cta-register-score {
   margin: 0; /* Elimina el margen por defecto del body */
   padding: 0; /* Elimina el padding por defecto del body */
@@ -144,4 +135,8 @@ body {
   background-size: cover; /* Ajusta la imagen para cubrir todo el body */
   background-position: center; /* Centra la imagen en el body */
   background-repeat: repeat;
+}
+
+.trivia {
+  background-image: url("/Preguntas.png");
 }
