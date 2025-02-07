@@ -47,3 +47,7 @@ body {
 .oracle-light {
   font-family: "oracle-light", sans-serif;
 }
+
+.welcome {
+  background-image: url("/Bienvenida y CTA.png");
+}

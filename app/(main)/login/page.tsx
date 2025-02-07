@@ -43,15 +43,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col justify-center items-center relative">
-      <video className="absolute top-0 left-0" autoPlay loop muted>
-        <source src="/assets/Pantallas.mp4" />
-      </video>
-      <img
-        src="/assets/logo-oracle.svg"
-        alt="Logo de humano"
-        className="absolute top-[100px] left-[120px] font"
-      />
+    <div className="login h-screen w-screen flex flex-col justify-center items-center relative">
       {loading && <Loader />}
 
       <div className="flex flex-col w-auto">
