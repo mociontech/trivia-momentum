@@ -85,7 +85,7 @@ export default function TriviaPage() {
         setIsFinished(true);
 
         setTimeout(() => {
-          // router.push("/ranking");
+          router.push("/ranking");
         }, 3000);
         return;
       } else {
