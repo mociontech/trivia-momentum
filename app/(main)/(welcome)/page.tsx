@@ -10,9 +10,9 @@ export default function Home() {
     router.push("/login");
   }
 
-  useEffect(() => {
-    nextPage();
-  }, []);
+  // useEffect(() => {
+  //   nextPage();
+  // }, []);
 
   return (
     <div
