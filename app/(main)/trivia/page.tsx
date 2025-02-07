@@ -141,7 +141,7 @@ export default function TriviaPage() {
               {selectedQuestions[currentQuestion].options.map((answer, i) => (
                 <button
                   key={i}
-                  className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl ${
+                  className={`oracle-light flex font p-10 text-[3.3vw] leading-[48px] items-center justify-center h-[195px] rounded-3xl ${
                     isAnswered
                       ? i + 1 === correctAnswer
                         ? "bg-[#628B48] text-white" // Respuesta correcta en verde
