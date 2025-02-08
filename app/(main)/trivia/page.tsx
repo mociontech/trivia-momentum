@@ -58,7 +58,7 @@ export default function TriviaPage() {
     setCorrectAnswer(selectedQuestions[currentQuestion].correct_answer);
     setIsAnswered(true);
 
-    if (answerPos + 1 === selectedQuestions[currentQuestion].correct_answer) {
+    if (answerPos === selectedQuestions[currentQuestion].correct_answer) {
       setScore((prevScore) => prevScore + 1);
     }
 
@@ -126,7 +126,7 @@ export default function TriviaPage() {
                   key={i}
                   className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl ${
                     isAnswered
-                      ? i + 1 === correctAnswer
+                      ? i === correctAnswer
                         ? "bg-[#DEF44B] text-black" // Respuesta correcta en verde
                         : i === selectedAnswer
                         ? "bg-[#D6544E] text-white" // Respuesta incorrecta seleccionada en rojo
