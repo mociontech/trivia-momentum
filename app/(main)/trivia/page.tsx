@@ -58,7 +58,7 @@ export default function TriviaPage() {
     setCorrectAnswer(selectedQuestions[currentQuestion].correct_answer);
     setIsAnswered(true);
 
-    if (answerPos + 1 === selectedQuestions[currentQuestion].correct_answer) {
+    if (answerPos === selectedQuestions[currentQuestion].correct_answer) {
       setScore((prevScore) => prevScore + 1);
     }
 
@@ -122,33 +122,35 @@ export default function TriviaPage() {
         )
       )}
 
-      {selectedQuestions && !isFinished && selectedQuestions[currentQuestion] && (
-        <div className="flex flex-col">
-          <p className="relative z-50 oracle-regular text-[60px] leading-[68px] text-center mb-[81px]">
-            {selectedQuestions[currentQuestion].question}
-          </p>
-          <div className="flex flex-col gap-8">
-            {selectedQuestions[currentQuestion].options.map((answer, i) => (
-              <button
-                key={i}
-                className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl ${
-                  isAnswered
-                    ? i + 1 === correctAnswer
-                      ? "bg-[#628B48] text-white" // Respuesta correcta en verde
-                      : i === selectedAnswer
-                      ? "bg-[#D6544E] text-white" // Respuesta incorrecta seleccionada en rojo
+      {selectedQuestions &&
+        !isFinished &&
+        selectedQuestions[currentQuestion] && (
+          <div className="flex flex-col">
+            <p className="relative z-50 oracle-regular text-[60px] leading-[68px] text-center mb-[81px]">
+              {selectedQuestions[currentQuestion].question}
+            </p>
+            <div className="flex flex-col gap-8">
+              {selectedQuestions[currentQuestion].options.map((answer, i) => (
+                <button
+                  key={i}
+                  className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl ${
+                    isAnswered
+                      ? i === correctAnswer
+                        ? "bg-[#628B48] text-white" // Respuesta correcta en verde
+                        : i === selectedAnswer
+                        ? "bg-[#D6544E] text-white" // Respuesta incorrecta seleccionada en rojo
+                        : "bg-[#D4E6E5]"
                       : "bg-[#D4E6E5]"
-                    : "bg-[#D4E6E5]"
-                }`}
-                onClick={() => selectAnswer(i)}
-                disabled={isAnswered} // Deshabilitar los botones después de seleccionar
-              >
-                {answer}
-              </button>
-            ))}
+                  }`}
+                  onClick={() => selectAnswer(i)}
+                  disabled={isAnswered} // Deshabilitar los botones después de seleccionar
+                >
+                  {answer}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
       {isFinished &&
         (score >= 4 ? (
           <div className="flex flex-col justify-center items-center">
