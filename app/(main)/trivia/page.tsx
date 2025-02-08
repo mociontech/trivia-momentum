@@ -134,19 +134,19 @@ export default function TriviaPage() {
         !isFinished &&
         selectedQuestions[currentQuestion] && (
           <div className="flex flex-col">
-            <p className="relative z-50 oracle-regular text-[60px] leading-[68px] text-center mb-[81px]">
+            <p className="relative z-50 oracle-regular text-[60px] leading-[68px] text-center mt-[330px]">
               {selectedQuestions[currentQuestion].question}
             </p>
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 mt-[20px]">
               {selectedQuestions[currentQuestion].options.map((answer, i) => (
                 <button
                   key={i}
                   className={`oracle-light flex font p-10 text-[3.3vw] leading-[48px] items-center justify-center h-[195px] rounded-3xl ${
                     isAnswered
                       ? i + 1 === correctAnswer
-                        ? "bg-[#628B48] text-white" // Respuesta correcta en verde
+                        ? "bg-[#fe5723] text-white" // Respuesta correcta en verde
                         : i === selectedAnswer
-                        ? "bg-[#fe5723] text-white" // Respuesta incorrecta seleccionada en rojo
+                        ? "bg-[#628B48] text-white" // Respuesta incorrecta seleccionada en rojo
                         : "bg-[#D4E6E5]"
                       : "bg-[#D4E6E5]"
                   }`}
