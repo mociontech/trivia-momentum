@@ -1,15 +1,15 @@
 import { create } from "zustand";
 
 interface UserState {
-  mail: string;
+  code: string;
   logged: boolean;
-  setMail: (mail: string) => void;
+  setCode: (code: string) => void;
   setLogged: (logged: boolean) => void;
 }
 
 export const useUser = create<UserState>()((set) => ({
-  mail: "",
+  code: "",
   logged: false,
-  setMail: (mail) => set({ mail: mail }),
+  setCode: (code) => set({ code }),
   setLogged: (logged) => set({ logged: logged }),
 }));

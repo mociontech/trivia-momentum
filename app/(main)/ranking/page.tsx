@@ -23,7 +23,7 @@ export default function LoginPage() {
   useEffect(() => {
     async function getAllRecords() {
       const records: Record[] = await getRecords();
-      console.log('DATA: ', records)
+      console.log("DATA: ", records);
       const filteredData = records.filter(
         (item) => item.puntaje && item.tiempo
       );
@@ -44,25 +44,17 @@ export default function LoginPage() {
   }, []);
 
   function nextPage() {
-    router.push("/login");
+    router.push("/bye");
   }
 
   return (
     <div
-      className={`h-screen w-screen flex flex-col justify-center items-center`}
+      className={`ranking h-screen w-screen flex flex-col justify-center items-center`}
     >
-      <video
-        className="absolute h-screen w-screen top-0 left-0 -z-10 object-cover"
-        autoPlay
-        loop
-        muted
-      >
-        <source src="/assets/Pantallas.mp4" />
-      </video>
       {!records && <Loader />}
       <div className="flex flex-col justify-center items-center sm:min-w-[820px] sm:pb-[200px] ">
         {top5 && (
-          <div className="flex flex-col sm:mt-[100px] mt-10 z-50 gap-1 text-3xl sm:min-w-[820px] text-black w-[80%] ">
+          <div className="flex flex-col sm:mt-[100px] mt-10 z-50 gap-1 text-3xl sm:min-w-[820px] text-white w-[80%] ">
             <p className="oracle-regular sm:text-[60px] font-bold text-sm flex justify-center sm:mb-[80px] mb-[10px]">
               Mejores Resultados
             </p>
@@ -106,7 +98,7 @@ export default function LoginPage() {
         )}
 
         {records && (
-          <div className="flex flex-col z-50 text-3xl sm:min-w-[820px] text-black w-[80%] pt-3 sm:mt-20 mt-[10px]">
+          <div className="flex flex-col z-50 text-3xl sm:min-w-[820px] text-white w-[80%] pt-3 sm:mt-20 mt-[10px]">
             <div className="flex justify-center">
               <p className="oracle-regular sm:text-[60px] font-bold text-sm flex justify-center sm:mb-[80px] mb-[20px]">
                 Todos los participantes
@@ -139,15 +131,10 @@ export default function LoginPage() {
             className="oracle-regular text-[48px] rounded-3xl absolute bottom-[170px] z-50 text-white py-2 px-8 bg-[#D6544E]"
             onClick={nextPage}
           >
-            Regresar
+            Finalizar
           </button>
         )}
       </div>
-      <img
-        src="/assets/logo-oracle.svg"
-        alt="Logo de oracle"
-        className="absolute top-[10px] h-[20px] sm:h-[48px] sm:top-[100px] sm:left-[120px]"
-      />
     </div>
   );
 }

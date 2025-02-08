@@ -7,11 +7,13 @@ import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { configVariables } from "@/configVariables";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/hooks/useUser";
 
 export default function RegisterExperiencePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentScreen, setCurrentScreen] = useState(1);
   const { push } = useRouter();
+  const { setCode, setLogged } = useUser();
 
   const [formData, setFormData] = useState({ id1: "", id2: "", score: "" });
   const [eventParams, setEventParams] = useState(null);
@@ -132,6 +134,8 @@ export default function RegisterExperiencePage() {
           return;
         }
 
+        // setCode()
+        setLogged(true);
         push("/trivia");
       }
     } catch (error) {

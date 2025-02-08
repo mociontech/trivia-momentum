@@ -133,14 +133,13 @@ body {
 }
 
 .ranking {
-  margin: 0; /* Elimina el margen por defecto del body */
-  padding: 0; /* Elimina el padding por defecto del body */
-  background-image: url("/ranking.png");
-  background-size: cover; /* Ajusta la imagen para cubrir todo el body */
-  background-position: center; /* Centra la imagen en el body */
-  background-repeat: repeat;
+  background-image: url("/Empty.png");
 }
 
 .trivia {
   background-image: url("/Preguntas.png");
+}
+
+.score {
+  background-image: url("/Score.png");
 }
