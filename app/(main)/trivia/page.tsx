@@ -59,7 +59,7 @@ export default function TriviaPage() {
     setCorrectAnswer(selectedQuestions[currentQuestion].correct_answer);
     setIsAnswered(true);
 
-    if (answerPos + 1 === selectedQuestions[currentQuestion].correct_answer) {
+    if (answerPos === selectedQuestions[currentQuestion].correct_answer) {
       setScore((prevScore) => prevScore + 1);
     }
 
@@ -143,10 +143,10 @@ export default function TriviaPage() {
                   key={i}
                   className={`oracle-light flex font p-10 text-[3.3vw] leading-[48px] items-center justify-center h-[195px] rounded-3xl ${
                     isAnswered
-                      ? i + 1 === correctAnswer
-                        ? "bg-[#fe5723] text-white" // Respuesta correcta en verde
+                      ? i === correctAnswer
+                        ? "bg-[#628B48] text-white" // Respuesta correcta en verde
                         : i === selectedAnswer
-                        ? "bg-[#628B48] text-white" // Respuesta incorrecta seleccionada en rojo
+                        ? "bg-[#fe5723] text-white" // Respuesta incorrecta seleccionada en rojo
                         : "bg-[#D4E6E5]"
                       : "bg-[#D4E6E5]"
                   }`}
