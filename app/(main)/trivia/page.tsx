@@ -69,7 +69,7 @@ export default function TriviaPage() {
 
       // Calcula el puntaje final en una variable local
       const finalScore =
-        answerPos + 1 === selectedQuestions[currentQuestion].correct_answer
+        answerPos === selectedQuestions[currentQuestion].correct_answer
           ? score + 1
           : score;
 
