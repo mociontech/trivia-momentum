@@ -72,7 +72,7 @@ export async function getRecords(): Promise<Record[]> {
 export async function getRanking(): Promise<UserKavak[]> {
   try {
     const result = await $axios.post<UserKavak[]>(
-      `/api/ranking/h0VxSpwLHsdi/test/trivia`,
+      `/api/ranking/${configVariables.databaseId}/test/trivia`,
       {
         listQty: 10,
       }
@@ -86,7 +86,7 @@ export async function getRanking(): Promise<UserKavak[]> {
 export async function saveScore(userId: string, score: number, time: number) {
   try {
     const result = await $axios.post(
-      `/api/users/participation/h0VxSpwLHsdi/test`,
+      `/api/users/participation/${configVariables.databaseId}/test`,
       {
         userId,
         newScore: score,

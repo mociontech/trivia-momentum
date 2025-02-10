@@ -18,6 +18,10 @@ export default function RegisterExperiencePage() {
   const [formData, setFormData] = useState({ id1: "", id2: "", score: "" });
   const [eventParams, setEventParams] = useState(null);
 
+  // Estado para controlar la visibilidad del toast
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
   const { toast } = useToast();
 
   const [isReadyId, setIsReadyId] = useState(false);
@@ -104,18 +108,13 @@ export default function RegisterExperiencePage() {
       setIsLoading(false);
 
       if (checkUser.data.notRegistered) {
-        toast({
-          title: "Este ID no existe",
-          description: "Por favor registrate en el evento",
-        });
+        Toast("Por favor regístrate en el evento");
 
         return;
       }
 
       if (checkUser.data.alreadyRegistered) {
-        toast({
-          title: "Parece que ya participaste en esta experiencia. ¡Gracias!",
-        });
+        Toast("Parece que ya participaste en esta experiencia. ¡Gracias!");
       } else {
         if (
           eventParams &&
@@ -140,12 +139,17 @@ export default function RegisterExperiencePage() {
       }
     } catch (error) {
       setIsLoading(false);
-      toast({
-        title: "Ups algo salió mal",
-        description: "Intenta nuevamente",
-      });
+      Toast("Ups, algo salió mal");
       return;
     }
+  }
+
+  function Toast(msg: string) {
+    setShowToast(true);
+    setToastMessage(msg);
+    setTimeout(() => {
+      setShowToast(false);
+    }, 2000);
   }
 
   return (
@@ -219,7 +223,16 @@ export default function RegisterExperiencePage() {
         </div>
       )}
       {isLoading && <Loader />}
-      <Toaster />
+      {/* Toast personalizado */}
+      {showToast && (
+        <div
+          className={`text-center fixed top-10 left-1/2 transform text-[2em] -translate-x-1/2 bg-[#F5F5F5] text-black px-6 py-3 rounded-lg shadow-lg transition-opacity duration-500 ${
+            showToast ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {toastMessage}
+        </div>
+      )}
     </div>
   );
 }
