@@ -23,7 +23,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     async function getAllRecords() {
-      const records: Record[] = await getRecords();
+      // const records: Record[] = await getRecords();
       const ranking = await getRanking();
       // const valid = ranking.map((item) => {});
       const filteredData = ranking.filter((item) => item.score && item.time);
