@@ -26,7 +26,6 @@ export default function LoginPage() {
       const records: Record[] = await getRecords();
       const ranking = await getRanking();
       // const valid = ranking.map((item) => {});
-      console.log("RESULT: ", ranking);
       const filteredData = ranking.filter((item) => item.score && item.time);
 
       const sortedData = filteredData.sort((a, b) => {
@@ -38,7 +37,7 @@ export default function LoginPage() {
       });
 
       setRecords(ranking);
-      setTop5(sortedData.slice(0, 3));
+      setTop5(sortedData);
     }
 
     getAllRecords();
@@ -94,7 +93,7 @@ export default function LoginPage() {
           </div>
         )}
 
-        {records && (
+        {/* {records && (
           <div className="flex flex-col z-50 text-3xl sm:min-w-[820px] text-white w-[80%] pt-3 sm:mt-20 mt-[10px]">
             <div className="flex justify-center">
               <p className="oracle-regular sm:text-[60px] font-bold text-sm flex justify-center sm:mb-[80px] mb-[20px]">
@@ -122,7 +121,7 @@ export default function LoginPage() {
               ))}
             </div>
           </div>
-        )}
+        )} */}
         {logged && (
           <button
             className="oracle-regular text-[48px] rounded-3xl absolute bottom-[350px] z-50 text-black py-2 px-8 bg-[#DEF44B]"
