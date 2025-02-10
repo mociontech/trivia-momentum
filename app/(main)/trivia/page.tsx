@@ -126,7 +126,7 @@ export default function TriviaPage() {
               {selectedQuestions[currentQuestion].options.map((answer, i) => (
                 <button
                   key={i}
-                  className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl ${
+                  className={`telegraf-regular flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl ${
                     isAnswered
                       ? i === correctAnswer
                         ? "bg-[#DEF44B] text-black" // Respuesta correcta en verde
@@ -147,32 +147,32 @@ export default function TriviaPage() {
       {isFinished &&
         (score >= 4 ? (
           <div className="flex flex-col justify-center items-center">
-            <p className="oracle-regular text-[100px] text-center text-white leading-[90px] mb-[40px]">
+            <p className="telegraf-bold text-[100px] text-center text-white leading-[90px] mb-[40px]">
               ¡Felicidades!
             </p>
-            <p className="oracle-light text-[45px] text-center text-white leading-[48px] mb-[110px]">
+            <p className="telegraf-regular text-[45px] text-center text-white leading-[48px] mb-[110px]">
               Contestaste correctamente:
             </p>
-            <div className="oracle-regular flex flex-col w-full rounded-3xl text-black py-4 bg-[#DEF44B] text-center justify-center text-[80px]">
+            <div className="telegraf-bold flex flex-col w-full rounded-3xl text-black py-4 bg-[#DEF44B] text-center justify-center text-[80px]">
               {score}/5<p className="text-[40px]">En {totalTime} segundos</p>
             </div>
-            <p className="oracle-light mt-6 text-[45px] text-white">
+            <p className="telegraf-regular mt-6 text-[45px] text-white">
               ¡Gracias por participar!
             </p>
           </div>
         ) : (
           <div className="flex flex-col justify-center items-center">
-            <p className="oracle-regular text-[100px] text-center text-[#ffffff] leading-[90px] mb-[40px]">
+            <p className="telegraf-bold text-[100px] text-center text-[#ffffff] leading-[90px] mb-[40px]">
               Puedes <br />
               hacerlo mejor
             </p>
-            <p className="oracle-light text-[45px] text-center text-[#ffffff] leading-[48px] mb-[110px]">
+            <p className="telegraf-regular text-[45px] text-center text-[#ffffff] leading-[48px] mb-[110px]">
               Contestaste correctamente:
             </p>
-            <div className="oracle-regular flex flex-col w-full rounded-3xl text-black py-4 bg-[#DEF44B] text-center justify-center text-[80px]">
+            <div className="telegraf-bold flex flex-col w-full rounded-3xl text-black py-4 bg-[#DEF44B] text-center justify-center text-[80px]">
               {score}/5<p className="text-[40px]">En {totalTime} segundos</p>
             </div>
-            <p className="oracle-light mt-6 text-[45px] text-white">
+            <p className="telegraf-regular mt-6 text-[45px] text-white">
               ¡Gracias por participar!
             </p>
           </div>

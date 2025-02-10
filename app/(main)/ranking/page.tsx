@@ -59,10 +59,10 @@ export default function LoginPage() {
       <div className="flex flex-col justify-center items-center sm:min-w-[820px] sm:pb-[200px] ">
         {top5 && (
           <div className="flex flex-col sm:mt-[100px] mt-10 z-50 gap-1 text-3xl sm:min-w-[820px] text-white w-[80%] ">
-            <p className="oracle-regular sm:text-[60px] font-bold text-sm flex justify-center sm:mb-[80px] mb-[10px]">
+            <p className="telegraf-bold sm:text-[60px] font-bold text-sm flex justify-center sm:mb-[80px] mb-[10px]">
               Mejores Resultados
             </p>
-            <div className="oracle-regular flex justify-end sm:text-[48px] text-base">
+            <div className="telegraf-bold flex justify-end sm:text-[48px] text-base">
               <div className="flex sm:gap-10 gap-3 sm:mb-5 sm:mr-5 mr-2">
                 <p>Puntaje</p>
                 <p>Tiempo</p>
@@ -77,12 +77,12 @@ export default function LoginPage() {
                 >
                   <div className="flex sm:gap-5 gap-2 items-center ">
                     <p className="font-bold mb-[5px]">{i + 1}</p>
-                    <p className="oracle-regular mr-2">
+                    <p className="telegraf-regular mr-2">
                       {capitalizeWords(record.name)}
                     </p>
                   </div>
-                  <div className="flex sm:gap-[70px] gap-[20px] text-center">
-                    <p className="oracle-regular sm:mr-[10px]">
+                  <div className="telegraf-regular flex sm:gap-[70px] gap-[20px] text-center">
+                    <p className="sm:mr-[10px]">
                       {record.score}
                     </p>
                     <p>{formatTime(record.time)}</p>
@@ -124,7 +124,7 @@ export default function LoginPage() {
         )} */}
         {logged && (
           <button
-            className="oracle-regular text-[48px] rounded-3xl absolute bottom-[350px] z-50 text-black py-2 px-8 bg-[#DEF44B]"
+            className="telegraf-regular text-[48px] rounded-3xl absolute bottom-[350px] z-50 text-black py-2 px-8 bg-[#DEF44B]"
             onClick={nextPage}
           >
             Finalizar

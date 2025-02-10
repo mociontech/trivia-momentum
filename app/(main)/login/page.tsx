@@ -226,7 +226,7 @@ export default function RegisterExperiencePage() {
       {/* Toast personalizado */}
       {showToast && (
         <div
-          className={`text-center fixed top-10 left-1/2 transform text-[2em] -translate-x-1/2 bg-[#F5F5F5] text-black px-6 py-3 rounded-lg shadow-lg transition-opacity duration-500 ${
+          className={`telegraf-regular text-center fixed top-10 left-1/2 transform text-[2em] -translate-x-1/2 bg-[#F5F5F5] text-black px-6 py-3 rounded-lg shadow-lg transition-opacity duration-500 ${
             showToast ? "opacity-100" : "opacity-0"
           }`}
         >
