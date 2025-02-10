@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { questions } from "@/public/questions";
 import { useEffect, useState } from "react";
-import { registerRecord } from "@/utils/db";
+import { registerRecord, saveScore } from "@/utils/db";
 import { useUser } from "@/hooks/useUser";
 import { formatTime } from "@/utils/utils";
 
@@ -15,7 +15,7 @@ interface Question {
 
 export default function TriviaPage() {
   const router = useRouter();
-  const { code } = useUser();
+  const user = useUser();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedQuestions, setSelectedQuestions] = useState<Question[]>([]);
 
@@ -75,7 +75,9 @@ export default function TriviaPage() {
 
       setTotalTime(formatTime(timeTaken));
       // subir a base de datos
-      registerRecord(code, timeTaken, finalScore * 20);
+      // registerRecord(user.code, timeTaken, finalScore * 20);
+      user.setScore(finalScore * 20);
+      await saveScore(user.code, finalScore * 20, timeTaken);
     }
 
     setTimeout(() => {

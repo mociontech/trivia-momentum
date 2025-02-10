@@ -2,7 +2,8 @@
 
 import Loader from "@/components/loader";
 import { useUser } from "@/hooks/useUser";
-import { getRecords } from "@/utils/db";
+import { getRecords, getRanking, saveScore } from "@/utils/db";
+import { UserKavak } from "@/utils/types";
 import { formatTime } from "@/utils/utils";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -16,27 +17,27 @@ interface Record {
 
 export default function LoginPage() {
   const router = useRouter();
-  const { logged } = useUser();
-  const [records, setRecords] = useState<Record[] | null>(null);
-  const [top5, setTop5] = useState<Record[] | null>(null);
+  const { logged, code, score } = useUser();
+  const [records, setRecords] = useState<UserKavak[] | null>(null);
+  const [top5, setTop5] = useState<UserKavak[] | null>(null);
 
   useEffect(() => {
     async function getAllRecords() {
       const records: Record[] = await getRecords();
-      console.log("DATA: ", records);
-      const filteredData = records.filter(
-        (item) => item.puntaje && item.tiempo
-      );
+      const ranking = await getRanking();
+      // const valid = ranking.map((item) => {});
+      console.log("RESULT: ", ranking);
+      const filteredData = ranking.filter((item) => item.score && item.time);
 
       const sortedData = filteredData.sort((a, b) => {
-        if (b.puntaje !== a.puntaje) {
-          return b.puntaje - a.puntaje;
+        if (b.score !== a.score) {
+          return b.score - a.score;
         } else {
-          return a.tiempo - b.tiempo;
+          return a.time - b.time;
         }
       });
 
-      setRecords(records);
+      setRecords(ranking);
       setTop5(sortedData.slice(0, 3));
     }
 
@@ -45,6 +46,10 @@ export default function LoginPage() {
 
   function nextPage() {
     router.push("/bye");
+  }
+
+  function capitalizeWords(str: string) {
+    return str.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
   }
 
   return (
@@ -69,27 +74,19 @@ export default function LoginPage() {
               {top5.map((record, i) => (
                 <div
                   key={i}
-                  className={`flex sm:gap-5 justify-between items-center sm:min-w-[820px] text-base sm:text-[45px] rounded-xl sm:p-5 sm:rounded-3xl px-3 ${
-                    i === 0
-                      ? "bg-yellow-400"
-                      : i === 1
-                      ? "bg-slate-400"
-                      : i === 2
-                      ? "bg-orange-500"
-                      : "bg-transparent"
-                  }`}
+                  className={`flex sm:gap-5 justify-between items-center sm:min-w-[820px] text-base text-black sm:text-[45px] rounded-xl sm:p-5 sm:rounded-3xl px-3 bg-white`}
                 >
                   <div className="flex sm:gap-5 gap-2 items-center ">
-                    <p className="mb-[5px]">{i + 1}</p>
-                    <p className="oracle-regular line-clamp-1 leading-[1.2] mr-2">
-                      {record.nombre}
+                    <p className="font-bold mb-[5px]">{i + 1}</p>
+                    <p className="oracle-regular mr-2">
+                      {capitalizeWords(record.name)}
                     </p>
                   </div>
                   <div className="flex sm:gap-[70px] gap-[20px] text-center">
                     <p className="oracle-regular sm:mr-[10px]">
-                      {record.puntaje}
+                      {record.score}
                     </p>
-                    <p>{formatTime(record.tiempo)}</p>
+                    <p>{formatTime(record.time)}</p>
                   </div>
                 </div>
               ))}
@@ -104,22 +101,22 @@ export default function LoginPage() {
                 Todos los participantes
               </p>
             </div>
-            <div className="overflow-y-auto sm:max-h-[500px] max-h-[300px]">
+            <div className="overflow-y-auto sm:max-h-[300px] max-h-[250px]">
               {records.map((record, i) => (
                 <div
                   key={i}
                   className={`flex gap-5 justify-between items-center text-base sm:text-[45px] sm:p-5  rounded-xl p-1 px-3`}
                 >
                   <div className="flex sm:gap-5 gap-2">
-                    <p className="oracle-regular line-clamp-1 sm:leading-[1] mr-2 sm:h-[35px]">
-                      {record.nombre}
+                    <p className="oracle-regular sm:leading-[1] mr-2 sm:h-[35px]">
+                      {record.name}
                     </p>
                   </div>
                   <div className="flex sm:gap-[70px] gap-[20px] text-center">
                     <p className="oracle-regular sm:mr-[10px]">
-                      {record.puntaje}
+                      {record.score}
                     </p>
-                    <p>{formatTime(record.tiempo)}</p>
+                    <p>{formatTime(record.time)}</p>
                   </div>
                 </div>
               ))}
@@ -128,7 +125,7 @@ export default function LoginPage() {
         )}
         {logged && (
           <button
-            className="oracle-regular text-[48px] rounded-3xl absolute bottom-[170px] z-50 text-white py-2 px-8 bg-[#D6544E]"
+            className="oracle-regular text-[48px] rounded-3xl absolute bottom-[350px] z-50 text-black py-2 px-8 bg-[#DEF44B]"
             onClick={nextPage}
           >
             Finalizar

@@ -10,7 +10,11 @@ import {
   collection,
   getDocs,
 } from "firebase/firestore";
-import { Record } from "./types";
+import { Record, UserKavak } from "./types";
+import axios from "axios";
+import { configVariables } from "@/configVariables";
+
+const $axios = axios.create({ baseURL: configVariables.baseUrl });
 
 const firebaseConfig = {
   apiKey: "AIzaSyDAg8fcs_rBQlB7xCxGm1Xq-1X9ISe-stY",
@@ -63,4 +67,35 @@ export async function getRecords(): Promise<Record[]> {
   }));
 
   return documentos;
+}
+
+export async function getRanking(): Promise<UserKavak[]> {
+  try {
+    const result = await $axios.post<UserKavak[]>(
+      `/api/ranking/h0VxSpwLHsdi/test/trivia`,
+      {
+        listQty: 10,
+      }
+    );
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function saveScore(userId: string, score: number, time: number) {
+  try {
+    const result = await $axios.post(
+      `/api/users/participation/h0VxSpwLHsdi/test`,
+      {
+        userId,
+        newScore: score,
+        time,
+        experienceName: "trivia",
+      }
+    );
+    return result.data;
+  } catch (error) {
+    return error;
+  }
 }

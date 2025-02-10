@@ -134,7 +134,7 @@ export default function RegisterExperiencePage() {
           return;
         }
 
-        // setCode()
+        setCode(formData.id1 + formData.id2);
         setLogged(true);
         push("/trivia");
       }
