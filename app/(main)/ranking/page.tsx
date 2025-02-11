@@ -2,7 +2,7 @@
 
 import Loader from "@/components/loader";
 import { useUser } from "@/hooks/useUser";
-import { getRecords, getRanking, saveScore } from "@/utils/db";
+import { getRanking } from "@/utils/db";
 import { UserKavak } from "@/utils/types";
 import { formatTime } from "@/utils/utils";
 import { useRouter } from "next/navigation";
@@ -48,7 +48,11 @@ export default function LoginPage() {
   }
 
   function capitalizeWords(str: string) {
-    return str.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
+    if (str) {
+      return str.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
+    }
+
+    return "";
   }
 
   return (
@@ -82,9 +86,7 @@ export default function LoginPage() {
                     </p>
                   </div>
                   <div className="telegraf-regular flex sm:gap-[70px] gap-[20px] text-center">
-                    <p className="sm:mr-[10px]">
-                      {record.score}
-                    </p>
+                    <p className="sm:mr-[10px]">{record.score}</p>
                     <p>{formatTime(record.time)}</p>
                   </div>
                 </div>
@@ -93,35 +95,6 @@ export default function LoginPage() {
           </div>
         )}
 
-        {/* {records && (
-          <div className="flex flex-col z-50 text-3xl sm:min-w-[820px] text-white w-[80%] pt-3 sm:mt-20 mt-[10px]">
-            <div className="flex justify-center">
-              <p className="oracle-regular sm:text-[60px] font-bold text-sm flex justify-center sm:mb-[80px] mb-[20px]">
-                Todos los participantes
-              </p>
-            </div>
-            <div className="overflow-y-auto sm:max-h-[300px] max-h-[250px]">
-              {records.map((record, i) => (
-                <div
-                  key={i}
-                  className={`flex gap-5 justify-between items-center text-base sm:text-[45px] sm:p-5  rounded-xl p-1 px-3`}
-                >
-                  <div className="flex sm:gap-5 gap-2">
-                    <p className="oracle-regular sm:leading-[1] mr-2 sm:h-[35px]">
-                      {record.name}
-                    </p>
-                  </div>
-                  <div className="flex sm:gap-[70px] gap-[20px] text-center">
-                    <p className="oracle-regular sm:mr-[10px]">
-                      {record.score}
-                    </p>
-                    <p>{formatTime(record.time)}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )} */}
         {logged && (
           <button
             className="telegraf-regular text-[48px] rounded-3xl absolute bottom-[350px] z-50 text-black py-2 px-8 bg-[#DEF44B]"
