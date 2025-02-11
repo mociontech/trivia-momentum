@@ -8,24 +8,15 @@ import { formatTime } from "@/utils/utils";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-interface Record {
-  id: string;
-  nombre: string;
-  puntaje: number;
-  tiempo: number;
-}
-
 export default function LoginPage() {
   const router = useRouter();
-  const { logged, code, score } = useUser();
+  const { logged } = useUser();
   const [records, setRecords] = useState<UserKavak[] | null>(null);
   const [top5, setTop5] = useState<UserKavak[] | null>(null);
 
   useEffect(() => {
     async function getAllRecords() {
-      // const records: Record[] = await getRecords();
       const ranking = await getRanking();
-      // const valid = ranking.map((item) => {});
       const filteredData = ranking.filter((item) => item.score && item.time);
 
       const sortedData = filteredData.sort((a, b) => {
