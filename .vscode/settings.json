@@ -1,3 +1,6 @@
 {
-    "files.associations": {"*.scss": "postcss"}
+    "files.associations": {
+        "*.scss": "postcss"
+    },
+    "editor.fontFamily": "JetBrains Mono Regular"
 }

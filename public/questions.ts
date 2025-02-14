@@ -36,7 +36,7 @@ export const questions: Question[] = [
   {
     question: "¿Quién ganó la copa CCC en 2024?",
     options: ["Monterrey", "Pachuca", "Guadalajara"],
-    correct_answer: 0,
+    correct_answer: 1,
   },
 ];
 
