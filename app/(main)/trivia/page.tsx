@@ -30,6 +30,7 @@ export default function TriviaPage() {
   const [isFinished, setIsFinished] = useState(false);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [answeredQuestions, setAnsweredQuestions] = useState([]);
 
   // Seleccionar preguntas aleatorias al inicio
   useEffect(() => {
@@ -57,10 +58,18 @@ export default function TriviaPage() {
     async (answerPos: number) => {
       if (isAnswered) return;
 
+      const dataUser = {
+        dataQuestion: selectedQuestions[currentQuestion],
+        answerUser: answerPos,
+      };
+
+      setAnsweredQuestions([...answeredQuestions, dataUser]);
+
       setSelectedAnswer(answerPos);
       setIsAnswered(true);
 
-      const isCorrect = answerPos === selectedQuestions[currentQuestion].correct_answer;
+      const isCorrect =
+        answerPos === selectedQuestions[currentQuestion].correct_answer;
       if (isCorrect) setScore((prev) => prev + 1);
 
       // Verificar si es la última pregunta
@@ -72,6 +81,7 @@ export default function TriviaPage() {
         // Guardar puntaje en la base de datos
         user.setScore(finalScore * 20);
         await saveScore(user.code, finalScore * 20, timeTaken);
+        user.setData(answeredQuestions);
 
         // Redirigir al ranking después de 3 segundos
         setTimeout(() => router.push("/ranking"), 3000);
@@ -84,14 +94,23 @@ export default function TriviaPage() {
         }, 1000);
       }
     },
-    [currentQuestion, isAnswered, selectedQuestions, score, startTime, user, router]
+    [
+      currentQuestion,
+      isAnswered,
+      selectedQuestions,
+      score,
+      startTime,
+      user,
+      router,
+    ]
   );
 
   // Renderizar las opciones de respuesta
   const renderOptions = useCallback(
     (options: string[]) => {
       return options.map((answer, i) => {
-        const isCorrect = i === selectedQuestions[currentQuestion].correct_answer;
+        const isCorrect =
+          i === selectedQuestions[currentQuestion].correct_answer;
         const isSelected = i === selectedAnswer;
 
         return (
@@ -114,7 +133,13 @@ export default function TriviaPage() {
         );
       });
     },
-    [currentQuestion, selectedAnswer, isAnswered, selectAnswer, selectedQuestions]
+    [
+      currentQuestion,
+      selectedAnswer,
+      isAnswered,
+      selectAnswer,
+      selectedQuestions,
+    ]
   );
 
   // Renderizar la pantalla de resultados

@@ -99,3 +99,18 @@ export async function saveScore(userId: string, score: number, time: number) {
     return error;
   }
 }
+
+export async function saveUserData(userId: string, userData: any) {
+  try {
+    const result = await $axios.post(
+      `/api/users/concat/${configVariables.databaseId}`,
+      {
+        userId,
+        userData,
+      }
+    );
+    return result.data;
+  } catch (error) {
+    return error;
+  }
+}

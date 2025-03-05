@@ -1,14 +1,25 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
+import { saveUserData } from "@/utils/db";
+import { useEffect } from "react";
 
 export default function ByePage() {
   const router = useRouter();
-  const { score } = useUser();
+  const { score, data, code } = useUser();
 
   function nextPage() {
     router.push("/");
   }
+
+  useEffect(() => {
+    async function saveData() {
+      await saveUserData(code, data);
+    }
+
+    saveData();
+  }, []);
+
   return (
     <div
       className="score relative h-screen w-screen flex justify-center items-center"
