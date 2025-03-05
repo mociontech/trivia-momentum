@@ -30,7 +30,7 @@ export default function TriviaPage() {
   const [isFinished, setIsFinished] = useState(false);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = useState(0);
-  const [answeredQuestions, setAnsweredQuestions] = useState([]);
+  const [answeredQuestions, setAnsweredQuestions] = useState<object>({});
 
   // Seleccionar preguntas aleatorias al inicio
   useEffect(() => {
@@ -58,11 +58,10 @@ export default function TriviaPage() {
     async (answerPos: number) => {
       if (isAnswered) return;
 
-      const dataUser = {
+      setAnsweredQuestions({
+        ...answeredQuestions,
         [`pregunta${currentQuestion}`]: `${selectedQuestions[currentQuestion].question},${selectedQuestions[currentQuestion].options[answerPos]}`,
-      };
-
-      setAnsweredQuestions([...answeredQuestions, dataUser]);
+      });
 
       setSelectedAnswer(answerPos);
       setIsAnswered(true);
