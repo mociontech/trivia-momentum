@@ -59,8 +59,7 @@ export default function TriviaPage() {
       if (isAnswered) return;
 
       const dataUser = {
-        dataQuestion: selectedQuestions[currentQuestion],
-        answerUser: answerPos,
+        [`pregunta${currentQuestion}`]: `${selectedQuestions[currentQuestion].question},${selectedQuestions[currentQuestion].options[answerPos]}`,
       };
 
       setAnsweredQuestions([...answeredQuestions, dataUser]);
