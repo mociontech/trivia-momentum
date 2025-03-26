@@ -11,18 +11,13 @@ export default function Home() {
   }
 
   useEffect(() => {
-    nextPage();
+    // nextPage();
   }, []);
 
   return (
     <div
-      className="relative h-screen w-screen flex justify-center items-center"
+      className="welcome relative h-screen w-screen flex justify-center items-center"
       onClick={nextPage}
-    >
-      <video className="absolute top-0 left-0" autoPlay loop muted>
-        <source src="/assets/Pantallas.mp4" />
-      </video>
-      Bienvenido
-    </div>
+    ></div>
   );
 }

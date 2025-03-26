@@ -11,11 +11,12 @@ interface Question {
   question: string;
   options: string[];
   correct_answer: number;
+  type: string;
 }
 
 export default function TriviaPage() {
   const router = useRouter();
-  const { mail } = useUser();
+  const { cedula } = useUser();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedQuestions, setSelectedQuestions] = useState<Question[]>([]);
 
@@ -75,7 +76,7 @@ export default function TriviaPage() {
 
       setTotalTime(formatTime(timeTaken));
       // subir a base de datos
-      registerRecord(mail, timeTaken, finalScore * 20);
+      registerRecord(cedula, timeTaken, finalScore * 20);
     }
 
     setTimeout(() => {
@@ -129,26 +130,50 @@ export default function TriviaPage() {
             <p className="relative z-50 oracle-regular text-[60px] leading-[68px] text-center mb-[81px]">
               {selectedQuestions[currentQuestion].question}
             </p>
-            <div className="flex flex-col gap-8">
-              {selectedQuestions[currentQuestion].options.map((answer, i) => (
-                <button
-                  key={i}
-                  className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl ${
-                    isAnswered
-                      ? i === correctAnswer
-                        ? "bg-[#628B48] text-white" // Respuesta correcta en verde
-                        : i === selectedAnswer
-                        ? "bg-[#D6544E] text-white" // Respuesta incorrecta seleccionada en rojo
+            {selectedQuestions[currentQuestion].type === "image" && (
+              <div className="flex flex-col gap-8">
+                {selectedQuestions[currentQuestion].options.map((answer, i) => (
+                  <button
+                    key={i}
+                    className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl ${
+                      isAnswered
+                        ? i === correctAnswer
+                          ? "bg-[#628B48] text-white" // Respuesta correcta en verde
+                          : i === selectedAnswer
+                          ? "bg-[#D6544E] text-white" // Respuesta incorrecta seleccionada en rojo
+                          : "bg-[#D4E6E5]"
                         : "bg-[#D4E6E5]"
-                      : "bg-[#D4E6E5]"
-                  }`}
-                  onClick={() => selectAnswer(i)}
-                  disabled={isAnswered} // Deshabilitar los botones después de seleccionar
-                >
-                  {answer}
-                </button>
-              ))}
-            </div>
+                    }`}
+                    onClick={() => selectAnswer(i)}
+                    disabled={isAnswered} // Deshabilitar los botones después de seleccionar
+                  >
+                    {answer}
+                  </button>
+                ))}
+              </div>
+            )}
+            {selectedQuestions[currentQuestion].type === "text" && (
+              <div className="flex flex-col gap-8">
+                {selectedQuestions[currentQuestion].options.map((answer, i) => (
+                  <button
+                    key={i}
+                    className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl ${
+                      isAnswered
+                        ? i === correctAnswer
+                          ? "bg-[#628B48] text-white" // Respuesta correcta en verde
+                          : i === selectedAnswer
+                          ? "bg-[#D6544E] text-white" // Respuesta incorrecta seleccionada en rojo
+                          : "bg-[#D4E6E5]"
+                        : "bg-[#D4E6E5]"
+                    }`}
+                    onClick={() => selectAnswer(i)}
+                    disabled={isAnswered} // Deshabilitar los botones después de seleccionar
+                  >
+                    {answer}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         )}
       {isFinished &&

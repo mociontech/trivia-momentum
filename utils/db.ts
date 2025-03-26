@@ -26,15 +26,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export async function register(name, mail) {
+export async function register(name: string, cedula: string, telefono: string) {
   try {
-    const isExisting = await getDoc(doc(db, "DBTriviasOracle", mail));
+    const isExisting = await getDoc(doc(db, "DBTriviasStereoPicnic", cedula));
     if (isExisting.data()) {
       return "existing";
     } else {
-      await setDoc(doc(db, "DBTriviasOracle", mail), {
+      await setDoc(doc(db, "DBTriviasStereoPicnic", cedula), {
         nombre: name,
-        correo: mail,
+        cedula,
+        telefono,
         puntaje: 0,
         tiempo: 0,
         fecha: Timestamp.now(),
@@ -45,15 +46,15 @@ export async function register(name, mail) {
   }
 }
 
-export async function registerRecord(mail, time, score) {
-  await updateDoc(doc(db, "DBTriviasOracle", mail), {
+export async function registerRecord(cedula: string, time, score) {
+  await updateDoc(doc(db, "DBTriviasStereoPicnic", cedula), {
     puntaje: score,
     tiempo: time,
   });
 }
 
 export async function getRecords(): Promise<Record[]> {
-  const collectionRef = collection(db, "DBTriviasOracle"); // Cambia el nombre de la colección
+  const collectionRef = collection(db, "DBTriviasStereoPicnic"); // Cambia el nombre de la colección
   const snapshot = await getDocs(collectionRef);
   const documentos = snapshot.docs.map((doc) => ({
     id: doc.id, // Si deseas obtener el ID del documento
