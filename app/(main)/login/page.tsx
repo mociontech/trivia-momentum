@@ -43,8 +43,8 @@ export default function LoginPage() {
           id="name"
           value={nameInput}
           placeholder="Tu nombre"
-          className={`oracle-regular font-normal text-[40px] h-[110px] pl-[1em]
-              text-black bg-white/15 rounded-3xl border-[1.5px] border-[#D6544E]`}
+          className={`oracle-regular font-normal text-[40px] h-[100px] pl-[1em]
+              text-black border-[1.5px] border-[#EBDB14]`}
           autoComplete="off"
           onChange={(e) => {
             setNameInput(e.target.value);
@@ -55,8 +55,8 @@ export default function LoginPage() {
           id="cedula"
           value={cedulaInput}
           placeholder="Tu numero de cedula"
-          className={`oracle-regular font-normal text-[40px] h-[110px] pl-[1em]
-              text-black bg-white/15 rounded-3xl border-[1.5px] border-[#D6544E]`}
+          className={`oracle-regular font-normal text-[40px] h-[100px] pl-[1em]
+              text-black border-[1.5px] border-[#EBDB14]`}
           autoComplete="off"
           onChange={(e) => {
             setCedulaInput(e.target.value);
@@ -67,8 +67,8 @@ export default function LoginPage() {
           type="number"
           id="telefono"
           value={telefonoInput}
-          className={`oracle-regular font-normal text-[40px] h-[110px] pl-[1em]
-              text-black bg-white/15 rounded-3xl border-[1.5px] border-[#D6544E]`}
+          className={`oracle-regular font-normal text-[40px] h-[100px] pl-[1em]
+              text-black border-[1.5px] border-[#EBDB14]`}
           placeholder="Tu celular"
           autoComplete="off"
           onChange={(e) => {
@@ -76,11 +76,15 @@ export default function LoginPage() {
           }}
         />
         <button
-          className={`oracle-regular relative z-50 flex justify-center items-center text-3xl px-10 py-16 
-        bg-[#D6544E] text-white h-[48px] text-center text-[50px] rounded-3xl mt-[40px]`}
+          className={`oracle-regular relative z-50 flex justify-center items-center text-3xl px-10
+         h-[50px] text-center text-[50px] rounded-3xl mt-[40px]`}
           onClick={submitForm}
         >
-          <img src="/assets/juega-ahora.svg" alt="juega ahora text" />
+          <img
+            src="/btn_init.png"
+            className="w-screen h-[2em]"
+            alt="comenzar"
+          />
         </button>
       </div>
 

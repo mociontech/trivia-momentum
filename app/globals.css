@@ -47,3 +47,14 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
+.trivia {
+  background-image: url("/fondo.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.btn_question {
+  /* background-image: url("/field.png"); */
+  background-size: cover;
+  background-repeat: no-repeat;
+}

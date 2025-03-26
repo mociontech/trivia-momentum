@@ -12,6 +12,7 @@ interface Question {
   options: string[];
   correct_answer: number;
   type: string;
+  image?: string;
 }
 
 export default function TriviaPage() {
@@ -101,23 +102,14 @@ export default function TriviaPage() {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden text-black px-20">
-      <video className="absolute top-0 left-0 -z-10" autoPlay loop muted>
-        <source src="/assets/Pantallas.mp4" />
-      </video>
-      <img
-        src="/assets/logo-oracle.svg"
-        alt="Logo de oracle"
-        className="absolute top-[100px] left-[120px]"
-      />
-
+    <div className="trivia h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden text-black px-20">
       {!isFinishedTimer ? (
-        <div className="absolute top-[75px] oracle-regular right-[70px] bg-opacity-80 text-black p-4 rounded-lg text-[48px] font-bold z-50">
+        <div className="absolute top-[75px] oracle-regular right-[70px] bg-opacity-80 text-[#EBDB14] p-4 rounded-lg text-[48px] font-bold z-50">
           {formatTime(elapsedTime)}
         </div>
       ) : (
         !isFinished && (
-          <div className="absolute top-[75px] oracle-regular right-[70px] bg-opacity-80 text-black p-4 rounded-lg text-[48px] font-bold z-50">
+          <div className="absolute top-[75px] oracle-regular right-[70px] bg-opacity-80 text-[#EBDB14] p-4 rounded-lg text-[48px] font-bold z-50">
             {totalTime}
           </div>
         )
@@ -127,29 +119,38 @@ export default function TriviaPage() {
         !isFinished &&
         selectedQuestions[currentQuestion] && (
           <div className="flex flex-col">
-            <p className="relative z-50 oracle-regular text-[60px] leading-[68px] text-center mb-[81px]">
+            <p className="relative z-50 oracle-regular text-[50px] mt-[2em] text-[#EBDB14] leading-[68px] text-center mb-[81px]">
               {selectedQuestions[currentQuestion].question}
             </p>
             {selectedQuestions[currentQuestion].type === "image" && (
-              <div className="flex flex-col gap-8">
-                {selectedQuestions[currentQuestion].options.map((answer, i) => (
-                  <button
-                    key={i}
-                    className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl ${
-                      isAnswered
-                        ? i === correctAnswer
-                          ? "bg-[#628B48] text-white" // Respuesta correcta en verde
-                          : i === selectedAnswer
-                          ? "bg-[#D6544E] text-white" // Respuesta incorrecta seleccionada en rojo
-                          : "bg-[#D4E6E5]"
-                        : "bg-[#D4E6E5]"
-                    }`}
-                    onClick={() => selectAnswer(i)}
-                    disabled={isAnswered} // Deshabilitar los botones después de seleccionar
-                  >
-                    {answer}
-                  </button>
-                ))}
+              <div className="flex flex-col justify-center">
+                <img
+                  src={selectedQuestions[currentQuestion].image}
+                  alt="img"
+                  width={200}
+                />
+                <div className="flex flex-col gap-8">
+                  {selectedQuestions[currentQuestion].options.map(
+                    (answer, i) => (
+                      <button
+                        key={i}
+                        className={`btn_question oracle-regular text-[#34244D] flex font p-5 text-[20px] leading-[48px] items-center justify-center h-[100px] ${
+                          isAnswered
+                            ? i === correctAnswer
+                              ? "bg-[url('/field_correct.png')]" // Respuesta correcta en verde
+                              : i === selectedAnswer
+                              ? "bg-[#D6544E]" // Respuesta incorrecta seleccionada en rojo
+                              : "bg-[#D4E6E5]"
+                            : "bg-[url('/field.png')]"
+                        }`}
+                        onClick={() => selectAnswer(i)}
+                        disabled={isAnswered} // Deshabilitar los botones después de seleccionar
+                      >
+                        {answer}
+                      </button>
+                    )
+                  )}
+                </div>
               </div>
             )}
             {selectedQuestions[currentQuestion].type === "text" && (
@@ -157,14 +158,14 @@ export default function TriviaPage() {
                 {selectedQuestions[currentQuestion].options.map((answer, i) => (
                   <button
                     key={i}
-                    className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl ${
+                    className={` btn_question oracle-regular text-[#34244D] flex font p-5 text-[30px] leading-[48px] items-center justify-center h-[100px] ${
                       isAnswered
                         ? i === correctAnswer
-                          ? "bg-[#628B48] text-white" // Respuesta correcta en verde
+                          ? "bg-[url('/field_correct.png')]" // Respuesta correcta en verde
                           : i === selectedAnswer
-                          ? "bg-[#D6544E] text-white" // Respuesta incorrecta seleccionada en rojo
+                          ? "bg-[#D6544E]" // Respuesta incorrecta seleccionada en rojo
                           : "bg-[#D4E6E5]"
-                        : "bg-[#D4E6E5]"
+                        : "bg-[url('/field.png')]"
                     }`}
                     onClick={() => selectAnswer(i)}
                     disabled={isAnswered} // Deshabilitar los botones después de seleccionar

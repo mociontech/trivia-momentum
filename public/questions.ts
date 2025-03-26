@@ -46,40 +46,64 @@ export const questions: Question[] = [
     type: "text",
   },
   {
-    question: "¿En qué nube se puede tener Oracle AI Vector Search?",
-    options: ["OCI y GCP", "Azure y AWS", "OCI AWS Azure y GCP", "OCI y AWS"],
-    correct_answer: 3,
-    type: "text",
-  },
-  {
-    question: "¿Qué es una estrategia multicloud?",
-    options: [
-      "El uso de una única nube para todas las aplicaciones de una empresa",
-      "La integración de servicios locales y en la nube",
-      "La combinación de múltiples servicios en la nube de distintos proveedores para optimizar el rendimiento y la flexibilidad",
-      "El almacenamiento exclusivo en servidores físicos dentro de la empresa",
-    ],
+    question: "¿Cómo se llama el sistema de transporte masivo de Bogotá?",
+    options: ["SITP", "Recaudo Bogotá S.A.S.", "MIO", "TransMilenio​"],
     correct_answer: 3,
     type: "text",
   },
   {
     question:
-      "¿Cuál de los siguientes servicios permite Oracle para mejorar la experiencia multicloud?",
+      "¿En qué lugar de la ciudad se consigue todo a buen precio y su nombre está inspirado en una de las islas más visitadas de Colombia?",
+    options: ["Rosario Plaza", "San Victorino", "Only", "San Andresito"],
+    correct_answer: 3,
+    type: "text",
+  },
+  {
+    question: "Nombre dos platos típicos de Bogotá",
     options: [
-      "Oracle Interconnect for Azure",
-      "Oracle Cloud Constrictor",
-      "Oracle Virtual Gateway",
-      "Oracle Cloud Partner Lock",
+      "Tamal con chocolate",
+      "Ajiaco y changua",
+      "Bandeja paisa",
+      "Lechona y longaniza",
     ],
     correct_answer: 1,
     type: "text",
   },
   {
+    question: "¿Cuántas plazas de mercado tiene BOGOTÁ?",
+    options: ["28", "40", "35", "50"],
+    correct_answer: 1,
+    type: "text",
+  },
+  {
     question:
-      "¿Qué ventaja ofrece el enfoque multicloud de Oracle para las empresas?",
-    options: ["/image1.png", "/image2.png"],
+      "¿En qué localidad de Bogotá se encuentra el famoso “Mercado de las pulgas”?",
+    options: ["La Candelaria", "Usaquén", "Teusaquillo", "Chapinero"],
+    correct_answer: 1,
+    type: "text",
+  },
+  {
+    question: "¿Cuál es el barrio más turístico y colonial de Bogotá?​",
+    options: [
+      "La Candelaria",
+      "La Soledad - Park Way",
+      "Quinta Camacho",
+      "Belén",
+    ],
+    correct_answer: 0,
+    type: "text",
+  },
+  {
+    question: "¿Qué lugar reconoces?",
+    options: [
+      "Monserrate, Maloka, Plaza de Bolívar, Plaza de Toros ​",
+      "La Catedral Primada, La Candelaria, Torres del Parque, Monserrate",
+      "Plaza Cultural La Santamaría​, Cerro de Monserrate, Corferias y La Catedral Primada de Colombia",
+      "Corferias, Monserrate, Plaza de Bolívar, Maloka",
+    ],
     correct_answer: 0,
     type: "image",
+    image: "/img_question.png",
   },
 ];
 
@@ -88,4 +112,5 @@ interface Question {
   options: string[];
   correct_answer: number;
   type: string;
+  image?: string;
 }
