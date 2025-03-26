@@ -43,7 +43,7 @@ export default function LoginPage() {
           id="name"
           value={nameInput}
           placeholder="Tu nombre"
-          className={`oracle-regular font-normal text-[40px] h-[100px] pl-[1em]
+          className={`placeholder:text-center oracle-regular font-normal text-[40px] h-[100px]
               text-black border-[1.5px] border-[#EBDB14]`}
           autoComplete="off"
           onChange={(e) => {
@@ -54,8 +54,8 @@ export default function LoginPage() {
           type="text"
           id="cedula"
           value={cedulaInput}
-          placeholder="Tu numero de cedula"
-          className={`oracle-regular font-normal text-[40px] h-[100px] pl-[1em]
+          placeholder="TU CÉDULA"
+          className={`placeholder:text-center oracle-regular font-normal text-[40px] h-[100px]
               text-black border-[1.5px] border-[#EBDB14]`}
           autoComplete="off"
           onChange={(e) => {
@@ -67,29 +67,23 @@ export default function LoginPage() {
           type="number"
           id="telefono"
           value={telefonoInput}
-          className={`oracle-regular font-normal text-[40px] h-[100px] pl-[1em]
+          className={`placeholder:text-center oracle-regular font-normal text-[40px] h-[100px]
               text-black border-[1.5px] border-[#EBDB14]`}
-          placeholder="Tu celular"
+          placeholder="Tu numero celular"
           autoComplete="off"
           onChange={(e) => {
             setTelefonoInput(e.target.value);
           }}
         />
         <button
-          className={`oracle-regular relative z-50 flex justify-center items-center text-3xl px-10
-         h-[50px] text-center text-[50px] rounded-3xl mt-[40px]`}
+          className={`bg-[url('/btn_init.png')] oracle-regular relative z-50 flex justify-center items-center text-3xl px-10
+         h-[90px] bg-cover text-center text-[50px] mt-[40px]`}
           onClick={submitForm}
-        >
-          <img
-            src="/btn_init.png"
-            className="w-screen h-[2em]"
-            alt="comenzar"
-          />
-        </button>
+        ></button>
       </div>
 
       {registered && (
-        <p className="relative oracle-regular text-[#D6544E] z-50 text-[48px]">
+        <p className="relative oracle-regular text-[#EBDB14] z-50 text-[48px]">
           ¡Ya has participado!
         </p>
       )}
