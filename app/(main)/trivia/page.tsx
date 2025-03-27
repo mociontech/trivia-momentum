@@ -102,7 +102,16 @@ export default function TriviaPage() {
   }
 
   return (
-    <div className="trivia h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden text-black px-20">
+    <div
+      className={`h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden text-black px-20 ${
+        selectedQuestions &&
+        !isFinished &&
+        selectedQuestions[currentQuestion] &&
+        selectedQuestions[currentQuestion].type === "image"
+          ? "trivia2" // Clases cuando es imagen
+          : "trivia" // Clases por defecto
+      }`}
+    >
       {!isFinishedTimer ? (
         <div className="absolute top-[75px] oracle-regular right-[70px] bg-opacity-80 text-[#EBDB14] p-4 rounded-lg text-[48px] font-bold z-50">
           {formatTime(elapsedTime)}
@@ -127,7 +136,8 @@ export default function TriviaPage() {
                 <img
                   src={selectedQuestions[currentQuestion].image}
                   alt="img"
-                  width={200}
+                  width={400}
+                  className="mx-auto mb-5"
                 />
                 <div className="flex flex-col gap-8">
                   {selectedQuestions[currentQuestion].options.map(
@@ -140,7 +150,7 @@ export default function TriviaPage() {
                               ? "bg-[url('/field_correct.png')]" // Respuesta correcta en verde
                               : i === selectedAnswer
                               ? "bg-[#D6544E]" // Respuesta incorrecta seleccionada en rojo
-                              : "bg-[#D4E6E5]"
+                              : "bg-white"
                             : "bg-[url('/field.png')]"
                         }`}
                         onClick={() => selectAnswer(i)}
@@ -164,7 +174,7 @@ export default function TriviaPage() {
                           ? "bg-[url('/field_correct.png')]" // Respuesta correcta en verde
                           : i === selectedAnswer
                           ? "bg-[#D6544E]" // Respuesta incorrecta seleccionada en rojo
-                          : "bg-[#D4E6E5]"
+                          : "bg-white"
                         : "bg-[url('/field.png')]"
                     }`}
                     onClick={() => selectAnswer(i)}
