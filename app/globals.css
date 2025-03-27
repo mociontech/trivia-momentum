@@ -28,7 +28,30 @@ body {
   .gradient-bg {
     /* @apply bg-gradient-to-b from-[#000000] via-[#4D4D4D] to-[#FFFFFF]; */
     @apply bg-[#4D4D4D];
-  /* } */
+    /* } */
   }
 }
 
+@font-face {
+  font-family: "tlou";
+  src: url("/fonts/PressGothicPro.ttf") format("ttf"),
+    url("/fonts/PressGothicPro.woff") format("woff"),
+    url("/fonts/PressGothicPro.woff2") format("woff2");
+  font-weight: normal; /* o bold, dependiendo de la variante */
+  font-style: normal; /* o italic, si es cursiva */
+}
+.tlof {
+  font-family: "tlou", sans-serif;
+}
+
+.welcome {
+  background-image: url("/assets/inicio.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.login {
+  background-image: url("/assets/Registro.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}

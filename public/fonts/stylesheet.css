@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Press Gothic Pro';
+    src: url('PressGothicPro.eot');
+    src: local('Press Gothic Pro'), local('PressGothicPro'),
+        url('PressGothicPro.eot?#iefix') format('embedded-opentype'),
+        url('PressGothicPro.woff2') format('woff2'),
+        url('PressGothicPro.woff') format('woff'),
+        url('PressGothicPro.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

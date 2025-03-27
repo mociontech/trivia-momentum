@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
 import { register } from "@/utils/db";
 import Loader from "@/components/loader";
+import RegistroDinamico from "@/components/RegisterComp";
 
 const Vietnam = Be_Vietnam_Pro({
   subsets: ["latin"],
@@ -25,16 +26,49 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const { setMail, setLogged } = useUser();
 
-  async function submitForm() {
+  const dataList = {
+    nombre: {
+      type: "text",
+      value: "",
+      imageRef: "",
+      placeholder: "NOMBRE",
+    },
+    correo: {
+      type: "text",
+      value: "",
+      imageRef: "",
+      placeholder: "CORREO",
+    },
+    group1: {
+      cc: {
+        type: "number",
+        value: "",
+        imageRef: "",
+        placeholder: "CC",
+      },
+      celular: {
+        type: "number",
+        value: "",
+        imageRef: "",
+        placeholder: "CELULAR",
+      },
+    },
+  };
+
+  async function submitForm(form) {
     try {
-      // Checkea que ningun campo este vacio
-      if (!nameInput || !emailInput)
-        return alert("Por favor, completa todos los campos");
       setLoading(true);
 
       setMail(emailInput); // Guarda el correo
       setLogged(true);
-      const response = await register(nameInput, emailInput);
+      const response = await register(
+        form.nombre.value,
+        form.correo.value,
+        form.group1.cc.value,
+        form.group1.celular.value
+      );
+
+      console.log(response);
 
       if (response === "existing") {
         setRegistered(true);
@@ -49,71 +83,19 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="h-screen w-screen gradient-bg flex flex-col justify-center items-center">
-      <p className="bg-[#E1251B] w-screen flex justify-center py-5 border-y border-white">
-        <img
-          src="/assets/logo.png"
-          alt="Logo de wwtbam"
-          className="w-[220px] h-auto"
-        />
-      </p>
+    <div className="login h-screen w-screen gradient-bg flex flex-col justify-center items-center">
       {loading && <Loader />}
 
       <div className="flex flex-col justify-center gap-3">
-        <p className="mill-regular flex justify-center font-bold text-[38px] text-white">
-          Regístrate
+        <p className="mill-regular flex justify-center font-bold text-[70px] text-white">
+          REGISTRO
         </p>
-        <div className="relative flex">
-          <label htmlFor="name">
-            <img
-              src="/assets/name.svg"
-              alt="Icono de una persona"
-              className="absolute z-50 h-[25px] left-[25px] top-[22px]"
-            />
-          </label>
-          <input
-            type="text"
-            id="name"
-            value={nameInput}
-            placeholder="Escribe tu nombre"
-            className={`mill-regular bg-[#4D4D4D] border border-black text-[20px] pl-[60px] p-4 rounded-lg`}
-            autoComplete="off"
-            onChange={(e) => {
-              setNameInput(e.target.value);
-            }}
-          />
-        </div>
-        <div className="relative flex">
-          <label htmlFor="email">
-            <img
-              src="/assets/email.svg"
-              alt="Icono de una persona"
-              className="absolute z-50 h-[25px] left-[15px] top-[22px]"
-            />
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={emailInput}
-            placeholder="Escribe tu correo"
-            className={`mill-regular bg-[#4D4D4D] border border-black text-[20px] pl-[60px] p-4 rounded-lg`}
-            autoComplete="off"
-            onChange={(e) => {
-              setEmailInput(e.target.value);
-            }}
-          />
-        </div>
+        <RegistroDinamico fields={dataList} onSubmit={submitForm} />
         {registered && (
-          <p className="flex justify-center oracle-regular text-white z-50 text-[20px]">
+          <p className="flex justify-center oracle-regular text-white z-50 text-[42px]">
             ¡Ya has participado!
           </p>
         )}
-        <button
-          className="mill-regular font-bold flex items-center justify-center bg-[#E1251B] text-[35px] rounded-lg"
-          onClick={submitForm}
-        >
-          Jugar
-        </button>
       </div>
     </div>
   );

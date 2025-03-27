@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
   getFirestore,
@@ -7,37 +6,50 @@ import {
   setDoc,
   getDoc,
   updateDoc,
-  collection,
-  getDocs,
 } from "firebase/firestore";
+import {
+  getStorage,
+  ref,
+  uploadString,
+  getDownloadURL,
+  uploadBytes,
+} from "firebase/storage";
 
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDAg8fcs_rBQlB7xCxGm1Xq-1X9ISe-stY",
-  authDomain: "multirepos.firebaseapp.com",
-  projectId: "multirepos",
-  storageBucket: "multirepos.appspot.com",
-  messagingSenderId: "543787682717",
-  appId: "1:543787682717:web:68309224639c36ee787d74",
-  measurementId: "G-7D3MCCEZMR",
+  apiKey: "AIzaSyAd32fjHVssRxIzHijkeWd37MamHWzCajM",
+  authDomain: "f1-sap.firebaseapp.com",
+  projectId: "f1-sap",
+  storageBucket: "f1-sap.appspot.com",
+  messagingSenderId: "1043864334257",
+  appId: "1:1043864334257:web:bcc854d01f1c12fa415790",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export async function register(name, mail) {
+export async function register(name, mail, id, phone) {
   try {
-    const isExisting = await getDoc(doc(db, "DBMillonario", mail));
+    const isExisting = await getDoc(doc(db, "usersHBO", mail));
     if (isExisting.data()) {
       return "existing";
     } else {
-      await setDoc(doc(db, "DBMillonario", mail), {
+      const response = await setDoc(doc(db, "usersHBO", mail), {
         nombre: name,
         correo: mail,
+        cedula: id,
+        celular: phone,
         puntaje: 0,
         tiempo: 0,
         fecha: Timestamp.now(),
       });
+      console.log(response);
     }
   } catch (error) {
     console.log(error);
@@ -45,14 +57,14 @@ export async function register(name, mail) {
 }
 
 export async function registerRecord(mail, time, score) {
-  await updateDoc(doc(db, "DBMillonario", mail), {
+  await updateDoc(doc(db, "userHBO", mail), {
     puntaje: score,
     tiempo: time,
   });
 }
 
 export async function getRecords() {
-  const collectionRef = collection(db, "DBMillonario"); // Cambia el nombre de la colección
+  const collectionRef = collection(db, "usersHBO"); // Cambia el nombre de la colección
   const snapshot = await getDocs(collectionRef);
   const documentos = snapshot.docs.map((doc) => ({
     id: doc.id, // Si deseas obtener el ID del documento

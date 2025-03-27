@@ -7,14 +7,14 @@ export const metadata = {
 };
 
 const mont = Montserrat({
-  weight: ['400', '700'], // Puedes especificar pesos
-  subsets: ['latin'],     // Asegúrate de incluir los subsets necesarios
+  weight: ["400", "700"], // Puedes especificar pesos
+  subsets: ["latin"], // Asegúrate de incluir los subsets necesarios
 });
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${mont.className}`}>{children}</body>
+      <body className={`${mont.className} tlof`}>{children}</body>
     </html>
   );
 }

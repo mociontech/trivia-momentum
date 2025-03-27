@@ -6,12 +6,6 @@ import { useEffect, useState } from "react";
 import { registerRecord } from "@/utils/db";
 import { useUser } from "@/hooks/useUser";
 import { formatTime } from "@/utils/utils";
-const options = {
-  0: "A: ",
-  1: "B: ",
-  2: "C: ",
-  3: "D: ",
-};
 
 export default function TriviaPage() {
   const router = useRouter();
@@ -38,7 +32,7 @@ export default function TriviaPage() {
       return shuffled.slice(0, count);
     }
 
-    const selectedQuestions = getRandomQuestions(questions.questions, 4);
+    const selectedQuestions = getRandomQuestions(questions.questions, 7);
     setSelectedQuestions(selectedQuestions);
     const start = Date.now();
     setStartTime(start);
@@ -62,7 +56,7 @@ export default function TriviaPage() {
       setScore((prevScore) => prevScore + 1);
     }
 
-    if (currentQuestion > 2) {
+    if (currentQuestion > 5) {
       setIsFinishedTimer(true);
       const endTime = Date.now();
       const timeTaken = Math.floor(endTime - startTime); // Tiempo en milisegundos
@@ -77,16 +71,16 @@ export default function TriviaPage() {
       console.log(finalScore);
 
       // subir a base de datos
-      registerRecord(mail, timeTaken, finalScore * 20);
+      // registerRecord(mail, timeTaken, finalScore * 20);
     }
 
     setTimeout(() => {
-      if (currentQuestion > 2) {
+      if (currentQuestion > 5) {
         // mostrar puntaje
         setIsFinished(true);
 
         setTimeout(() => {
-          router.push("/ranking");
+          router.push("/");
         }, 3000);
         return;
       } else {
@@ -102,8 +96,8 @@ export default function TriviaPage() {
   }
 
   return (
-    <div className="gradient-bg h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden text-black px-20">
-      <div className="relative flex justify-center px-4 rounded-md items-center mill-regular top-[15px] z-50 text-[20px] bg-gradient-to-r from-[#c37900] via-[#fbe86a] to-[#c37900] text-[#33200f] font-bold">
+    <div className="login h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden text-black px-20">
+      <div className="absolute flex justify-center px-4 rounded-md items-center mill-regular top-[15px] right-[15px] z-50 text-[40px] text-white font-bold">
         {!isFinishedTimer ? (
           <div>{formatTime(elapsedTime)}</div>
         ) : (
@@ -113,26 +107,23 @@ export default function TriviaPage() {
 
       {selectedQuestions && !isFinished && (
         <div className="flex flex-col">
-          <p className="relative w-screen p-[20px] pt-[35px] bg-[#E1251B] z-40 mill-regular text-[25px] text-center border-y border-white text-white">
+          <p className="relative w-screen p-[20px] pt-[35px] z-40 mill-regular text-[60px] text-center text-white">
             {selectedQuestions[currentQuestion].question}
           </p>
           <div className="flex flex-col p-[20px] gap-3">
             {selectedQuestions[currentQuestion].options.map((answer, i) => (
               <button
                 key={i}
-                className={`mill-regular flex gap-2 text-[25px] items-start justify-start text-start border border-white text-white p-2 rounded-lg ${
+                className={`mill-regular flex gap-2 text-[25px] items-start justify-center text-center border bg-white text-[#231F20] p-2 rounded-lg ${
                   isAnswered
-                    ? i + 1 === correctAnswer
-                      ? "bg-gradient-to-b from-[#93e91f] via-[#2c9405] to-[#93e91f]" // Respuesta correcta en verde
-                      : i === selectedAnswer
-                      ? "bg-gradient-to-b from-[#e91f1f] via-[#940505] to-[#e91f1f]" // Respuesta incorrecta seleccionada en rojo
-                      : "bg-[#E1251B]"
-                    : "bg-[#E1251B]"
+                    ? i === selectedAnswer
+                      ? "bg-white/70" // Respuesta correcta en verde
+                      : "bg-white"
+                    : "bg-white"
                 }`}
                 onClick={() => selectAnswer(i)}
                 disabled={isAnswered} // Deshabilitar los botones después de seleccionar
               >
-                <p className="text-[#f1b341]">{options[i]}</p>
                 {answer}
               </button>
             ))}
@@ -140,14 +131,22 @@ export default function TriviaPage() {
         </div>
       )}
       {isFinished && (
-        <div className="w-screen h-screen flex flex-col justify-center items-center text-white bg-gradient-to-b from-[#e91f1f] to-[#4D4D4D] px-3">
-          <p className="mill-regular text-[40px] text-center">¡Felicidades!</p>
+        <div className="login w-screen h-screen flex flex-col justify-center items-center text-white bg-gradient-to-b from-[#e91f1f] to-[#4D4D4D] px-3">
+          {score > 5 ? (
+            <p className="mill-regular text-[40px] text-center">
+              ¡FELICIDADES!
+            </p>
+          ) : (
+            <p className="mill-regular text-[40px] text-center">
+              ¡CASI LO LOGRAS!
+            </p>
+          )}
           <p className="mill-regular text-[35px] text-center">
             Contestaste correctamente:
           </p>
-          <div className="mill-regular flex flex-col w-full rounded-3xl text-[#33200f] py-4 bg-gradient-to-r from-[#c37900] via-[#fbe86a] to-[#c37900] text-center justify-center text-[40px] font-bold mt-6">
-            {score}/4
-            <p className="text-[20px] font-normal">En {totalTime} segundos</p>
+          <div className="mill-regular flex flex-col w-full bg-[#231F20] text-white rounded-3xl py-4 text-center justify-center text-[62px] font-bold mt-6">
+            {score}/{selectedQuestions.length}
+            <p className="text-[30px] font-normal">En {totalTime} segundos</p>
           </div>
           <p className="mill-regular mt-6 text-[35px] text-white text-center">
             ¡Gracias por participar!
