@@ -26,15 +26,21 @@ export default function LoginPage() {
         !cedulaInput ||
         !telefonoInput ||
         !ciudaPaisInput ||
-        !generoInput
-        
+        !generoInput ||
+        !terminosInput
       )
         return alert("Por favor, completa todos los campos");
       setLoading(true);
 
       setCedula(cedulaInput); // Guarda la cedula
       setLogged(true);
-      register(nameInput, cedulaInput, telefonoInput, ciudaPaisInput, generoInput);
+      register(
+        nameInput,
+        cedulaInput,
+        telefonoInput,
+        ciudaPaisInput,
+        generoInput
+      );
 
       router.push("/trivia");
     } catch (error) {
@@ -57,7 +63,7 @@ export default function LoginPage() {
               text-[#34244D] border-[1.5px] border-[#EBDB14]`}
           autoComplete="off"
           onChange={(e) => {
-            setNameInput(e.target.value);
+            setNameInput(e.target.value.toUpperCase());
           }}
         />
         <input
@@ -69,7 +75,7 @@ export default function LoginPage() {
               text-[#34244D] border-[1.5px] border-[#EBDB14]`}
           autoComplete="off"
           onChange={(e) => {
-            setCiudadPaisInput(e.target.value);
+            setCiudadPaisInput(e.target.value.toUpperCase());
           }}
         />
         <input
@@ -81,11 +87,11 @@ export default function LoginPage() {
               text-[#34244D] border-[1.5px] border-[#EBDB14]`}
           autoComplete="off"
           onChange={(e) => {
-            setGeneroInput(e.target.value);
+            setGeneroInput(e.target.value.toUpperCase());
           }}
         />
         <input
-          type="text"
+          type="number"
           id="cedula"
           value={cedulaInput}
           placeholder="TU CÉDULA"
@@ -93,7 +99,7 @@ export default function LoginPage() {
               text-[#34244D] border-[1.5px] border-[#EBDB14]`}
           autoComplete="off"
           onChange={(e) => {
-            setCedulaInput(e.target.value);
+            setCedulaInput(e.target.value.toUpperCase());
           }}
         />
 
@@ -106,17 +112,17 @@ export default function LoginPage() {
           placeholder="Tu numero celular"
           autoComplete="off"
           onChange={(e) => {
-            setTelefonoInput(e.target.value);
+            setTelefonoInput(e.target.value.toUpperCase());
           }}
         />
         <div className="flex justify-center oracle-regular text-[#EBDB14]">
           <input
-            value={terminosInput}
+            value="ok"
             onChange={(e) => setTerminosInput(e.target.value)}
-            className="w-[2em] "
+            className="w-[2em] accent-yellow-500"
             type="checkbox"
           />
-          <a href="" className="ml-5">
+          <a href="" className="ml-5 text-white">
             Politica de tratamiento de datos
           </a>
         </div>

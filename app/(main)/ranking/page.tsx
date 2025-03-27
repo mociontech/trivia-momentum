@@ -69,7 +69,7 @@ export default function LoginPage() {
               {top5.map((record, i) => (
                 <div
                   key={i}
-                  className={`flex sm:gap-5 justify-between text-[#EBDB14] items-center sm:min-w-[820px] text-base sm:text-[45px] rounded-xl sm:p-5 sm:rounded-3xl px-3 ${
+                  className={`flex sm:gap-5 justify-between text-white items-center sm:min-w-[820px] text-base sm:text-[45px] rounded-xl sm:p-5 sm:rounded-3xl px-3 ${
                     i === 0
                       ? ""
                       : i === 1
@@ -104,7 +104,7 @@ export default function LoginPage() {
                 Todos los participantes
               </p>
             </div>
-            <div className="overflow-y-auto sm:max-h-[500px] max-h-[300px]">
+            <div className="text-white overflow-y-auto sm:max-h-[500px] max-h-[300px]">
               {records.map((record, i) => (
                 <div
                   key={i}
