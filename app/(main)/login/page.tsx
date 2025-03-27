@@ -52,7 +52,7 @@ export default function LoginPage() {
     <div className="login h-screen w-screen flex flex-col justify-center items-center relative">
       {loading && <Loader />}
 
-      <div className="flex flex-col w-[600px] gap-8 ">
+      <div className="flex flex-col w-[500px] gap-8 ">
         <img className="mb-5" src="/label_login.png" alt="registrate" />
         <input
           type="text"
