@@ -128,7 +128,7 @@ export default function LoginPage() {
         )}
         {logged && (
           <button
-            className="oracle-regular text-[48px] absolute bottom-[100px] z-50 text-[#34244D] py-2 px-8 bg-[#EBDB14]"
+            className="oracle-regular text-[48px] absolute bottom-[100px] z-50 text-[#34244D] py-2 px-8 bg-[url('/field_empty.png')]"
             onClick={nextPage}
           >
             Regresar

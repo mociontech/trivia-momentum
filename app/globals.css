@@ -42,7 +42,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
-.login, .ranking {
+.login {
   background-image: url("/fondo.png");
   background-size: cover;
   background-repeat: no-repeat;
@@ -52,7 +52,8 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
-.trivia2 {
+.trivia2,
+.ranking {
   background-image: url("/fondo2.png");
   background-size: cover;
   background-repeat: no-repeat;
