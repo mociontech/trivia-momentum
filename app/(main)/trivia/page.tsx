@@ -199,7 +199,7 @@ export default function TriviaPage() {
             <div className="oracle-regular flex flex-col w-full rounded-3xl text-[#FCFCFC] py-4 text-center justify-center text-[80px]">
               {score}/5<p className="text-[40px]">En {totalTime} segundos</p>
             </div>
-            <p className="oracle-light mt-6 text-[45px]">
+            <p className="oracle-regular text-[#EBDB14] mt-6 text-[45px]">
               ¡Gracias por participar!
             </p>
           </div>
