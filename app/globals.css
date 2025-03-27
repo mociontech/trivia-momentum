@@ -42,7 +42,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
-.login {
+.login, .ranking {
   background-image: url("/fondo.png");
   background-size: cover;
   background-repeat: no-repeat;

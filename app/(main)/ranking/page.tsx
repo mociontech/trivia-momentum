@@ -23,7 +23,7 @@ export default function LoginPage() {
   useEffect(() => {
     async function getAllRecords() {
       const records: Record[] = await getRecords();
-      console.log('DATA: ', records)
+      console.log("DATA: ", records);
       const filteredData = records.filter(
         (item) => item.puntaje && item.tiempo
       );
@@ -49,25 +49,17 @@ export default function LoginPage() {
 
   return (
     <div
-      className={`h-screen w-screen flex flex-col justify-center items-center`}
+      className={`ranking h-screen w-screen flex flex-col justify-center items-center overflow-hidden`}
     >
-      <video
-        className="absolute h-screen w-screen top-0 left-0 -z-10 object-cover"
-        autoPlay
-        loop
-        muted
-      >
-        <source src="/assets/Pantallas.mp4" />
-      </video>
       {!records && <Loader />}
-      <div className="flex flex-col justify-center items-center sm:min-w-[820px] sm:pb-[200px] ">
+      <div className="flex flex-col justify-center items-center sm:min-w-[520px] sm:pb-[200px] ">
         {top5 && (
           <div className="flex flex-col sm:mt-[100px] mt-10 z-50 gap-1 text-3xl sm:min-w-[820px] text-black w-[80%] ">
-            <p className="oracle-regular sm:text-[60px] font-bold text-sm flex justify-center sm:mb-[80px] mb-[10px]">
+            <p className=" text-[#EBDB14] oracle-regular sm:text-[60px] font-bold text-sm flex justify-center sm:mb-[80px] mb-[10px]">
               Mejores Resultados
             </p>
             <div className="oracle-regular flex justify-end sm:text-[48px] text-base">
-              <div className="flex sm:gap-10 gap-3 sm:mb-5 sm:mr-5 mr-2">
+              <div className="text-[#EBDB14] flex sm:gap-10 gap-3 sm:mb-5 sm:mr-5 mr-2">
                 <p>Puntaje</p>
                 <p>Tiempo</p>
               </div>
@@ -77,18 +69,18 @@ export default function LoginPage() {
               {top5.map((record, i) => (
                 <div
                   key={i}
-                  className={`flex sm:gap-5 justify-between items-center sm:min-w-[820px] text-base sm:text-[45px] rounded-xl sm:p-5 sm:rounded-3xl px-3 ${
+                  className={`flex sm:gap-5 justify-between text-[#EBDB14] items-center sm:min-w-[820px] text-base sm:text-[45px] rounded-xl sm:p-5 sm:rounded-3xl px-3 ${
                     i === 0
-                      ? "bg-yellow-400"
+                      ? ""
                       : i === 1
-                      ? "bg-slate-400"
+                      ? ""
                       : i === 2
-                      ? "bg-orange-500"
+                      ? ""
                       : "bg-transparent"
                   }`}
                 >
                   <div className="flex sm:gap-5 gap-2 items-center ">
-                    <p className="mb-[5px]">{i + 1}</p>
+                    <p className="mb-[5px] oracle-regular">{i + 1}</p>
                     <p className="oracle-regular line-clamp-1 leading-[1.2] mr-2">
                       {record.nombre}
                     </p>
@@ -97,7 +89,7 @@ export default function LoginPage() {
                     <p className="oracle-regular sm:mr-[10px]">
                       {record.puntaje}
                     </p>
-                    <p>{formatTime(record.tiempo)}</p>
+                    <p className="oracle-regular">{formatTime(record.tiempo)}</p>
                   </div>
                 </div>
               ))}
@@ -106,7 +98,7 @@ export default function LoginPage() {
         )}
 
         {records && (
-          <div className="flex flex-col z-50 text-3xl sm:min-w-[820px] text-black w-[80%] pt-3 sm:mt-20 mt-[10px]">
+          <div className="text-[#EBDB14] flex flex-col z-50 text-[10px] sm:min-w-[820px] w-[80%] pt-3 sm:mt-20 mt-[10px]">
             <div className="flex justify-center">
               <p className="oracle-regular sm:text-[60px] font-bold text-sm flex justify-center sm:mb-[80px] mb-[20px]">
                 Todos los participantes
@@ -127,7 +119,7 @@ export default function LoginPage() {
                     <p className="oracle-regular sm:mr-[10px]">
                       {record.puntaje}
                     </p>
-                    <p>{formatTime(record.tiempo)}</p>
+                    <p className="oracle-regular">{formatTime(record.tiempo)}</p>
                   </div>
                 </div>
               ))}
@@ -136,18 +128,13 @@ export default function LoginPage() {
         )}
         {logged && (
           <button
-            className="oracle-regular text-[48px] rounded-3xl absolute bottom-[170px] z-50 text-white py-2 px-8 bg-[#D6544E]"
+            className="oracle-regular text-[48px] absolute bottom-[100px] z-50 text-[#34244D] py-2 px-8 bg-[#EBDB14]"
             onClick={nextPage}
           >
             Regresar
           </button>
         )}
       </div>
-      <img
-        src="/assets/logo-oracle.svg"
-        alt="Logo de oracle"
-        className="absolute top-[10px] h-[20px] sm:h-[48px] sm:top-[100px] sm:left-[120px]"
-      />
     </div>
   );
 }

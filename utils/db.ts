@@ -26,7 +26,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export async function register(name: string, cedula: string, telefono: string) {
+export async function register(
+  name: string,
+  cedula: string,
+  telefono: string,
+  ciudadPais: string,
+  genero: string
+) {
   try {
     const isExisting = await getDoc(doc(db, "DBTriviasStereoPicnic", cedula));
     if (isExisting.data()) {
@@ -36,6 +42,8 @@ export async function register(name: string, cedula: string, telefono: string) {
         nombre: name,
         cedula,
         telefono,
+        ciudadPais,
+        genero,
         puntaje: 0,
         tiempo: 0,
         fecha: Timestamp.now(),
