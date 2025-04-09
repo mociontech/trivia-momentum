@@ -1,0 +1,7 @@
+{
+  "name": "Mi Aplicación",
+  "short_name": "MiApp",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
