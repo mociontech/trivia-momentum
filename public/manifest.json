@@ -1,7 +1,7 @@
 {
   "name": "Mi Aplicación",
-  "short_name": "MiApp",
+  "short_name": "Stereo Picnic",
   "start_url": "/",
-  "display": "standalone",
+  "display": "fullscreen",
   "orientation": "portrait"
 }

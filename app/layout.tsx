@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <link rel="manifest" href="/manifest.json" />
-      <meta name="mobile-web-app-capable" content="yes" />
+      {/* <meta name="mobile-web-app-capable" content="yes" /> */}
       <body>{children}</body>
     </html>
   );
