@@ -7,7 +7,7 @@ export default function Home() {
   const router = useRouter();
 
   function nextPage() {
-    router.push("/login");
+    router.push("/trivia");
   }
 
   return (

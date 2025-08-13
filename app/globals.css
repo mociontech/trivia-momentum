@@ -129,7 +129,7 @@ body {
 }
 
 .welcome {
-  background-image: url("/Bienvenida y CTA.png");
+  background-image: url("/img/welcomedc.jpg");
 }
 
 .ranking {
@@ -137,9 +137,14 @@ body {
 }
 
 .trivia {
-  background-image: url("/Preguntas.png");
+  background-image: url("/img/triviadc.jpg");
 }
 
 .score {
   background-image: url("/Score.png");
+}
+
+
+.bye {
+  background-image: url("/img/fin.jpg");
 }

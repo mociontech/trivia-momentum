@@ -3,13 +3,16 @@ import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
 import { saveUserData } from "@/utils/db";
 import { useEffect } from "react";
+import { useGlobal } from "@/context/global";
 
-export default function ByePage() {
+export default function ByePage( { children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const { score, data, code } = useUser();
-
+  const { data, code } = useUser();
+  const { score, setScore, time, setTime } = useGlobal();
   function nextPage() {
+    setScore(0);
     router.push("/");
+
   }
 
   useEffect(() => {
@@ -22,22 +25,24 @@ export default function ByePage() {
 
   return (
     <div
-      className="score relative h-screen w-screen flex justify-center items-center"
+      className="bye relative h-screen w-screen flex justify-center items-center"
       onClick={nextPage}
     >
-      <div className="telegraf-bold flex items-center text-[#DEF44B] text-[80px] gap-3 mb-10 mt-[600px]">
+      <div className="telegraf-bold flex items-center text-gray-200 text-[80px] gap-3 mb-10 mt-[400px]">
         <input
           type="text"
           id="id1"
           name="id1"
           autoComplete="off"
-          value={score}
+          value={`${score}/7`}
           disabled
-          className="w-[230px] bg-white/30 border-[3px] rounded-[16px] text-center pt-3"
+          className="w-[230px] bg-transparent rounded-[16px] text-center pt-3"
           onChange={() => {}}
           maxLength={3}
         />
       </div>
+
+ 
     </div>
   );
 }
