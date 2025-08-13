@@ -18,11 +18,7 @@ export const questions: Question[] = [
        "Clayface",],
     correct_answer: 0,
   },
-  {
-    question: "¿Cuál es el máximo de meses que te damos para PAGAR tu auto?",
-    options: ["36 meses", "18 meses", "Hasta 60 meses","Clayface"],
-    correct_answer: 2,
-  },
+
   {
     question: "¿Cuál de estos villanos es un androide creado para destruir a la Liga de la Justicia?",
     options: [
