@@ -5,7 +5,7 @@ import { saveUserData } from "@/utils/db";
 import { useEffect } from "react";
 import { useGlobal } from "@/context/global";
 
-export default function ByePage( { children }: { children: React.ReactNode }) {
+export default function ByePage( ) {
   const router = useRouter();
   const { data, code } = useUser();
   const { score, setScore, time, setTime } = useGlobal();
