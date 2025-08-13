@@ -77,14 +77,11 @@ export default function TriviaPage() {
         const finalScore = isCorrect ? score + 1 : score;
         const timeTaken = Date.now() - (startTime || 0);
         setTime(timeTaken);
-
-
         user.setScore(finalScore * 20);
         await saveScore(user.code, finalScore * 20, timeTaken);
         user.setData(answeredQuestions);
         router.push("/bye");
-    
-       // setTimeout(() => router.push("/bye"), 5000);
+  
       } else {
 
         setTimeout(() => {
@@ -115,7 +112,7 @@ export default function TriviaPage() {
         return (
           <button
             key={i}
-            className={`telegraf-regular flex p-10 text-[60px]  items-center justify-center h-[200px]   ${
+            className={`font-supermolot flex p-10 text-[60px]  items-center justify-center h-[200px]   ${
               isAnswered
                 ? isCorrect
                   ? "bg-[url('/img/buttoncorrect.png')] bg-cover bg-center  text-white" // Respuesta correcta
@@ -141,39 +138,22 @@ export default function TriviaPage() {
     ]
   );
 
-  // Renderizar la pantalla de resultados
-  const renderResults = useCallback(() => {
-    const isWinner = score >= 4;
-    const resultText = isWinner ;
 
-    return (
-      <div className="flex flex-col justify-center items-center ">
-        <p className="telegraf-bold text-[100px] text-center text-white leading-[90px] mb-[40px]">
-          {resultText}
-        </p>
-
-        <div className="telegraf-bold flex flex-col w-full rounded-3xl text-black py-4 bg-[#DEF44B] text-center justify-center text-[80px]">
-          {score}/7
-          <p className="text-[40px]">En {formattedTime} segundos</p>
-        </div>
-
-      </div>
-    );
-  }, [score, formattedTime]);
 
   return (
     <div className="trivia h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden px-20 ">
       {/* Temporizador */}
       {!isFinished && (
-        <div className="telegraf-regular absolute top-[75px] right-[70px] bg-opacity-80 text-white p-4 rounded-lg text-[48px] font-bold z-50">
-          {formattedTime}
-        </div>
+            <div className="font-supermolot  absolute top-4 left-1/2 transform -translate-x-1/2 bg-opacity-80 text-white p-4 rounded-lg text-[48px] font-bold z-50">
+              {formattedTime}
+            </div>
+
       )}
 
       {/* Preguntas y respuestas */}
       {!isFinished && selectedQuestions[currentQuestion] && (
         <div className="flex flex-col w-[824px] mt-[300px]">
-          <p className="relative z-50 oracle-regular text-white text-[62px] leading-[68px] text-center mb-[81px]">
+          <p className="relative z-50 font-supermolot text-white text-[62px] leading-[68px] text-center mb-[81px]">
             {selectedQuestions[currentQuestion].question}
           </p>
           <div className="flex flex-col gap-8 mt">
@@ -182,7 +162,7 @@ export default function TriviaPage() {
         </div>
       )}
 
-      {/* Resultados finales */}
+
       
     </div>
   );

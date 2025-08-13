@@ -28,7 +28,7 @@ export default function ByePage( { children }: { children: React.ReactNode }) {
       className="bye relative h-screen w-screen flex justify-center items-center"
       onClick={nextPage}
     >
-      <div className="telegraf-bold flex items-center text-gray-200 text-[80px] gap-3 mb-10 mt-[400px]">
+      <div className="font-supermolot font-bold  flex items-center text-gray-200 text-[99px] gap-3 mb-10 mt-[400px]">
         <input
           type="text"
           id="id1"

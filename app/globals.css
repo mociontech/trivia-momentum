@@ -101,6 +101,23 @@ body {
   font-family: "telegraf-regular", sans-serif;
 }
 
+@font-face {
+  font-family: 'TTSupermolot';
+  src: url('/fonts/TTSupermolot-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TTSupermolot';
+  src: url('/fonts/TTSupermolot-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+
+
+
 .cta-register-score {
   margin: 0; /* Elimina el margen por defecto del body */
   padding: 0; /* Elimina el padding por defecto del body */
