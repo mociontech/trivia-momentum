@@ -35,8 +35,9 @@ export default function TriviaPage() {
 
 
   useEffect(() => {
-    const selected = getRandomQuestions(questions, 7);
+    const selected = getRandomQuestions(questions, 10);
     setSelectedQuestions(selected);
+    console.log(selected);
     setStartTime(Date.now());
   }, []);
 
@@ -72,13 +73,13 @@ export default function TriviaPage() {
       if (isCorrect) setScore((prev) => prev + 1);
 
 
-      if (currentQuestion >= 6) {
+      if (currentQuestion >= 9) {
         setIsFinished(true);
         const finalScore = isCorrect ? score + 1 : score;
         const timeTaken = Date.now() - (startTime || 0);
         setTime(timeTaken);
-        user.setScore(finalScore * 20);
-        await saveScore(user.code, finalScore * 20, timeTaken);
+        user.setScore(finalScore);
+        //await saveScore(user.code, finalScore * 20, timeTaken);
         user.setData(answeredQuestions);
         router.push("/bye");
   
@@ -102,7 +103,7 @@ export default function TriviaPage() {
     ]
   );
 
- /// bg-[url('/img/button.png')] bg-cover bg-center  text-white
+
   const renderOptions = useCallback(
     (options: string[]) => {
       return options.map((answer, i) => {
@@ -112,14 +113,14 @@ export default function TriviaPage() {
         return (
           <button
             key={i}
-            className={`font-supermolot flex p-10 text-[60px]  items-center justify-center h-[200px]   ${
+            className={`font-supermolot flex p-10 rounded-2xl text-[30px] bo  items-center justify-center h-[100px]   ${
               isAnswered
                 ? isCorrect
-                  ? "bg-[url('/img/buttoncorrect.png')] bg-cover bg-center  text-white" // Respuesta correcta
+                  ? "bg-green-500 bg-cover bg-center  text-white" // Respuesta correcta
                   : isSelected
-                  ? "bg-[url('/img/buttonincorrect.png')] bg-cover bg-center  text-white" // incorreta
-                  : "bg-[url('/img/button.png')] bg-cover bg-center  text-white"
-                : "bg-[url('/img/button.png')] bg-cover bg-center  text-white"  //seleccion
+                  ? "bg-red-500 bg-cover bg-center  text-white" // incorreta
+                  : "bg-gray-400 bg-cover bg-center  text-white"
+                : "bg-gray-400 bg-cover bg-center  text-white"  //seleccion
             }`}
             onClick={() => selectAnswer(i)}
             disabled={isAnswered}
@@ -138,21 +139,17 @@ export default function TriviaPage() {
     ]
   );
 
-
-
   return (
-    <div className="trivia h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden px-20 ">
-      {/* Temporizador */}
-      {!isFinished && (
-            <div className="font-supermolot  absolute top-4 left-1/2 transform -translate-x-1/2 bg-opacity-80 text-white p-4 rounded-lg text-[48px] font-bold z-50">
-              {formattedTime}
-            </div>
+    <div className="bg-blue-800 h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden px-20 ">
 
-      )}
 
       {/* Preguntas y respuestas */}
       {!isFinished && selectedQuestions[currentQuestion] && (
+        
         <div className="flex flex-col w-[824px] mt-[300px]">
+          <div className="font-supermolot  absolute top-4 left-1/2 transform -translate-x-1/2 bg-opacity-80 text-white p-4 rounded-lg text-[48px] font-bold z-50">
+              {formattedTime}
+            </div>
           <p className="relative z-50 font-supermolot text-white text-[62px] leading-[68px] text-center mb-[81px]">
             {selectedQuestions[currentQuestion].question}
           </p>

@@ -1,161 +1,186 @@
 "use client";
 
-import { useEffect, useState, useRef, useCallback } from "react";
-import axios from "axios";
-import Loader from "@/components/loader";
-import { configVariables } from "@/configVariables";
+
+import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useUser } from "@/hooks/useUser";
+// ✅ Vista lista para pegar en: app/registro/page.tsx (Next.js + TS)
+// Registra múltiples personas en localStorage (array) y evita duplicados por cédula.
 
-// Componente Toast reutilizable
-const Toast = ({ message, show }) => (
-  <div
-    className={`telegraf-regular text-center fixed top-10 left-1/2 transform text-[2em] -translate-x-1/2 bg-[#F5F5F5] text-black px-6 py-3 rounded-lg shadow-lg transition-opacity duration-500 ${
-      show ? "opacity-100" : "opacity-0"
-    }`}
-  >
-    {message}
-  </div>
-);
+type RegistroData = {
+  nombre: string;
+  cedula: string; // solo dígitos
+  createdAt: string; // ISO
+};
 
-export default function RegisterExperiencePage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [currentScreen, setCurrentScreen] = useState(1);
-  const { push } = useRouter();
-  const { setCode, setLogged } = useUser();
+const STORAGE_KEY = "registrosParticipantes"; // ahora es un ARRAY en localStorage
 
-  const [formData, setFormData] = useState({ id1: "", id2: "", score: "" });
-  const [eventParams, setEventParams] = useState(null);
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
 
-  const id1Ref = useRef(null);
-  const id2Ref = useRef(null);
 
-  const isReadyId = formData.id1 !== "" && formData.id2 !== "";
+function cargarRegistros(): RegistroData[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
 
-  const handleChange = useCallback((e) => {
-    const { name, value } = e.target;
-    if (value.length > 3) return;
+function guardarRegistros(registros: RegistroData[]) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(registros));
+}
 
-    setFormData((prevData) => {
-      const updatedData = { ...prevData, [name]: value.toUpperCase() };
-
-      if (name === "id1" && value.length === 3) {
-        id2Ref.current?.focus();
-      }
-
-      return updatedData;
-    });
+export default function RegistroPage() {
+  const [nombre, setNombre] = useState("");
+  const [cedula, setCedula] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [registros, setRegistros] = useState<RegistroData[]>([]);
+  const router = useRouter();
+  useEffect(() => {
+    setRegistros(cargarRegistros());
   }, []);
 
-  useEffect(() => {
-    const getEventParams = async () => {
-      try {
-        const response = await axios.get(
-          `${configVariables.baseUrl}/api/events/check/${configVariables.databaseId}`
-        );
-        setEventParams(response.data);
-      } catch (error) {
-        console.error("Error fetching event params:", error);
-      }
+  const total = registros.length;
+
+      function nextPage() {
+      router.push("/trivia");
+    }
+
+  const validar = (): string | null => {
+    if (!nombre.trim()) return "El nombre es obligatorio.";
+    if (!cedula.trim()) return "La cédula es obligatoria.";
+    const soloDigitos = /^\d{5,15}$/;
+    if (!soloDigitos.test(cedula.trim()))
+      return "La cédula debe contener solo números (5 a 15 dígitos).";
+    return null;
+  };
+
+  const existeCedula = useMemo(
+    () => (ced: string) => registros.some((r) => r.cedula === ced.trim()),
+    [registros]
+  );
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setSuccess(null);
+
+    const err = validar();
+    if (err) {
+      setError(err);
+      return;
+    }
+
+    const ced = cedula.trim();
+    if (existeCedula(ced)) {
+      setError("Usuario ya participó (cédula duplicada).");
+      return;
+    }
+
+    const nuevo: RegistroData = {
+      nombre: nombre.trim(),
+      cedula: ced,
+      createdAt: new Date().toISOString(),
     };
 
-    getEventParams();
-  }, []);
-
-  const resetForm = useCallback(() => {
-    setFormData({ id1: "", id2: "", score: "" });
-  }, []);
-
-  const checkUserParticipation = useCallback(async () => {
+    const updated = [...registros, nuevo];
+    setRegistros(updated);
     try {
-      setIsLoading(true);
+      guardarRegistros(updated);
+      setSuccess("¡Registro completado!");
+      setNombre("");
+      setCedula("");
+      nextPage();
 
-      const checkUser = await axios.post(
-        `${configVariables.baseUrl}/api/users/check/${configVariables.databaseId}`,
-        {
-          userId: formData.id1 + formData.id2,
-          experienceName: "trivia",
-        }
-      );
-
-      if (checkUser.data.notRegistered) {
-        setToastMessage("Por favor regístrate en el evento");
-        setShowToast(true);
-        return;
-      }
-
-      if (checkUser.data.alreadyRegistered) {
-        setToastMessage(
-          "Parece que ya participaste en esta experiencia. ¡Gracias!"
-        );
-        setShowToast(true);
-      } else {
-        setLogged(true);
-        setCode(formData.id1 + formData.id2);
-        push("/trivia");
-      }
-    } catch (error) {
-      setToastMessage("Ups, algo salió mal");
-      setShowToast(true);
-    } finally {
-      setIsLoading(false);
+    } catch (e) {
+      setError("No se pudo guardar el registro en este navegador.");
     }
-  }, [formData, eventParams, resetForm, setCode, setLogged, push]);
+  };
 
-  useEffect(() => {
-    if (showToast) {
-      const timer = setTimeout(() => {
-        setShowToast(false);
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [showToast]);
+  const resetearParaPruebas = () => {
+    localStorage.removeItem(STORAGE_KEY);
+    setRegistros([]);
+    setNombre("");
+    setCedula("");
+    setError(null);
+    setSuccess(null);
+  };
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
-      <div className="score-background w-screen h-screen flex justify-center items-center">
-        <div className="flex flex-col">
-          <div className="flex flex-col justify-center items-center">
-            <h2 className="telegraf-bold text-white text-[120px]">Agrega ID</h2>
-            <div className="telegraf-bold flex items-center text-[#DEF44B] text-[80px] gap-3 mb-10">
-              <input
-                type="text"
-                id="id1"
-                name="id1"
-                autoComplete="off"
-                autoFocus
-                value={formData.id1}
-                className="w-[230px] bg-white/30 border-[3px] rounded-[16px] text-center pt-3"
-                onChange={handleChange}
-                ref={id1Ref}
-                maxLength={3}
-              />
-              <img src="/dash.svg" className="w-[36px] h-[10px]" alt="" />
-              <input
-                type="text"
-                id="id2"
-                name="id2"
-                autoComplete="off"
-                value={formData.id2}
-                className="w-[230px] bg-white/30 border-[3px] rounded-[16px] text-center pt-3"
-                onChange={handleChange}
-                ref={id2Ref}
-                maxLength={3}
-              />
-            </div>
-            <button
-              className="relative top-[60px] w-[850px] h-[100px] text-[50px] bg-transparent "
-              disabled={!isReadyId}
-              onClick={checkUserParticipation}
-            ></button>
+    <main className="bg-blue-800 min-h-screen flex items-center justify-center p-4 bg-gray-50">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow p-6">
+        <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 text-center mb-2">
+          Registrate Para Participar
+        </h1>
+
+
+        {error && (
+          <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+            {error}
           </div>
-        </div>
+        )}
+        {success && (
+          <div className="mb-4 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-700">
+            {success}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm text-gray-700 mb-1">Nombre</label>
+            <input
+              type="text"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+              placeholder="Tu nombre completo"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm text-gray-700 mb-1">Cédula</label>
+            <input
+              inputMode="numeric"
+              value={cedula}
+              onChange={(e) => setCedula(e.target.value.replace(/[^0-9]/g, ""))}
+              placeholder="123456"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+        <button
+          type="submit"
+          className="w-full rounded-lg px-4 py-3 bg-blue-600 text-white font-medium hover:bg-blue-700 text-[clamp(14px,2.2vw,18px)]"
+        >
+          Participar 
+        </button>
+        </form>
+
+{/* 
+        {registros.length > 0 && (
+          <div className="mt-6">
+            <h2 className="text-sm font-semibold text-gray-700">Últimos registros</h2>
+            <ul className="mt-2 max-h-40 overflow-auto divide-y">
+              {[...registros].slice(-5).reverse().map((r, idx) => (
+                <li key={idx} className="py-2 text-sm text-gray-700 flex items-center justify-between">
+                  <span className="truncate mr-2">{r.nombre}</span>
+                  <span className="font-mono text-gray-500">{r.cedula}</span>
+                </li>
+              ))}
+            </ul>
+
+            <button
+              onClick={resetearParaPruebas}
+              className="mt-4 w-full rounded-lg border px-4 py-2 text-gray-700 hover:bg-gray-50"
+            >
+              Resetear (solo pruebas)
+            </button>
+          </div>
+        )} */}
+
       </div>
-      {isLoading && <Loader />}
-      <Toast message={toastMessage} show={showToast} />
-    </div>
+    </main>
   );
 }

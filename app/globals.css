@@ -145,9 +145,15 @@ body {
   background-repeat: repeat;
 }
 
-.welcome {
-  background-image: url("/img/welcomedc.jpg");
+.bg {
+  background-image: url("/img/Empty.png");
+  background-repeat: no-repeat;     
+  background-position: center center; 
+  background-size: cover;           
+  width: 100vw;                     
+  height: 100vh;                     
 }
+
 
 .ranking {
   background-image: url("/Empty.png");
