@@ -3,13 +3,13 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-// ✅ Vista lista para pegar en: app/registro/page.tsx (Next.js + TS)
-// Registra múltiples personas en localStorage (array) y evita duplicados por cédula.
+import { useGlobal } from "@/context/global";
 
 type RegistroData = {
+  userId: string;
   nombre: string;
-  cedula: string; // solo dígitos
-  createdAt: string; // ISO
+  score: number;
+  createdAt: string;
 };
 
 const STORAGE_KEY = "registrosParticipantes"; // ahora es un ARRAY en localStorage
@@ -37,6 +37,8 @@ export default function RegistroPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [registros, setRegistros] = useState<RegistroData[]>([]);
+  const { setUserId,setUserName } = useGlobal();
+
   const router = useRouter();
   useEffect(() => {
     setRegistros(cargarRegistros());
@@ -58,7 +60,7 @@ export default function RegistroPage() {
   };
 
   const existeCedula = useMemo(
-    () => (ced: string) => registros.some((r) => r.cedula === ced.trim()),
+    () => (ced: string) => registros.some((r) => r.userId === ced.trim()),
     [registros]
   );
 
@@ -79,16 +81,19 @@ export default function RegistroPage() {
       return;
     }
 
-    const nuevo: RegistroData = {
-      nombre: nombre.trim(),
-      cedula: ced,
-      createdAt: new Date().toISOString(),
-    };
+    // const nuevo: RegistroData = {
+    //   nombre: nombre.trim(),
+    //   cedula: ced,
+    //   createdAt: new Date().toISOString(),
+    //   score: 0,
+    // };
 
-    const updated = [...registros, nuevo];
-    setRegistros(updated);
+    // const updated = [...registros, nuevo];
+    // setRegistros(updated);
+    setUserId(ced);
+    setUserName(nombre.trim());
     try {
-      guardarRegistros(updated);
+      // guardarRegistros(updated);
       setSuccess("¡Registro completado!");
       setNombre("");
       setCedula("");

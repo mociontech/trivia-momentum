@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { questions } from "@/lib/questions";
 import { useEffect, useState, useMemo, useCallback } from "react";
-import { saveScore } from "@/utils/db";
 import { useUser } from "@/hooks/useUser";
 import { formatTime } from "@/utils/utils";
 import { useGlobal } from "@/context/global";
@@ -12,6 +11,7 @@ interface Question {
   question: string;
   options: string[];
   correct_answer: number;
+  imagen: string; // nueva propiedad
 }
 
 // Función para seleccionar preguntas aleatorias
@@ -32,6 +32,8 @@ export default function TriviaPage() {
   const [startTime, setStartTime] = useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [answeredQuestions, setAnsweredQuestions] = useState<object>({});
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [feedbackSrc, setFeedbackSrc] = useState<string | null>(null);
 
 
   useEffect(() => {
@@ -51,6 +53,13 @@ export default function TriviaPage() {
 
     return () => clearInterval(timer);
   }, [startTime, isFinished]);
+  
+  useEffect(() => {
+    const q = selectedQuestions[currentQuestion];
+    if (!q?.imagen) return;
+    const img = new Image();
+    img.src = q.imagen;
+  }, [currentQuestion, selectedQuestions]);
 
 
   const formattedTime = useMemo(() => formatTime(elapsedTime), [elapsedTime]);
@@ -58,20 +67,27 @@ export default function TriviaPage() {
 
   const selectAnswer = useCallback(
     async (answerPos: number) => {
-      if (isAnswered) return;
+      if (isAnswered || showFeedback) return;
 
       setAnsweredQuestions({
         ...answeredQuestions,
-        [`pregunta${currentQuestion}`]: `${selectedQuestions[currentQuestion].question},${selectedQuestions[currentQuestion].options[answerPos]}`,
+        [`pregunta${currentQuestion}`]:
+          `${selectedQuestions[currentQuestion].question},${selectedQuestions[currentQuestion].options[answerPos]}`,
       });
 
       setSelectedAnswer(answerPos);
       setIsAnswered(true);
 
+      // Mostrar imagen de la pregunta actual
+      const img = selectedQuestions[currentQuestion].imagen;
+      setFeedbackSrc(img);
+      setShowFeedback(true);
+
       const isCorrect =
         answerPos === selectedQuestions[currentQuestion].correct_answer;
       if (isCorrect) setScore((prev) => prev + 1);
 
+      const ADVANCE_DELAY = 1000; // ms
 
       if (currentQuestion >= 9) {
         setIsFinished(true);
@@ -79,29 +95,36 @@ export default function TriviaPage() {
         const timeTaken = Date.now() - (startTime || 0);
         setTime(timeTaken);
         user.setScore(finalScore);
-        //await saveScore(user.code, finalScore * 20, timeTaken);
         user.setData(answeredQuestions);
-        router.push("/bye");
-  
-      } else {
 
+        setTimeout(() => {
+          router.push("/bye");
+        }, ADVANCE_DELAY);
+      } else {
         setTimeout(() => {
           setCurrentQuestion((prev) => prev + 1);
           setSelectedAnswer(null);
           setIsAnswered(false);
-        }, 1000);
+          setShowFeedback(false);
+          setFeedbackSrc(null);
+        }, ADVANCE_DELAY);
       }
     },
     [
       currentQuestion,
       isAnswered,
+      showFeedback,
       selectedQuestions,
       score,
       startTime,
       user,
       router,
+      answeredQuestions,
+      setScore,
+      setTime,
     ]
   );
+
 
 
   const renderOptions = useCallback(
@@ -159,8 +182,16 @@ export default function TriviaPage() {
         </div>
       )}
 
+      {showFeedback && feedbackSrc && (
+        <div className="absolute inset-0 z-[60] flex items-center justify-center bg-black/60">
+          <img
+            src={feedbackSrc}
+            alt="Feedback de la pregunta"
+            className="w-screen h-screen rounded-2xl shadow-2xl"
+          />
+        </div>
+      )}
 
-      
     </div>
   );
 }
