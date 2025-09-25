@@ -348,17 +348,32 @@ export default function LoginPage() {
                 }}
               />
               
-              <input
-                type="email"
-                id="email"
-                value={emailInput}
-                className={`oracle-regular font-normal text-[50px] flex flex-1 h-[140px] w-[1000px] text-center
-                text-black bg-transparent rounded-3xl border-none outline-none relative z-40`}
-                placeholder=""
-                autoComplete="off"
-                readOnly
+              <div
+                className="flex flex-1 h-[140px] w-[1000px] text-center items-center justify-center
+                bg-transparent rounded-3xl border-none outline-none relative z-40 cursor-pointer"
                 onClick={toggleKeyboard}
-              />
+              >
+                {emailInput ? (
+                  <div className="flex items-center justify-center gap-2 flex-wrap">
+                    {emailInput.split('').map((char, index) => (
+                      <img
+                        key={index}
+                        src={`/assets/letrasTexto/${char.toUpperCase()}.png`}
+                        alt={char}
+                        className="w-12 h-12 object-contain"
+                        onError={(e) => {
+                          // Si no existe la imagen, mostrar el carácter como texto
+                          e.currentTarget.style.display = 'none';
+                          const textSpan = document.createElement('span');
+                          textSpan.textContent = char;
+                          textSpan.className = 'text-black text-4xl font-bold';
+                          e.currentTarget.parentNode?.appendChild(textSpan);
+                        }}
+                      />
+                    ))}
+                  </div>
+                ) : null}
+              </div>
               {!emailInput && (
                 <img
                   src="/assets/Agrega ID.png"
