@@ -82,8 +82,7 @@ export default function LoginPage() {
           }}
         >
           <div className="text-center">
-            <h2 className="text-white text-6xl font-bold mb-4">¡FELICIDADES!</h2>
-            <p className="text-white text-4xl font-bold">
+            <p className="text-white text-6xl font-bold">
               Calificación: {userScore}/7
             </p>
           </div>
