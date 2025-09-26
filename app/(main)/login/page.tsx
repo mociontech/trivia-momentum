@@ -293,15 +293,16 @@ export default function LoginPage() {
 
   async function submitForm() {
     try {
-      if (!emailInput)
-        return alert("Por favor, ingresa tu ID");
+      // Validación temporalmente deshabilitada
+      // if (!emailInput)
+      //   return alert("Por favor, ingresa tu ID");
       setLoading(true);
 
-      setMail(emailInput);
+      setMail(emailInput || "test@example.com");
       setLogged(true);
-      register(emailInput, emailInput);
+      register(emailInput || "test@example.com", emailInput || "test@example.com");
 
-      router.push("/trivia");
+      router.push("/instrucciones");
     } catch (error) {
       console.log({ error: error });
     }
@@ -354,23 +355,31 @@ export default function LoginPage() {
                 onClick={toggleKeyboard}
               >
                 {emailInput ? (
-                  <div className="flex items-center justify-center gap-2 flex-wrap">
-                    {emailInput.split('').map((char, index) => (
-                      <img
-                        key={index}
-                        src={`/assets/letrasTexto/${char.toUpperCase()}.png`}
-                        alt={char}
-                        className="w-12 h-12 object-contain"
-                        onError={(e) => {
-                          // Si no existe la imagen, mostrar el carácter como texto
-                          e.currentTarget.style.display = 'none';
-                          const textSpan = document.createElement('span');
-                          textSpan.textContent = char;
-                          textSpan.className = 'text-black text-4xl font-bold';
-                          e.currentTarget.parentNode?.appendChild(textSpan);
-                        }}
-                      />
-                    ))}
+                  <div className="flex items-center justify-center -gap-2 flex-wrap">
+                    {emailInput.split('').map((char, index) => {
+                      // Verificar si es un número
+                      const isNumber = /[0-9]/.test(char);
+                      const imagePath = isNumber 
+                        ? `/assets/numeroTexto/${char}.png`
+                        : `/assets/letrasTexto/${char.toUpperCase()}.png`;
+                      
+                      return (
+                        <img
+                          key={index}
+                          src={imagePath}
+                          alt={char}
+                          className="w-6 h-6 object-contain"
+                          onError={(e) => {
+                            // Si no existe la imagen, mostrar el carácter como texto
+                            e.currentTarget.style.display = 'none';
+                            const textSpan = document.createElement('span');
+                            textSpan.textContent = char;
+                            textSpan.className = 'text-black text-4xl font-bold';
+                            e.currentTarget.parentNode?.appendChild(textSpan);
+                          }}
+                        />
+                      );
+                    })}
                   </div>
                 ) : null}
               </div>
@@ -442,9 +451,13 @@ export default function LoginPage() {
                       <button
                         key={num}
                         onClick={() => handleKeyPress(num)}
-                        className="bg-purple-600 text-white text-4xl font-bold py-6 rounded-lg hover:bg-purple-700"
+                        className="bg-transparent hover:scale-110 transition-transform duration-200 flex items-center justify-center"
                       >
-                        {num}
+                        <img 
+                          src={`/assets/numeros/${num}.png`}
+                          alt={num}
+                          className="w-28 h-28"
+                        />
                       </button>
                     ))}
                   </div>

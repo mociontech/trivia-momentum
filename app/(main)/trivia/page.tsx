@@ -38,7 +38,7 @@ export default function TriviaPage() {
       return shuffled.slice(0, count);
     }
 
-    const selectedQuestions = getRandomQuestions(questions, 5);
+    const selectedQuestions = getRandomQuestions(questions, 7);
     setSelectedQuestions(selectedQuestions);
     const start = Date.now();
     setStartTime(start);
@@ -62,7 +62,7 @@ export default function TriviaPage() {
       setScore((prevScore) => prevScore + 1);
     }
 
-    if (currentQuestion > 3) {
+    if (currentQuestion > 5) {
       setIsFinishedTimer(true);
       const endTime = Date.now();
       const timeTaken = Math.floor(endTime - startTime); // Tiempo en milisegundos
@@ -79,13 +79,9 @@ export default function TriviaPage() {
     }
 
     setTimeout(() => {
-      if (currentQuestion > 3) {
-        // mostrar puntaje
-        setIsFinished(true);
-
-        setTimeout(() => {
-          router.push("/ranking");
-        }, 3000);
+      if (currentQuestion > 5) {
+        // ir directamente al ranking
+        router.push("/ranking");
         return;
       } else {
         nextQuestion();
@@ -101,89 +97,73 @@ export default function TriviaPage() {
 
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden text-black px-20">
-      <video className="absolute top-0 left-0 -z-10" autoPlay loop muted>
-        <source src="/assets/Pantallas.mp4" />
-      </video>
-      <img
-        src="/assets/logo-oracle.svg"
-        alt="Logo de oracle"
-        className="absolute top-[100px] left-[120px]"
+      <div 
+        className="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat -z-10"
+        style={{
+          backgroundImage: 'url(/assets/preguntas/trivia-background.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
       />
-
-      {!isFinishedTimer ? (
-        <div className="absolute top-[75px] oracle-regular right-[70px] bg-opacity-80 text-black p-4 rounded-lg text-[48px] font-bold z-50">
-          {formatTime(elapsedTime)}
-        </div>
-      ) : (
-        !isFinished && (
-          <div className="absolute top-[75px] oracle-regular right-[70px] bg-opacity-80 text-black p-4 rounded-lg text-[48px] font-bold z-50">
-            {totalTime}
-          </div>
-        )
-      )}
+      
+      <img
+        src="/assets/preguntas/encabezado-logo.png"
+        alt="Logo encabezado"
+        className="absolute top-16 left-1/2 transform -translate-x-1/2 z-50 w-72 h-auto"
+      />
 
       {selectedQuestions &&
         !isFinished &&
         selectedQuestions[currentQuestion] && (
           <div className="flex flex-col">
-            <p className="relative z-50 oracle-regular text-[60px] leading-[68px] text-center mb-[81px]">
+            <div className="relative mx-auto mb-2 z-50">
+              <img
+                src="/assets/preguntas/pregunta-numero.png"
+                alt="Pregunta número"
+                className="w-32 h-auto object-contain"
+              />
+              <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-4xl font-bold">
+                {currentQuestion + 1}
+              </span>
+            </div>
+            <img
+              src="/assets/preguntas/PREGUNTA.png"
+              alt="Pregunta"
+              className="mx-auto mb-4 z-50"
+            />
+            <p className="relative z-50 oracle-regular text-[60px] leading-[68px] text-center mb-[81px] text-white">
               {selectedQuestions[currentQuestion].question}
             </p>
             <div className="flex flex-col gap-8">
-              {selectedQuestions[currentQuestion].options.map((answer, i) => (
-                <button
-                  key={i}
-                  className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl ${
-                    isAnswered
-                      ? i === correctAnswer
-                        ? "bg-[#628B48] text-white" // Respuesta correcta en verde
-                        : i === selectedAnswer
-                        ? "bg-[#D6544E] text-white" // Respuesta incorrecta seleccionada en rojo
-                        : "bg-[#D4E6E5]"
-                      : "bg-[#D4E6E5]"
-                  }`}
-                  onClick={() => selectAnswer(i)}
-                  disabled={isAnswered} // Deshabilitar los botones después de seleccionar
-                >
-                  {answer}
-                </button>
-              ))}
+              {selectedQuestions[currentQuestion].options.map((answer, i) => {
+                // Determinar qué imagen usar
+                const isCorrectAnswer = i === correctAnswer;
+                const isSelectedAnswer = i === selectedAnswer;
+                const shouldUseWinBox = isAnswered && (isCorrectAnswer || (isSelectedAnswer && isCorrectAnswer));
+                
+                return (
+                  <button
+                    key={i}
+                    className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl relative text-white hover:scale-110 transition-transform duration-200`}
+                    onClick={() => selectAnswer(i)}
+                    disabled={isAnswered} // Deshabilitar los botones después de seleccionar
+                    style={{
+                      backgroundImage: shouldUseWinBox 
+                        ? 'url(/assets/preguntas/text-box-win.png)'
+                        : 'url(/assets/preguntas/text-box-normal.png)',
+                      backgroundSize: 'contain',
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat'
+                    }}
+                  >
+                    {answer}
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}
-      {isFinished &&
-        (score >= 4 ? (
-          <div className="flex flex-col justify-center items-center">
-            <p className="oracle-regular text-[100px] text-center text-[#5B6B6B] leading-[90px] mb-[40px]">
-              ¡Felicidades!
-            </p>
-            <p className="oracle-light text-[45px] text-center text-[#36312D] leading-[48px] mb-[110px]">
-              Contestaste correctamente:
-            </p>
-            <div className="oracle-regular flex flex-col w-full rounded-3xl text-[#FCFCFC] py-4 bg-[#D6544E] text-center justify-center text-[80px]">
-              {score}/5<p className="text-[40px]">En {totalTime} segundos</p>
-            </div>
-            <p className="oracle-light mt-6 text-[45px]">
-              ¡Gracias por participar!
-            </p>
-          </div>
-        ) : (
-          <div className="flex flex-col justify-center items-center">
-            <p className="oracle-regular text-[100px] text-center text-[#5B6B6B] leading-[90px] mb-[40px]">
-              Puedes <br />
-              hacerlo mejor
-            </p>
-            <p className="oracle-light text-[45px] text-center text-[#36312D] leading-[48px] mb-[110px]">
-              Contestaste correctamente:
-            </p>
-            <div className="oracle-regular flex flex-col w-full rounded-3xl text-[#FCFCFC] py-4 bg-[#D6544E] text-center justify-center text-[80px]">
-              {score}/5<p className="text-[40px]">En {totalTime} segundos</p>
-            </div>
-            <p className="oracle-light mt-6 text-[45px]">
-              ¡Gracias por participar!
-            </p>
-          </div>
-        ))}
     </div>
   );
 }
