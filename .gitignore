@@ -12,10 +12,13 @@
 # next.js
 /.next/
 /out/
-
+/dist
+/Copa-win32-x64
+/MiApp-win32-x64
+/yarn.lock
 # production
 /build
-
+/main.js
 # misc
 .DS_Store
 *.pem

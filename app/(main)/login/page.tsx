@@ -13,9 +13,6 @@ type RegistroData = {
 };
 
 const STORAGE_KEY = "registrosParticipantes"; // ahora es un ARRAY en localStorage
-
-
-
 function cargarRegistros(): RegistroData[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -114,9 +111,9 @@ export default function RegistroPage() {
   };
 
   return (
-    <main className="bg-blue-800 min-h-screen flex items-center justify-center p-4 bg-gray-50">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow p-6">
-        <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 text-center mb-2">
+    <main className="bg min-h-screen flex items-center justify-center p-4 bg-gray-50">
+      <div className="w-full max-w-[730px] bg-transparent rounded-2xl shadow p-6">
+        <h1 className=" font-gilroy font-bold text-5xl text-[48px]  text-white text-center mb-12">
           Registrate Para Participar
         </h1>
 
@@ -132,58 +129,81 @@ export default function RegistroPage() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm text-gray-700 mb-1">Nombre</label>
-            <input
-              type="text"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-              placeholder="Tu nombre completo"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
-            />
+        <form onSubmit={handleSubmit}>
+          <div className="space-y-4"> {/* Aquí agrupamos solo los campos con separación uniforme */}
+            <div>
+              <label className="block text-white text-[clamp(18px,3vw,24px)] mb-2 font-gilroy font-normal">
+                Nombre
+              </label>
+              <input
+                type="text"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                placeholder="Tu nombre completo"
+                className="
+                  w-full 
+                  text-[clamp(18px,3vw,28px)] 
+                  rounded-2xl 
+                  border border-gray-300 
+                  px-6 py-6 
+                  min-h-[70px]
+                  outline-none 
+                  text-slate-700
+                  font-semibold
+                  
+                  placeholder-slate-700
+                  focus:ring-2 focus:ring-blue-500
+                  bg-[#c0d0eb]
+                "
+              />
+            </div>
+
+            <div>
+              <label className="block text-white text-[clamp(18px,3vw,24px)] mb-2">
+                Cédula
+              </label>
+              <input
+                inputMode="numeric"
+                value={cedula}
+                onChange={(e) => setCedula(e.target.value.replace(/[^0-9]/g, ""))}
+                placeholder="123456"
+                className="
+                  w-full 
+                  text-[clamp(18px,3vw,28px)] 
+                  rounded-2xl 
+                  border border-gray-300 
+                  px-6 py-6 
+                  min-h-[70px]
+                  outline-none 
+                  placeholder-slate-700
+                  text-slate-700
+                  font-semibold
+                  focus:ring-2 focus:ring-blue-500
+                  bg-[#c0d0eb]
+                "
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block text-sm text-gray-700 mb-1">Cédula</label>
-            <input
-              inputMode="numeric"
-              value={cedula}
-              onChange={(e) => setCedula(e.target.value.replace(/[^0-9]/g, ""))}
-              placeholder="123456"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-        <button
-          type="submit"
-          className="w-full rounded-lg px-4 py-3 bg-blue-600 text-white font-medium hover:bg-blue-700 text-[clamp(14px,2.2vw,18px)]"
-        >
-          Participar 
-        </button>
+          <button
+            type="submit"
+            className="
+              w-full 
+              rounded-2xl 
+              mt-20  /* ¡Ahora sí funciona! */
+              px-6 py-6 
+              bg-[#c0d0eb] 
+              text-[clamp(24px,4vw,48px)]
+              text-[#0032A0] 
+              transition-all
+              font-gilroy font-bold
+            "
+          >
+            Participar
+          </button>
         </form>
 
-{/* 
-        {registros.length > 0 && (
-          <div className="mt-6">
-            <h2 className="text-sm font-semibold text-gray-700">Últimos registros</h2>
-            <ul className="mt-2 max-h-40 overflow-auto divide-y">
-              {[...registros].slice(-5).reverse().map((r, idx) => (
-                <li key={idx} className="py-2 text-sm text-gray-700 flex items-center justify-between">
-                  <span className="truncate mr-2">{r.nombre}</span>
-                  <span className="font-mono text-gray-500">{r.cedula}</span>
-                </li>
-              ))}
-            </ul>
 
-            <button
-              onClick={resetearParaPruebas}
-              className="mt-4 w-full rounded-lg border px-4 py-2 text-gray-700 hover:bg-gray-50"
-            >
-              Resetear (solo pruebas)
-            </button>
-          </div>
-        )} */}
 
       </div>
     </main>

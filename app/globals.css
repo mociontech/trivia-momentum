@@ -116,6 +116,27 @@ body {
 }
 
 
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/Gilroy-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/Gilroy-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/Gilroy-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
 
 
 .cta-register-score {
@@ -146,7 +167,7 @@ body {
 }
 
 .bg {
-  background-image: url("/img/Empty.png");
+  background-image: url("/img/screens/bg-login.jpg");
   background-repeat: no-repeat;     
   background-position: center center; 
   background-size: cover;           
@@ -170,4 +191,17 @@ body {
 
 .bye {
   background-image: url("/img/fin.jpg");
+}
+
+
+@media screen and (width: 1080px) and (height: 1920px) {
+  .input-large {
+    height: 100px;
+    font-size: 1.25rem; /* Ajusta el tamaño del texto si es necesario */
+  }
+
+  .button-large {
+    height: 100px;
+    font-size: 1.25rem;
+  }
 }

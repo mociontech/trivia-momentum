@@ -87,7 +87,7 @@ export default function TriviaPage() {
         answerPos === selectedQuestions[currentQuestion].correct_answer;
       if (isCorrect) setScore((prev) => prev + 1);
 
-      const ADVANCE_DELAY = 1000; // ms
+      const ADVANCE_DELAY = 3000; // ms
 
       if (currentQuestion >= 9) {
         setIsFinished(true);
@@ -125,8 +125,6 @@ export default function TriviaPage() {
     ]
   );
 
-
-
   const renderOptions = useCallback(
     (options: string[]) => {
       return options.map((answer, i) => {
@@ -136,14 +134,14 @@ export default function TriviaPage() {
         return (
           <button
             key={i}
-            className={`font-supermolot flex p-10 rounded-2xl text-[30px] bo  items-center justify-center h-[100px]   ${
+            className={`font-supermolot flex p-10 rounded-2xl text-[34px] bo  items-center justify-center h-[100px]   ${
               isAnswered
                 ? isCorrect
-                  ? "bg-green-500 bg-cover bg-center  text-white" // Respuesta correcta
+                  ? "bg-green-500 bg-cover bg-center  text-white font-gilroy font-bold" // Respuesta correcta
                   : isSelected
-                  ? "bg-red-500 bg-cover bg-center  text-white" // incorreta
-                  : "bg-gray-400 bg-cover bg-center  text-white"
-                : "bg-gray-400 bg-cover bg-center  text-white"  //seleccion
+                  ? "bg-red-500 bg-cover bg-center  text-white font-gilroy font-bold" // incorreta
+                  : "bg-[#c0d0eb] bg-cover bg-center  text-[#0032A0] font-gilroy font-bold"
+                : "bg-[#c0d0eb] bg-cover bg-center  text-[#0032A0] font-gilroy font-bold"  //seleccion
             }`}
             onClick={() => selectAnswer(i)}
             disabled={isAnswered}
@@ -163,19 +161,25 @@ export default function TriviaPage() {
   );
 
   return (
-    <div className="bg-blue-800 h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden px-20 ">
+    <div className="bg h-screen w-screen flex flex-col justify-center items-center relative overflow-hidden px-20 ">
 
-
-      {/* Preguntas y respuestas */}
       {!isFinished && selectedQuestions[currentQuestion] && (
         
-        <div className="flex flex-col w-[824px] mt-[300px]">
-          <div className="font-supermolot  absolute top-4 left-1/2 transform -translate-x-1/2 bg-opacity-80 text-white p-4 rounded-lg text-[48px] font-bold z-50">
+        <div className="flex flex-col w-[824px] ">
+          <div className="font-gilroy font-normal  absolute top-4 left-1/2 transform -translate-x-1/2 bg-opacity-80 text-white p-4 rounded-lg text-[48px] z-50">
               {formattedTime}
             </div>
-          <p className="relative z-50 font-supermolot text-white text-[62px] leading-[68px] text-center mb-[81px]">
-            {selectedQuestions[currentQuestion].question}
+
+          <p className="relative z-50 font-gilroy font-normal text-white text-[62px] leading-[68px] text-center mb-[81px]">
+            {selectedQuestions[currentQuestion].question.split(/(Copa Airlines)/g).map((part, index) =>
+              part === "Copa Airlines" ? (
+                <strong key={index}>{part}</strong>
+              ) : (
+                <span key={index}>{part}</span>
+              )
+            )}
           </p>
+
           <div className="flex flex-col gap-8 mt">
             {renderOptions(selectedQuestions[currentQuestion].options)}
           </div>
