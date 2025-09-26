@@ -293,9 +293,9 @@ export default function LoginPage() {
 
   async function submitForm() {
     try {
-      // Validación temporalmente deshabilitada
-      // if (!emailInput)
-      //   return alert("Por favor, ingresa tu ID");
+     
+      if (!emailInput)
+        return alert("Por favor, ingresa tu ID");
       setLoading(true);
 
       setMail(emailInput || "test@example.com");
