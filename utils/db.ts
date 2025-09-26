@@ -13,13 +13,13 @@ import {
 import { Record } from "./types";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDAg8fcs_rBQlB7xCxGm1Xq-1X9ISe-stY",
-  authDomain: "multirepos.firebaseapp.com",
-  projectId: "multirepos",
-  storageBucket: "multirepos.appspot.com",
-  messagingSenderId: "543787682717",
-  appId: "1:543787682717:web:68309224639c36ee787d74",
-  measurementId: "G-7D3MCCEZMR",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
