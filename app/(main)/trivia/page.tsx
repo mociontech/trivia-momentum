@@ -86,7 +86,7 @@ export default function TriviaPage() {
       } else {
         nextQuestion();
       }
-    }, 1000);
+    }, 500);
   }
 
   function nextQuestion() {
@@ -105,12 +105,6 @@ export default function TriviaPage() {
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
         }}
-      />
-      
-      <img
-        src="/assets/preguntas/encabezado-logo.png"
-        alt="Logo encabezado"
-        className="absolute top-16 left-1/2 transform -translate-x-1/2 z-50 w-72 h-auto"
       />
 
       {selectedQuestions &&
@@ -154,13 +148,6 @@ export default function TriviaPage() {
             </div>
           </div>
         )}
-
-      {/* Footer Logo */}
-      <img
-        src="/assets/preguntas/footer-logo.png"
-        alt="Footer Logo"
-        className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-50 w-64 h-auto"
-      />
     </div>
   );
 }
