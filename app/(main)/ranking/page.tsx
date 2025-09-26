@@ -16,9 +16,10 @@ interface Record {
 
 export default function LoginPage() {
   const router = useRouter();
-  const { logged } = useUser();
+  const { logged, mail } = useUser();
   const [records, setRecords] = useState<Record[] | null>(null);
   const [top5, setTop5] = useState<Record[] | null>(null);
+  const [userScore, setUserScore] = useState<number>(0);
 
   useEffect(() => {
     async function getAllRecords() {
@@ -38,10 +39,17 @@ export default function LoginPage() {
 
       setRecords(records);
       setTop5(sortedData.slice(0, 3));
+      
+      // Encontrar el puntaje del usuario actual
+      const currentUserRecord = records.find(record => record.id === mail);
+      if (currentUserRecord) {
+        // Convertir puntaje de puntos a número de preguntas correctas (dividir por 20)
+        setUserScore(Math.floor(currentUserRecord.puntaje / 20));
+      }
     }
 
     getAllRecords();
-  }, []);
+  }, [mail]);
 
   function nextPage() {
     router.push("/login");
@@ -61,6 +69,25 @@ export default function LoginPage() {
           backgroundRepeat: 'no-repeat'
         }}
       />
+      
+      {/* Puntaje del Usuario */}
+      <div className="relative flex justify-center items-center mb-8 z-50 mt-48">
+        <div 
+          className="w-[800px] h-[180px] rounded-3xl flex items-center justify-center"
+          style={{
+            backgroundImage: 'url(/assets/background-id-section.png)',
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
+          <div className="text-center">
+            <p className="text-white text-6xl font-bold">
+              Calificación: {userScore}/7
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
