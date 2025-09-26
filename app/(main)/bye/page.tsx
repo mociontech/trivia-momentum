@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGlobal } from "@/context/global";
 
 type RegistroData = {
@@ -34,23 +34,23 @@ export default function ByePage() {
   const hasSavedRef = useRef(false);
   const initialScoreRef = useRef<number>(score);
 
+  const [showImage, setShowImage] = useState(false);
+  const [clicked, setClicked] = useState(false);
+
   useEffect(() => {
     if (hasSavedRef.current) return;
     hasSavedRef.current = true;
 
     const registros = cargarRegistros();
 
-    // Buscar si ya existe un registro con ese userId
     const idx = registros.findIndex((r) => r.userId === String(userId));
 
     if (idx >= 0) {
-      // Si ya existe, actualizamos solo el score
       registros[idx] = {
         ...registros[idx],
         score: initialScoreRef.current,
       };
     } else {
-      // Si no existe, lo creamos
       registros.push({
         userId: String(userId),
         nombre: userName || "Anónimo",
@@ -62,27 +62,50 @@ export default function ByePage() {
     guardarRegistros(registros);
   }, [userId, userName]);
 
-  function nextPage() {
-    setScore(0);
-    router.push("/");
+  function handleClick() {
+    if (clicked) return; // Evita múltiples clics
+
+    setClicked(true);
+    setShowImage(true); // Mostrar imagen
+
+    setTimeout(() => {
+      setScore(0);
+      router.push("/"); // Redirige después de 2 segundos
+    }, 2000);
   }
 
   return (
     <div
       className="bg relative h-screen w-screen flex flex-col justify-center items-center"
-      onClick={nextPage}
+      onClick={handleClick}
     >
-      <p className="text-white text-6xl font-gilroy  font-bold text-[68px] mb-10">Gracias por participar</p>
-      <p className="text-white text-6xl font-gilroy  font-normal text-[42px]">Tu puntaje fue:</p>
-      <div className="font-gilroy  font-normal flex items-center text-gray-200 text-[62px] gap-3 mb-10 mt-[20px]">
-        <input
-          type="text"
-          value={`${score}/10`}
-          disabled
-          className="w-[230px] bg-transparent rounded-[16px] text-center pt-3"
-          readOnly
+      {showImage && (
+        <img
+          src="/img/screens/Final.jpg" // Asegúrate de que esta ruta sea válida
+          alt="Gracias"
+          className="absolute inset-0 w-full h-full object-cover z-50"
         />
-      </div>
+      )}
+
+      {!showImage && (
+        <>
+          <p className="text-white text-6xl font-gilroy font-bold text-[68px] mb-10">
+            Gracias por participar
+          </p>
+          <p className="text-white text-6xl font-gilroy font-normal text-[42px]">
+            Tu puntaje fue:
+          </p>
+          <div className="font-gilroy font-normal flex items-center text-gray-200 text-[62px] gap-3 mb-10 mt-[20px]">
+            <input
+              type="text"
+              value={`${score}/10`}
+              disabled
+              className="w-[230px] bg-transparent rounded-[16px] text-center pt-3"
+              readOnly
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 }
