@@ -72,8 +72,8 @@ export default function ByePage() {
       className="bg-blue-800 relative h-screen w-screen flex flex-col justify-center items-center"
       onClick={nextPage}
     >
-      <p className="text-white text-6xl font-semibold">Gracias por participar</p>
-      <div className="font-supermolot font-bold flex items-center text-gray-200 text-[99px] gap-3 mb-10 mt-[20px]">
+      <p className="text-white text-6xl font-gilroy  font-normal text-[68px]">Gracias por participar</p>
+      <div className="font-gilroy  font-normal flex items-center text-gray-200 text-[62px] gap-3 mb-10 mt-[20px]">
         <input
           type="text"
           value={`${score}/10`}
