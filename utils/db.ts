@@ -27,6 +27,11 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export async function register(name, mail) {
+  if (!mail || mail.trim() === '') {
+    console.error('Mail is required for register');
+    return;
+  }
+  
   try {
     const isExisting = await getDoc(doc(db, "DBTriviasOracle", mail));
     if (isExisting.data()) {
@@ -46,10 +51,19 @@ export async function register(name, mail) {
 }
 
 export async function registerRecord(mail, time, score) {
-  await updateDoc(doc(db, "DBTriviasOracle", mail), {
-    puntaje: score,
-    tiempo: time,
-  });
+  if (!mail || mail.trim() === '') {
+    console.error('Mail is required for registerRecord');
+    return;
+  }
+  
+  try {
+    await updateDoc(doc(db, "DBTriviasOracle", mail), {
+      puntaje: score,
+      tiempo: time,
+    });
+  } catch (error) {
+    console.error('Error updating record:', error);
+  }
 }
 
 export async function getRecords(): Promise<Record[]> {

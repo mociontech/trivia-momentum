@@ -293,9 +293,8 @@ export default function LoginPage() {
 
   async function submitForm() {
     try {
-      // Validación temporalmente deshabilitada
-      // if (!emailInput)
-      //   return alert("Por favor, ingresa tu ID");
+      if (!emailInput)
+        return alert("Por favor, ingresa tu ID");
       setLoading(true);
 
       setMail(emailInput || "test@example.com");
@@ -335,7 +334,7 @@ export default function LoginPage() {
         />
         {loading && <Loader />}
 
-        <div className="flex flex-col w-auto mt-[300px]">
+        <div className="flex flex-col w-auto mt-[240px]">
           <section className="flex flex-col gap-7">
 
             <div className="relative flex">
@@ -350,7 +349,7 @@ export default function LoginPage() {
               />
               
               <div
-                className="flex flex-1 h-[140px] w-[1000px] text-center items-center justify-center
+                className="flex flex-1 h-[180px] w-[1000px] text-center items-center justify-center
                 bg-transparent rounded-3xl border-none outline-none relative z-40 cursor-pointer"
                 onClick={toggleKeyboard}
               >
@@ -387,7 +386,7 @@ export default function LoginPage() {
                 <img
                   src="/assets/Agrega ID.png"
                   alt="Agrega ID"
-                  className="absolute z-30 w-auto h-[105px] top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                  className="absolute z-30 w-auto h-[105px] top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
                 />
               )}
             </div>

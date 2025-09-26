@@ -117,16 +117,6 @@ export default function TriviaPage() {
         !isFinished &&
         selectedQuestions[currentQuestion] && (
           <div className="flex flex-col">
-            <div className="relative mx-auto mb-2 z-50">
-              <img
-                src="/assets/preguntas/pregunta-numero.png"
-                alt="Pregunta número"
-                className="w-32 h-auto object-contain"
-              />
-              <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-4xl font-bold">
-                {currentQuestion + 1}
-              </span>
-            </div>
             <img
               src="/assets/preguntas/PREGUNTA.png"
               alt="Pregunta"
@@ -164,6 +154,13 @@ export default function TriviaPage() {
             </div>
           </div>
         )}
+
+      {/* Footer Logo */}
+      <img
+        src="/assets/preguntas/footer-logo.png"
+        alt="Footer Logo"
+        className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-50 w-64 h-auto"
+      />
     </div>
   );
 }
