@@ -100,7 +100,7 @@ export default function ByePage() {
               type="text"
               value={`${score}/10`}
               disabled
-              className="w-[230px] bg-transparent rounded-[16px] text-center pt-3"
+              className="w-[230px] bg-transparent font-gilroy font-bold rounded-[16px] text-center pt-3"
               readOnly
             />
           </div>
