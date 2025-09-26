@@ -1,71 +1,71 @@
 export const questions: Question[] = [
   {
-    question: "¿Qué villano de DC es conocido por usar acertijos para cometer sus crímenes?",
+    question: "¿En qué siglo se ambienta la historia de Hogwarts Legacy?",
     options: [
-      "Two-Face",
-      "Riddler",
-      "Scarecrow",
-      "Bane"
+      "Siglo XVII",
+      "Siglo XVIII",
+      "Siglo XIX",
+      "Siglo XX"
+    ],
+    correct_answer: 2,
+  },
+  {
+    question: "¿Qué criatura mágica aparece al inicio del juego en un carruaje volador?",
+    options: [
+      "Hipogrifo",
+      "Thestral",
+      "Dragón",
+      "Grifo"
     ],
     correct_answer: 1,
   },
   {
-    question: "¿Qué villano fue una vez el fiscal del distrito de Gotham antes de convertirse en criminal?",
+    question: "¿Quién es el principal antagonista goblin del juego?",
     options: [
-      "Penguin",
-      "Scarecrow",
-      "Two-Face",
-      "Clayface"
+      "Griphook",
+      "Ragnok",
+      "Ranrok",
+      "Urg"
     ],
     correct_answer: 2,
   },
   {
-    question: "¿Cuál de estos villanos es un androide creado para destruir a la Liga de la Justicia?",
+    question: "¿Qué encantamiento se utiliza para hacer levitar objetos?",
     options: [
-      "Brainiac",
-      "Darkseid",
-      "Lex Luthor",
-      "Amazo"
+      "Incendio",
+      "Levioso",
+      "Expelliarmus",
+      "Accio"
     ],
-    correct_answer: 3,
+    correct_answer: 1,
   },
   {
-    question: "¿Qué villano de DC es el regente tirano del planeta Apokolips?",
+    question: "¿Cuál de estas aldeas es clave en la historia principal?",
     options: [
-      "Mongul",
-      "Brainiac",
-      "Darkseid",
-      "Doomsday"
-    ],
-    correct_answer: 2,
-  },
-  {
-    question: "¿Qué villano de DC controla a sus víctimas mediante el miedo?",
-    options: [
-      "Scarecrow",
-      "Deadshot",
-      "Mr. Freeze",
-      "Mad Hatter"
+      "Hogsmeade",
+      "Godric's Hollow",
+      "Little Hangleton",
+      "Ottery St. Catchpole"
     ],
     correct_answer: 0,
   },
   {
-    question: "¿Cuál de estos villanos es conocido por manipular realidades y fue parte de la historia 'Crisis en Tierras Infinitas'?",
+    question: "¿Qué familia de magos aparece como un cameo en Hogwarts Legacy?",
     options: [
-      "Monitor",
-      "Parallax",
-      "Anti-Monitor",
-      "Nekron"
+      "Malfoy",
+      "Potter",
+      "Weasley",
+      "Black"
     ],
     correct_answer: 2,
   },
   {
-    question: "¿Qué villano de DC es una inteligencia artificial alienígena obsesionada con recolectar conocimiento?",
+    question: "¿Qué director está a cargo de Hogwarts en esta época?",
     options: [
-      "Brainiac",
-      "Despero",
-      "Metallo",
-      "Luthor AI"
+      "Phineas Nigellus Black",
+      "Armando Dippet",
+      "Albus Dumbledore",
+      "Everard"
     ],
     correct_answer: 0,
   },

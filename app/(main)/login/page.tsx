@@ -293,9 +293,9 @@ export default function LoginPage() {
 
   async function submitForm() {
     try {
-      if (!emailInput)
-        return alert("Por favor, ingresa tu ID");
-      setLoading(true);
+      // if (!emailInput)
+      //   return alert("Por favor, ingresa tu ID");
+      // setLoading(true);
 
       setMail(emailInput || "test@example.com");
       setLogged(true);

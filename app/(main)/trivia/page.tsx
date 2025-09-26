@@ -106,12 +106,6 @@ export default function TriviaPage() {
           backgroundRepeat: 'no-repeat'
         }}
       />
-      
-      <img
-        src="/assets/preguntas/encabezado-logo.png"
-        alt="Logo encabezado"
-        className="absolute top-16 left-1/2 transform -translate-x-1/2 z-50 w-72 h-auto"
-      />
 
       {selectedQuestions &&
         !isFinished &&
@@ -154,13 +148,6 @@ export default function TriviaPage() {
             </div>
           </div>
         )}
-
-      {/* Footer Logo */}
-      <img
-        src="/assets/preguntas/footer-logo.png"
-        alt="Footer Logo"
-        className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-50 w-64 h-auto"
-      />
     </div>
   );
 }
