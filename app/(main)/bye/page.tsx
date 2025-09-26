@@ -69,10 +69,11 @@ export default function ByePage() {
 
   return (
     <div
-      className="bg-blue-800 relative h-screen w-screen flex flex-col justify-center items-center"
+      className="bg relative h-screen w-screen flex flex-col justify-center items-center"
       onClick={nextPage}
     >
-      <p className="text-white text-6xl font-gilroy  font-normal text-[68px]">Gracias por participar</p>
+      <p className="text-white text-6xl font-gilroy  font-bold text-[68px] mb-10">Gracias por participar</p>
+      <p className="text-white text-6xl font-gilroy  font-normal text-[42px]">Tu puntaje fue:</p>
       <div className="font-gilroy  font-normal flex items-center text-gray-200 text-[62px] gap-3 mb-10 mt-[20px]">
         <input
           type="text"

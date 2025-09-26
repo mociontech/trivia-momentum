@@ -16,10 +16,10 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "electron": "npm run build && electron ."
+    "lint": "next lint"
+ 
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
