@@ -319,7 +319,7 @@ async function syncOfflineData(): Promise<void> {
   for (const data of pendingData) {
     try {
       const payload = {
-        eventExperienceId: "9d07c492-dd4f-4f55-8be7-c840e7ea9060",
+        eventExperienceId: "2871e27b-6f67-4f46-8d20-1d6cae422ec2",
         email: data.email,
         play_timestamp: data.timestamp,
         score: data.score,
@@ -369,7 +369,7 @@ export async function sendUserDataToEvius(email: string, score?: number, bonusSc
     const localId = generateUUID();
     
     const payload = {
-      eventExperienceId: "9d07c492-dd4f-4f55-8be7-c840e7ea9060",
+      eventExperienceId: "2871e27b-6f67-4f46-8d20-1d6cae422ec2",
       email: email,
       play_timestamp: playTimestamp,
       score: score || 25,
