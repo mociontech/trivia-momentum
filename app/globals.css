@@ -27,23 +27,25 @@ body {
 }
 
 @font-face {
-  font-family: "oracle-regular";
+  font-family: "mortal-kombat";
   src: url("/fonts/oracle-sans/OracleSans-Regular.woff2") format("woff2"),
     url("/fonts/oracle-sans/OracleSans-Regular.woff") format("woff");
-  font-weight: normal; /* o bold, dependiendo de la variante */
-  font-style: normal; /* o italic, si es cursiva */
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
-.oracle-regular {
-  font-family: "oracle-regular", sans-serif;
+.mortal-kombat {
+  font-family: "mortal-kombat", sans-serif;
 }
 
 @font-face {
-  font-family: "oracle-light";
+  font-family: "mortal-kombat-light";
   src: url("/fonts/oracle-sans/OracleSans-Light.woff2") format("woff2"),
     url("/fonts/oracle-sans/OracleSans-Light.woff") format("woff");
-  font-weight: normal; /* o bold, dependiendo de la variante */
-  font-style: normal; /* o italic, si es cursiva */
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
-.oracle-light {
-  font-family: "oracle-light", sans-serif;
+.mortal-kombat-light {
+  font-family: "mortal-kombat-light", sans-serif;
 }

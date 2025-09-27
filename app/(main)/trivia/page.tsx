@@ -132,7 +132,7 @@ export default function TriviaPage() {
               alt="Pregunta"
               className="mx-auto mb-4 z-50"
             />
-            <p className="relative z-50 oracle-regular text-[60px] leading-[68px] text-center mb-[81px] text-white">
+            <p className="relative z-50 mortal-kombat text-[60px] leading-[68px] text-center mb-[81px] text-white">
               {selectedQuestions[currentQuestion].question}
             </p>
             <div className="flex flex-col gap-8">
@@ -145,7 +145,7 @@ export default function TriviaPage() {
                 return (
                   <button
                     key={i}
-                    className={`oracle-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl relative text-white hover:scale-110 transition-transform duration-200`}
+                    className={`mortal-kombat-light flex font p-10 text-[40px] leading-[48px] items-center justify-center h-[155px] rounded-3xl relative text-white hover:scale-110 transition-transform duration-200`}
                     onClick={() => selectAnswer(i)}
                     disabled={isAnswered} // Deshabilitar los botones después de seleccionar
                     style={{

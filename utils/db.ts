@@ -16,6 +16,7 @@ import { Record } from "./types";
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
@@ -36,11 +37,11 @@ export async function register(name, mail) {
       return "offline";
     }
 
-    const isExisting = await getDoc(doc(db, "DBTriviasOracle", mail));
+    const isExisting = await getDoc(doc(db, "DBTriviasMortalKombat", mail));
     if (isExisting.data()) {
       return "existing";
     } else {
-      await setDoc(doc(db, "DBTriviasOracle", mail), {
+      await setDoc(doc(db, "DBTriviasMortalKombat", mail), {
         nombre: name,
         correo: mail,
         puntaje: 0,
@@ -63,7 +64,7 @@ export async function registerRecord(mail, time, score) {
       return "offline";
     }
 
-    await updateDoc(doc(db, "DBTriviasOracle", mail), {
+    await updateDoc(doc(db, "DBTriviasMortalKombat", mail), {
       puntaje: score,
       tiempo: time,
     });
@@ -81,7 +82,7 @@ export async function getRecords(): Promise<Record[]> {
       return [];
     }
 
-    const collectionRef = collection(db, "DBTriviasOracle");
+    const collectionRef = collection(db, "DBTriviasMortalKombat");
     const snapshot = await getDocs(collectionRef);
     const documentos = snapshot.docs.map((doc) => ({
       id: doc.id,
