@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Be_Vietnam_Pro, Montserrat } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
-import { register } from "@/utils/db";
+import { register, findPersonByCodeOffline, sendUserDataToEvius } from "@/utils/db";
 import Loader from "@/components/loader";
 
 const Vietnam = Be_Vietnam_Pro({
@@ -24,6 +24,8 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [keyboardType, setKeyboardType] = useState<'numbers' | 'letters'>('numbers');
+  const [searchResult, setSearchResult] = useState<any>(null);
+  const [searching, setSearching] = useState(false);
   const { setMail, setLogged } = useUser();
 
   // Funciones del teclado
@@ -291,19 +293,53 @@ export default function LoginPage() {
     setKeyboardType(prev => prev === 'numbers' ? 'letters' : 'numbers');
   };
 
+  async function searchByCode() {
+    if (!emailInput) {
+      return alert("Por favor, ingresa tu código");
+    }
+    
+    // ACCESO INMEDIATO - No bloquear UI
+    setMail(emailInput); // Usar código como identificador temporal
+    setLogged(true);
+    register(emailInput, emailInput);
+    router.push("/instrucciones");
+    
+    // PROCESAMIENTO EN SEGUNDO PLANO
+    findPersonByCodeOffline(emailInput).then((result) => {
+      console.log('Resultado de búsqueda en segundo plano:', result);
+      
+      if (result.found) {
+        // Actualizar con el email real encontrado (en segundo plano)
+        setMail(result.email);
+        register(result.email, result.email);
+        
+        // Enviar datos a Evius en segundo plano
+        sendUserDataToEvius(result.email).then((eviusResult) => {
+          console.log('Datos enviados a Evius en segundo plano:', eviusResult);
+        }).catch((error) => {
+          console.error('Error enviando datos a Evius en segundo plano:', error);
+        });
+      } else {
+        if (result.error && result.error.includes('Sin conexión')) {
+          console.log('Código guardado para procesar cuando haya internet:', emailInput);
+        } else {
+          console.log('Código no encontrado:', emailInput);
+        }
+      }
+    }).catch((error) => {
+      console.error('Error al buscar código en segundo plano:', error);
+    });
+  }
+
   async function submitForm() {
     try {
       if (!emailInput)
-        return alert("Por favor, ingresa tu ID");
-      setLoading(true);
-
-      setMail(emailInput || "test@example.com");
-      setLogged(true);
-      register(emailInput || "test@example.com", emailInput || "test@example.com");
-
-      router.push("/instrucciones");
+        return alert("Por favor, ingresa tu código");
+      
+      // Buscar por código en lugar de registrar directamente
+      await searchByCode();
     } catch (error) {
-      console.log({ error: error });
+      // Error handling
     }
   }
 
@@ -385,8 +421,8 @@ export default function LoginPage() {
               {!emailInput && (
                 <img
                   src="/assets/Agrega ID.png"
-                  alt="Agrega ID"
-                  className="absolute z-30 w-auto h-[105px] top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                  alt="Agrega Código"
+                  className="absolute z-30 w-auto h-[105px] top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
                 />
               )}
             </div>
