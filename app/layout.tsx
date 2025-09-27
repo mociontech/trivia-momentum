@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Trivia Mortal Kombat",
-  description: "Mortal Kombat Trivia Game",
+  title: "Trivia Hogwarts",
+  description: "Hogwarts Trivia Game",
   icons: {
     icon: '/favicon.ico',
   },
