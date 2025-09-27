@@ -422,7 +422,7 @@ export default function LoginPage() {
                 <img
                   src="/assets/Agrega ID.png"
                   alt="Agrega Código"
-                  className="absolute z-30 w-auto h-[105px] top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                  className="absolute z-30 w-auto h-[105px] top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
                 />
               )}
             </div>
