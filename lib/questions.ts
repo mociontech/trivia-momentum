@@ -149,3 +149,92 @@ interface Question {
   correct_answer: number;
   imagen: string;
 }
+
+
+export const questions2: Question[] = [
+  {
+    question: "¿Cuántos años de operación tiene Copa Airlines en Colombia?",
+    options: ["77 años", "40 años","56 años"],
+    correct_answer: 2,
+    imagen: "img/answers/respuesta21.jpg",
+  },
+  {
+    question: "¿Cuántos Copa Club (sala VIP) tiene Copa Airlines en el continente?",
+    options: ["1", "6", "5"],
+    correct_answer: 2,
+    imagen: "img/answers/respuesta22.jpg",
+  },
+  {
+    question: "¿Cómo se llama el programa de viajero frecuente de Copa Airlines?",
+    options: ["ConnectMiles", "Gold Traveler", "Flying Blue"],
+    correct_answer: 0,
+    imagen: "img/answers/respuesta23.jpg",
+  },
+
+  {
+    question: "¿En todos los vuelos de Copa Airlines puedes encontrar Clase Ejecutiva?",
+    options: ["SI","NO"],
+    correct_answer: 0,
+    imagen: "img/answers/respuesta24.jpg",
+  },
+  {
+    question: "¿Qué tiene una aerolínea de servicio completo?",
+    options: [
+      "Servicio a bordo (refrigerio y bebida)",
+      "Puntualidad, ya que llegas a tiempo a tu destino",
+      "Todas las anteriores",
+    ],
+    correct_answer: 2,
+    imagen: "img/answers/respuesta25.jpg",
+  },
+  {
+    question: "¿En cuantas ciudades del Caribe colombiano opera Copa Airlines?",
+    options: [
+      "1",
+      "7",
+      "4",
+    ],
+    correct_answer: 0,
+    imagen: "img/answers/respuesta26.jpg",
+  },
+  {
+    question: "¿Cuántos vuelos opera Copa Airlines desde el Hub de las Américas® diariamente?",
+    options: [
+      "Más de 375 vuelos diarios",
+      "Más de 100 vuelos diarios",
+      "Más de 200 vuelos diarios",
+    ],
+    correct_answer: 1,
+    imagen: "img/answers/respuesta27.jpg",
+  },
+  {
+    question: "¿Cuál es el nuevo destino que Copa Airlines inaugura en México en 2025?",
+    options: ["Cancún", "Guanajuato", "Aguascalientes","Los Cabos"],
+    correct_answer: 3,
+    imagen: "img/answers/respuesta28.jpg",
+  },
+  {
+    question: "¿Qué caracteriza a las conexiones en el Hub de las Américas®?",
+    options: ["Conexiones rápidas", "Sin tramites de migración ni aduana", "Con el equipaje registrado hasta el destino final","Todas las anteriores"],
+    correct_answer: 3,
+    imagen: "img/answers/respuesta29.jpg",
+  },
+  {
+    question: "Si eres miembro ConnectMiles, ¿Puedes acumular millas al volar con otras aerolíneas miembros de Star Alliance?",
+    options: [
+      "SI",
+      "NO",
+      "Algunas veces",
+    ],
+    correct_answer: 1,
+    imagen: "img/answers/respuesta30.jpg",
+  },
+
+  {
+    question: "¿Cuáles son los beneficios de ser miembro Prefer con ConnectMiles en Copa Airlines?",
+    options: ["Selección ilimitada de asientos sin costo", "Equipaje incluido en todas las tarifas", "Acceso ilimitado a salas VIP","Todas las anteriores"],
+    correct_answer: 1,
+    imagen: "img/answers/respuesta31.jpg",
+  },
+
+];

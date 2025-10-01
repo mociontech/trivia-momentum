@@ -87,7 +87,7 @@ export default function TriviaPage() {
         answerPos === selectedQuestions[currentQuestion].correct_answer;
       if (isCorrect) setScore((prev) => prev + 1);
 
-      const ADVANCE_DELAY = 3000; // ms
+      const ADVANCE_DELAY = 8000; // ms
 
       if (currentQuestion >= 9) {
         setIsFinished(true);
@@ -191,7 +191,7 @@ export default function TriviaPage() {
           <img
             src={feedbackSrc}
             alt="Feedback de la pregunta"
-            className="w-screen h-screen rounded-2xl shadow-2xl"
+            className="w-screen h-screen rounded-2xl shadow-2xl transition-all duration-600"
           />
         </div>
       )}
