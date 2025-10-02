@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { questions } from "@/lib/questions";
+import { questions,questions2 } from "@/lib/questions";
 import { useEffect, useState, useMemo, useCallback } from "react";
 import { useUser } from "@/hooks/useUser";
 import { formatTime } from "@/utils/utils";
@@ -87,7 +87,7 @@ export default function TriviaPage() {
       setSelectedAnswer(answerPos);
       setIsAnswered(true);
 
-      // Mostrar imagen de la pregunta actual
+
       const img = selectedQuestions[currentQuestion].imagen;
       setFeedbackSrc(img);
       setShowFeedback(true);

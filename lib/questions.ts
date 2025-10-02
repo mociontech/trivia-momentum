@@ -237,4 +237,29 @@ export const questions2: Question[] = [
     imagen: "img/answers/respuesta31.jpg",
   },
 
+    {
+    question: "¿Cuántas noches puedes estar en Panamá con el programa Stopover?",
+    options: ["1 y 5 noches", "2 noches","1 y 6 noches"],
+    correct_answer: 2,
+    imagen: "img/answers/respuesta32.jpg",
+  },
+  {
+    question: "¿En cuántos destinos en Argentina opera Copa Airlines?",
+    options: ["8", "1", "6"],
+    correct_answer: 2,
+    imagen: "img/answers/respuesta33.jpg",
+  },
+  {
+    question: "¿Con qué programa de Copa Airlines puedes conocer dos destinos por el precio de uno?",
+    options: ["Panamá Stopover", "México Stopover", "Copa Stopover"],
+    correct_answer: 0,
+    imagen: "img/answers/respuesta34.jpg",
+  },
+  {
+    question: "Además de poder hacer una parada gratis con Panamá Stopover, ¿Qué otros beneficios obtienes?",
+    options: ["Descuentos en restaurantes", "Descuentos en la entrada a los museos y teatros", "Descuentos en hoteles","Todas las anteriores"],
+    correct_answer: 3,
+    imagen: "img/answers/respuesta35.jpg",
+  },
+
 ];
