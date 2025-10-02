@@ -43,6 +43,15 @@ export default function TriviaPage() {
     setStartTime(Date.now());
   }, []);
 
+      useEffect(() => {
+      const timeout = setTimeout(() => {
+        setIsFinished(true); 
+        router.push("/bye");
+      }, 150000); 
+
+      return () => clearTimeout(timeout); 
+    }, []);
+
 
   useEffect(() => {
     if (!startTime || isFinished) return;
