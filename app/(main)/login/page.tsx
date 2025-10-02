@@ -1,6 +1,5 @@
 "use client";
 
-
 import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useGlobal } from "@/context/global";
@@ -12,7 +11,8 @@ type RegistroData = {
   createdAt: string;
 };
 
-const STORAGE_KEY = "registrosParticipantes"; // ahora es un ARRAY en localStorage
+const STORAGE_KEY = "registrosParticipantes";
+
 function cargarRegistros(): RegistroData[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -34,18 +34,47 @@ export default function RegistroPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [registros, setRegistros] = useState<RegistroData[]>([]);
-  const { setUserId,setUserName } = useGlobal();
+  const { setUserId, setUserName } = useGlobal();
 
   const router = useRouter();
+
   useEffect(() => {
     setRegistros(cargarRegistros());
   }, []);
 
+  // 👇 Redirige a "/" después de 60 segundos de inactividad
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    const resetTimer = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        router.push("/");
+      }, 60000); // 60 segundos
+    };
+
+    const activityEvents = ["click", "mousemove", "keydown", "touchstart"];
+
+    activityEvents.forEach((event) =>
+      window.addEventListener(event, resetTimer)
+    );
+
+    // Iniciar temporizador al cargar
+    resetTimer();
+
+    return () => {
+      clearTimeout(timer);
+      activityEvents.forEach((event) =>
+        window.removeEventListener(event, resetTimer)
+      );
+    };
+  }, [router]);
+
   const total = registros.length;
 
-      function nextPage() {
-      router.push("/trivia");
-    }
+  function nextPage() {
+    router.push("/trivia");
+  }
 
   const validar = (): string | null => {
     if (!nombre.trim()) return "El nombre es obligatorio.";
@@ -78,24 +107,14 @@ export default function RegistroPage() {
       return;
     }
 
-    // const nuevo: RegistroData = {
-    //   nombre: nombre.trim(),
-    //   cedula: ced,
-    //   createdAt: new Date().toISOString(),
-    //   score: 0,
-    // };
-
-    // const updated = [...registros, nuevo];
-    // setRegistros(updated);
     setUserId(ced);
     setUserName(nombre.trim());
+
     try {
-      // guardarRegistros(updated);
       setSuccess("¡Registro completado!");
       setNombre("");
       setCedula("");
       nextPage();
-
     } catch (e) {
       setError("No se pudo guardar el registro en este navegador.");
     }
@@ -113,10 +132,9 @@ export default function RegistroPage() {
   return (
     <main className="bg min-h-screen flex items-center justify-center p-4 bg-gray-50">
       <div className="w-full max-w-[730px] bg-transparent rounded-2xl shadow p-6">
-        <h1 className=" font-gilroy font-bold text-5xl text-[48px]  text-white text-center mb-12">
+        <h1 className="font-gilroy font-bold text-5xl text-[48px] text-white text-center mb-12">
           Registrate Para Participar
         </h1>
-
 
         {error && (
           <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
@@ -130,7 +148,7 @@ export default function RegistroPage() {
         )}
 
         <form onSubmit={handleSubmit}>
-          <div className="space-y-4"> {/* Aquí agrupamos solo los campos con separación uniforme */}
+          <div className="space-y-4">
             <div>
               <label className="block text-white text-[clamp(18px,3vw,24px)] mb-2 font-gilroy font-normal">
                 Nombre
@@ -150,7 +168,6 @@ export default function RegistroPage() {
                   outline-none 
                   text-slate-700
                   font-semibold
-                  
                   placeholder-slate-700
                   focus:ring-2 focus:ring-blue-500
                   bg-[#c0d0eb]
@@ -165,7 +182,9 @@ export default function RegistroPage() {
               <input
                 inputMode="numeric"
                 value={cedula}
-                onChange={(e) => setCedula(e.target.value.replace(/[^0-9]/g, ""))}
+                onChange={(e) =>
+                  setCedula(e.target.value.replace(/[^0-9]/g, ""))
+                }
                 placeholder="123456"
                 className="
                   w-full 
@@ -190,7 +209,7 @@ export default function RegistroPage() {
             className="
               w-full 
               rounded-2xl 
-              mt-20  /* ¡Ahora sí funciona! */
+              mt-20
               px-6 py-6 
               bg-[#c0d0eb] 
               text-[clamp(24px,4vw,48px)]
@@ -202,9 +221,6 @@ export default function RegistroPage() {
             Participar
           </button>
         </form>
-
-
-
       </div>
     </main>
   );

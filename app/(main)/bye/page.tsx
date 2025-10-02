@@ -6,7 +6,7 @@ import { useGlobal } from "@/context/global";
 type RegistroData = {
   userId: string;
   nombre: string;
-  score: number;
+  attempts: number[]; // Array con todos los scores
   createdAt: string;
 };
 
@@ -36,41 +36,63 @@ export default function ByePage() {
 
   const [showImage, setShowImage] = useState(false);
   const [clicked, setClicked] = useState(false);
+  const [mensajeEspecial, setMensajeEspecial] = useState("");
 
   useEffect(() => {
     if (hasSavedRef.current) return;
     hasSavedRef.current = true;
 
     const registros = cargarRegistros();
-
     const idx = registros.findIndex((r) => r.userId === String(userId));
+    const currentScore = initialScoreRef.current;
+
+    let updatedAttempts: number[] = [];
 
     if (idx >= 0) {
+      const user = registros[idx];
+      updatedAttempts = [...(user.attempts || []), currentScore];
+
       registros[idx] = {
-        ...registros[idx],
-        score: initialScoreRef.current,
+        ...user,
+        attempts: updatedAttempts,
       };
     } else {
+      updatedAttempts = [currentScore];
+
       registros.push({
         userId: String(userId),
         nombre: userName || "Anónimo",
-        score: initialScoreRef.current,
+        attempts: updatedAttempts,
         createdAt: new Date().toISOString(),
       });
     }
 
     guardarRegistros(registros);
+    if (updatedAttempts.length === 1 && currentScore > 7) {
+      setMensajeEspecial("¡Prepárate para la segunda ronda!");
+    } else if (updatedAttempts.length === 2 && currentScore >= 7) {
+      setMensajeEspecial("¡Lo lograste!");
+    }
   }, [userId, userName]);
 
   function handleClick() {
-    if (clicked) return; // Evita múltiples clics
+    if (clicked) return;
 
     setClicked(true);
-    setShowImage(true); // Mostrar imagen
+    setShowImage(true);
+
+    const registros = cargarRegistros();
+    const userData = registros.find((r) => r.userId === String(userId));
+    const currentScore = initialScoreRef.current;
+    const numAttempts = userData?.attempts?.length || 1;
 
     setTimeout(() => {
       setScore(0);
-      router.push("/"); // Redirige después de 2 segundos
+      if (currentScore >= 7 && numAttempts < 2) {
+        router.push("/trivia");
+      } else {
+        router.push("/");
+      }
     }, 2000);
   }
 
@@ -81,7 +103,7 @@ export default function ByePage() {
     >
       {showImage && (
         <img
-          src="/img/screens/Final.jpg" // Asegúrate de que esta ruta sea válida
+          src="/img/screens/Final.jpg"
           alt="Gracias"
           className="absolute inset-0 w-full h-full object-cover z-50"
         />
@@ -104,6 +126,12 @@ export default function ByePage() {
               readOnly
             />
           </div>
+
+          {mensajeEspecial && (
+            <p className="text-white text-4xl font-gilroy font-semibold mt-4">
+              {mensajeEspecial}
+            </p>
+          )}
         </>
       )}
     </div>
