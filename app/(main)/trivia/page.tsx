@@ -179,15 +179,18 @@ export default function TriviaPage() {
               {formattedTime}
             </div>
 
-          <p className="relative z-50 font-gilroy font-normal text-white text-[62px] leading-[68px] text-center mb-[81px]">
-            {selectedQuestions[currentQuestion].question.split(/(Copa Airlines)/g).map((part, index) =>
-              part === "Copa Airlines" ? (
-                <strong key={index}>{part}</strong>
-              ) : (
-                <span key={index}>{part}</span>
-              )
-            )}
-          </p>
+            <p className="relative z-50 font-gilroy font-normal text-white text-[62px] leading-[68px] text-center mb-[81px]">
+              {selectedQuestions[currentQuestion].question
+                .split(/(Copa Airlines|Stopover|Hub de las Américas®)/g)
+                .map((part, index) =>
+                  ["Copa Airlines", "Stopover", "Hub de las Américas®"].includes(part) ? (
+                    <strong key={index}>{part}</strong>
+                  ) : (
+                    <span key={index}>{part}</span>
+                  )
+                )}
+            </p>
+
 
           <div className="flex flex-col gap-8 mt">
             {renderOptions(selectedQuestions[currentQuestion].options)}
