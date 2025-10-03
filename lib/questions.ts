@@ -6,8 +6,8 @@ export const questions: Question[] = [
     imagen: "img/answers/respuesta1.jpg",
   },
   {
-    question: "¿En Copa Airlines puedes llevar una maleta de mano?",
-    options: ["Sí", "No", "Únicamente en vuelos largos"],
+    question: "¿En Copa Airlines, puedes llevar una maleta de mano sin costo adicional?",
+    options: ["SI", "NO", "Únicamente en vuelos largos"],
     correct_answer: 0,
     imagen: "img/answers/respuesta2.jpg",
   },
@@ -17,12 +17,6 @@ export const questions: Question[] = [
     correct_answer: 0,
     imagen: "img/answers/respuesta3.jpg",
   },
-  // {
-  //   question: "¿Cuál de las siguientes imágenes representa un asiento cómodo de un vuelo?",
-  //   options: ["Pasajero 1", "Pasajero 2"],
-  //   correct_answer: 1,
-  //   imagen: "img/answers/respuesta4.png",
-  // },
     {
     question: "¿En cuántos destinos del continente opera Copa Airlines?",
     options: ["60 destinos", "89 destinos","52 destinos"],
@@ -40,11 +34,11 @@ export const questions: Question[] = [
     imagen: "img/answers/respuesta5.jpg",
   },
   {
-    question: "¿Cuáles son los nuevos destinos de Copa Airlines en República Dominicana que se inauguran en enero de 2026?",
+    question: "¿Cuáles son los nuevos destinos de Copa Airlines en República Dominicana que se inauguran en enero 2026?",
     options: [
       "Santiago de los Caballeros y Puerto Plata",
       "Punta Cana y Puerto Plata",
-      "La Romana y San Pedro",
+      "La Romana y San Pedro de Macorís",
     ],
     correct_answer: 0,
     imagen: "img/answers/respuesta6.jpg",
@@ -82,19 +76,19 @@ export const questions: Question[] = [
     imagen: "img/answers/respuesta10.jpg",
   },
   {
-    question: "¿Dónde se encuentra el Hub de las Américas?",
-    options: ["Ciudad de Panamá", "Ciudad de México", "Bogotá"],
+    question: "¿Dónde se encuentra el Hub de las Américas®?",
+    options: ["Panamá", "México", "Bogotá"],
     correct_answer: 0,
     imagen: "img/answers/respuesta11.jpg",
   },
   {
-    question: "¿Cuál es el tiempo de conexión promedio en el Hub de las Américas?",
+    question: "¿Cuál es el tiempo de conexión promedio en el Hub de las Américas®?",
     options: ["2 horas", "50 minutos", "5 horas"],
     correct_answer: 1,
     imagen: "img/answers/respuesta12.jpg",
   },
   {
-    question: "¿Con cuánta anticipación se realiza el check-in de un vuelo con Copa Airlines?",
+    question: "¿En cuántas ciudades de Colombia opera Copa Airlines?",
     options: ["Hasta 72 horas antes", "12 horas antes", "24 horas antes"],
     correct_answer: 2,
     imagen: "img/answers/respuesta13.jpg",
@@ -107,7 +101,7 @@ export const questions: Question[] = [
   },
   {
     question: "¿Puedo acumular millas si viajo en cualquier tarifa de Copa Airlines?",
-    options: [ "ConnectMiles","No"],
+    options: [ "SI","NO"],
     correct_answer: 0,
     imagen: "img/answers/respuesta15.jpg",
   },
@@ -124,7 +118,7 @@ export const questions: Question[] = [
     imagen: "img/answers/respuesta17.jpg",
   },
   {
-    question: "¿En cuántos destinos en Argentina opera Copa Airlines?",
+    question: "¿En cuántos destinos  Argentina opera Copa Airlines?",
     options: ["8", "1", "6"],
     correct_answer: 2,
     imagen: "img/answers/respuesta18.jpg",
@@ -215,7 +209,7 @@ export const questions2: Question[] = [
   },
   {
     question: "¿Qué caracteriza a las conexiones en el Hub de las Américas®?",
-    options: ["Conexiones rápidas", "Sin tramites de migración ni aduana", "Con el equipaje registrado hasta el destino final","Todas las anteriores"],
+    options: ["Conexiones rápidas", "Sin trámites de migración ni aduana", "Con el equipaje registrado hasta el destino final","Todas las anteriores"],
     correct_answer: 3,
     imagen: "img/answers/respuesta29.jpg",
   },
