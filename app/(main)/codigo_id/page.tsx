@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { Be_Vietnam_Pro, Montserrat } from "next/font/google";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
 import { register } from "@/utils/db";
 import Loader from "@/components/loader";
+import CodigoPage from "@/components/codigo";
 
 const Vietnam = Be_Vietnam_Pro({
     subsets: ["latin"],
@@ -25,8 +26,6 @@ export default function LoginPage() {
     const [registered, setRegistered] = useState(false);
     const [loading, setLoading] = useState(false);
     const { setMail, setLogged } = useUser();
-    const searchParams = useSearchParams();
-    const codigo = searchParams.get('code');
     async function submitForm() {
         try {
             // Checkea que ningun campo este vacio
@@ -45,6 +44,8 @@ export default function LoginPage() {
     }
 
     return (
+        
+    <Suspense fallback={<p>Cargando código...</p>}>
         <div className="h-screen w-screen flex flex-col justify-center items-center relative">
             <img
                 src={"/assets/DEEL_FONDO.png"}
@@ -72,10 +73,7 @@ export default function LoginPage() {
                     className="relative z-50 mt-40 h-[180px]"
                 />
                 {/* Botón */}
-                <div
-                    className="oracle-regular font-normal text-[60px] h-[100px] w-full px-6 text-black bg-[url('/assets/CampoVacio.png')] bg-no-repeat bg-center bg-cover rounded-3xl border-[2px] border-black mt-[10px] flex items-center">
-                    {codigo || "TU ID"}
-                </div>
+                <CodigoPage/>
 
                 <button
                     className={`${montserrat.className} relative z-50 flex justify-center items-center 
@@ -87,5 +85,6 @@ export default function LoginPage() {
 
             </div>
         </div>
+        </Suspense>
     );
 }
