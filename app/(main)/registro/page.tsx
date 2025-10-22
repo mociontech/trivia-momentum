@@ -41,10 +41,13 @@ export default function LoginPage() {
           // 🔹 Guarda el ID en el contexto
         if (data?.attendee) {
         setAttendeeId(data.attendee.id);
+        } else {
+            router.push("/trivia");
         }
         router.push(`/codigo_id?code=${data.attendee.code}`);
         } catch (error) {
             console.log({ error: error });
+             router.push("/trivia");
         }
     }
 

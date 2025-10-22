@@ -39,10 +39,11 @@ export default function LoginPage() {
            const data = await searchBycode(nameInput);
          if (data?.attendee) {
         setAttendeeId(data.attendee.id);
-        router.push("/trivia");
-        }
+    }
+    router.push("/trivia");
         setLoading(false)
         } catch (error) {
+             router.push("/trivia");
             console.log({ error: error });
         }
     }

@@ -10,11 +10,10 @@ export class EdgeDataHubSDK {
   private eventExperienceId: string;
 
   constructor() {
-    // this.baseUrl = "http://localhost:3000/api/edge";
+    
     this.baseUrl = "http://192.168.1.10:3000/api/edge";
-    //this.baseUrl = "http://localhost:3000/api/edge";
+    
 
-    // Event configuration - HARDCODED IDs for this implementation
     this.eventId = "bf50d11c-2571-4270-9535-994d2931a06b"; // HARDCODED: ID del evento
     this.eventExperienceId = "a6f8b2b7-8339-438f-865c-ed3469f16825"; // HARDCODED: ID de la experiencia
   }
@@ -30,7 +29,8 @@ export class EdgeDataHubSDK {
     data: AttendeeRegisterRequest
   ): Promise<AttendeeResponse> {
     // Validar campos requeridos
-    this.validateRequiredFields(data, ["fullName", "email"]);
+    try {
+      this.validateRequiredFields(data, ["fullName", "email"]);
 
     // Agregar eventId automáticamente
     const payload = {
@@ -55,6 +55,9 @@ export class EdgeDataHubSDK {
     }
 
     return await response.json();
+    } catch (error) {
+      console.log("error al registrar ",error)
+    }
   }
 
   /**
