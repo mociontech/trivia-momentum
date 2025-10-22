@@ -4,8 +4,9 @@ import { useState } from "react";
 import { Be_Vietnam_Pro, Montserrat } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
-import { register } from "@/utils/db";
+import { register, searchBycode } from "@/utils/db";
 import Loader from "@/components/loader";
+import { useAttendee } from "@/context/AttendeeContext";
 
 const Vietnam = Be_Vietnam_Pro({
     subsets: ["latin"],
@@ -25,19 +26,22 @@ export default function LoginPage() {
     const [registered, setRegistered] = useState(false);
     const [loading, setLoading] = useState(false);
     const { setMail, setLogged } = useUser();
-
+    const { setAttendeeId } = useAttendee();
     async function submitForm() {
         try {
             // Checkea que ningun campo este vacio
-            if (!nameInput || !emailInput || !numberInput)
+            if (!nameInput)
                 return alert("Por favor, completa todos los campos");
             setLoading(true);
 
             setMail(emailInput); // Guarda el correo
             setLogged(true);
-            register(nameInput, emailInput);
-
-            router.push("/trivia");
+           const data = await searchBycode(nameInput);
+         if (data?.attendee) {
+        setAttendeeId(data.attendee.id);
+        router.push("/trivia");
+        }
+        setLoading(false)
         } catch (error) {
             console.log({ error: error });
         }

@@ -11,6 +11,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { Record } from "./types";
+import { edgeApi } from "@/sdk/init";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDAg8fcs_rBQlB7xCxGm1Xq-1X9ISe-stY",
@@ -28,28 +29,34 @@ const db = getFirestore(app);
 
 export async function register(name, mail) {
   try {
-    const isExisting = await getDoc(doc(db, "DBTriviasOracle", mail));
-    if (isExisting.data()) {
-      return "existing";
-    } else {
-      await setDoc(doc(db, "DBTriviasOracle", mail), {
-        nombre: name,
-        correo: mail,
-        puntaje: 0,
-        tiempo: 0,
-        fecha: Timestamp.now(),
-      });
-    }
+    const data = await edgeApi.registerAttendee({
+      email: mail,
+      fullName: name
+    })
+    return data
+  } catch (error) {
+    console.log(error);
+  }
+}
+export async function searchBycode(code) {
+  try {
+    const data = await edgeApi.findAttendeeByCode(code)
+    return data
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function registerRecord(mail, time, score) {
-  await updateDoc(doc(db, "DBTriviasOracle", mail), {
-    puntaje: score,
-    tiempo: time,
-  });
+
+export async function registerRecord(attendeId,score) {
+ try {
+  console.log('guardando puntos', attendeId);
+  
+    const data = await edgeApi.logExperiencePlay({attendeeId:attendeId,play_timestamp: new Date().toISOString(), score })
+    return data
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function getRecords(): Promise<Record[]> {

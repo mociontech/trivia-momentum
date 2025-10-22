@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
 import { register } from "@/utils/db";
 import Loader from "@/components/loader";
+import { useAttendee } from '@/context/AttendeeContext';
 
 const Vietnam = Be_Vietnam_Pro({
     subsets: ["latin"],
@@ -25,6 +26,7 @@ export default function LoginPage() {
     const [registered, setRegistered] = useState(false);
     const [loading, setLoading] = useState(false);
     const { setMail, setLogged } = useUser();
+    const { setAttendeeId } = useAttendee();
 
     async function submitForm() {
         try {
@@ -35,9 +37,12 @@ export default function LoginPage() {
 
             setMail(emailInput); // Guarda el correo
             setLogged(true);
-            register(nameInput, emailInput);
-
-            router.push("/codigo_id");
+            const data = await register(nameInput, emailInput);
+          // 🔹 Guarda el ID en el contexto
+        if (data?.attendee) {
+        setAttendeeId(data.attendee.id);
+        }
+        router.push(`/codigo_id?code=${data.attendee.code}`);
         } catch (error) {
             console.log({ error: error });
         }

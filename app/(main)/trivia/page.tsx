@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { registerRecord } from "@/utils/db";
 import { useUser } from "@/hooks/useUser";
 import { formatTime } from "@/utils/utils";
+import { useAttendee } from "@/context/AttendeeContext";
 
 interface Question {
   question: string;
@@ -44,7 +45,7 @@ export default function TriviaPage() {
   const [startTime, setStartTime] = useState(null); // Para registrar el tiempo de inicio
   const [totalTime, setTotalTime] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
-
+  const { attendeeId } = useAttendee();
   // CONFIGURACIÓN: cambia estas constantes para modificar fondo, logo y número de preguntas
   // Rutas de imagen de fondo por pregunta (coloca los archivos en public/assets)
   const TRIVIA_PREG_IMAGE = [
@@ -95,7 +96,7 @@ export default function TriviaPage() {
         const endTime = Date.now();
         const timeTaken = Math.floor(endTime - startTime as number);
         setTotalTime(formatTime(timeTaken));
-        registerRecord(mail, timeTaken, finalScoreForRecord * 20);
+       
       }
 
       setTimeout(() => {
@@ -135,7 +136,7 @@ export default function TriviaPage() {
         const timeTaken = Math.floor(endTime - startTime as number);
         setTotalTime(formatTime(timeTaken));
         // finalScore = score (no cambio)
-        registerRecord(mail, timeTaken, score * 20);
+        registerRecord(attendeeId, score * 20);
       }
 
       setTimeout(() => {
@@ -160,7 +161,7 @@ export default function TriviaPage() {
     setCorrectAnswer(0);
   }
 
-  function calcularPuntaje(score: number) {
+  async function calcularPuntaje(score: number) {
     let puntosCalculados = 0;
     if (score === 5) {
       puntosCalculados = 15;
@@ -173,7 +174,9 @@ export default function TriviaPage() {
     }
 
     setPuntos(puntosCalculados);
+    await registerRecord(attendeeId, puntosCalculados);
     console.log(`Puntaje obtenido: ${puntosCalculados}`);
+    
     return puntosCalculados;
   }
 

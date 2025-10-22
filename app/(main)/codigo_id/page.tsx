@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Be_Vietnam_Pro, Montserrat } from "next/font/google";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
 import { register } from "@/utils/db";
 import Loader from "@/components/loader";
@@ -25,8 +25,8 @@ export default function LoginPage() {
     const [registered, setRegistered] = useState(false);
     const [loading, setLoading] = useState(false);
     const { setMail, setLogged } = useUser();
-    const codigo = process.env.NEXT_PUBLIC_CODIGO_ID; //pendiente
-
+    const searchParams = useSearchParams();
+    const codigo = searchParams.get('code');
     async function submitForm() {
         try {
             // Checkea que ningun campo este vacio
@@ -38,7 +38,7 @@ export default function LoginPage() {
             setLogged(true);
             register(nameInput, emailInput);
 
-            router.push("/codigo_id");
+            router.push("/trivia");
         } catch (error) {
             console.log({ error: error });
         }
