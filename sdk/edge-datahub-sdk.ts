@@ -11,7 +11,7 @@ export class EdgeDataHubSDK {
 
   constructor() {
     
-    this.baseUrl = "http://192.168.1.10:3000/api/edge";
+    this.baseUrl = "http://192.168.0.100:3000/api/edge";
     
 
     this.eventId = "bf50d11c-2571-4270-9535-994d2931a06b"; // HARDCODED: ID del evento
