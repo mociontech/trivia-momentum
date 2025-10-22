@@ -16,7 +16,7 @@ export class EdgeDataHubSDK {
 
     // Event configuration - HARDCODED IDs for this implementation
     this.eventId = "bf50d11c-2571-4270-9535-994d2931a06b"; // HARDCODED: ID del evento
-    this.eventExperienceId = "9f0f85a1-879a-482e-9c01-dd4317556f4b"; // HARDCODED: ID de la experiencia
+    this.eventExperienceId = "a6f8b2b7-8339-438f-865c-ed3469f16825"; // HARDCODED: ID de la experiencia
   }
 
   // ===== OPERACIONES PRINCIPALES =====
