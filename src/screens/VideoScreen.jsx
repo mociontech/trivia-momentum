@@ -39,7 +39,8 @@ function AvatarVideoPlayer({ state, socket }) {
     if (!video) return;
 
     video.currentTime = 0;
-    video.muted = true;
+    video.muted = false;
+    video.volume = 1;
     video.play().catch(() => {});
   }, [src]);
 
@@ -72,7 +73,7 @@ function AvatarVideoPlayer({ state, socket }) {
         src={src}
         autoPlay
         playsInline
-        muted
+        preload="auto"
         loop={loop}
         onEnded={handleEnded}
         onError={handleError}

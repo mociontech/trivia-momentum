@@ -11,6 +11,22 @@
   --muted: #c8d0e8;
 }
 
+@font-face {
+  font-family: 'Montserrat EnRuta';
+  src: url('/Montserrat/static/Montserrat-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat EnRuta';
+  src: url('/Montserrat/static/Montserrat-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 * { box-sizing: border-box; }
 html, body, #root { width: 100%; min-height: 100%; margin: 0; }
 body { overflow: hidden; background: #010723; }
@@ -201,6 +217,7 @@ button { -webkit-tap-highlight-color: transparent; }
   inset: 0;
   padding: 0;
   background: transparent;
+  font-family: 'Montserrat EnRuta', Montserrat, ui-sans-serif, system-ui, sans-serif;
 }
 .question-overlay .question-count {
   position: absolute;
@@ -225,6 +242,7 @@ button { -webkit-tap-highlight-color: transparent; }
   font-size: clamp(38px, 5.7vh, 72px);
   line-height: 1;
   text-align: center;
+  font-weight: 700;
 }
 .question-copy {
   position: absolute;
@@ -236,6 +254,7 @@ button { -webkit-tap-highlight-color: transparent; }
   font-size: clamp(20px, 3.05vh, 38px);
   line-height: 1.12;
   text-align: center;
+  font-weight: 400;
 }
 .answers {
   position: absolute;
@@ -306,6 +325,18 @@ button { -webkit-tap-highlight-color: transparent; }
 .question-reference-overlay .question-timer {
   bottom: 8.4%;
   font-size: clamp(28px, 4.6vh, 58px);
+}
+
+.video-wait-loader {
+  position: absolute;
+  z-index: 3;
+  top: 41.2%;
+  left: 50%;
+  width: 22%;
+  height: auto;
+  transform: translateX(-50%);
+  user-select: none;
+  pointer-events: none;
 }
 
 .brand-screen {

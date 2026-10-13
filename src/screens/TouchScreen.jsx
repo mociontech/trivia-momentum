@@ -73,13 +73,9 @@ function Loading() {
 
 function VideoWait() {
   return (
-    <BrandScreen>
-      <div className="center-copy">
-        <div className="spinner" />
-        <h1>Reproduciendo respuesta</h1>
-        <p>Mira la pantalla de video.</p>
-      </div>
-    </BrandScreen>
+    <ReferenceScreen src="/Contenido/espera.png" alt="Reproduciendo respuesta" className="video-wait-reference">
+      <img className="video-wait-loader" src="/Contenido/leader.gif" alt="" aria-hidden="true" draggable="false" />
+    </ReferenceScreen>
   );
 }
 
