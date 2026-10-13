@@ -1,9 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { QUESTIONS } from '../../shared/questions.js';
 import ConnectionBadge from '../components/ConnectionBadge.jsx';
 import ReferenceScreen from '../components/ReferenceScreen.jsx';
 
 const IDLE_SOURCES = ['/videos/Idle.mp4', '/videos/idle.mp4'];
 const INCORRECT_SOURCES = ['/videos/Incorrecta.mp4', '/videos/incorrecta.mp4', '/videos/incorrect.mp4'];
+const warmedVideoSources = new Set();
+let isWarmingVideos = false;
+let videoWarmupQueue = [];
 
 function sourcesForCue(videoCue) {
   if (!videoCue) return IDLE_SOURCES;
@@ -18,6 +22,51 @@ function sourcesForCue(videoCue) {
   return sources;
 }
 
+function enqueueVideoWarmup(sources) {
+  const nextSources = sources.filter((source) => source && !warmedVideoSources.has(source));
+  if (!nextSources.length) return;
+
+  nextSources.forEach((source) => {
+    warmedVideoSources.add(source);
+    videoWarmupQueue.push(source);
+  });
+
+  if (isWarmingVideos) return;
+  isWarmingVideos = true;
+
+  async function warmNext() {
+    const source = videoWarmupQueue.shift();
+    if (!source) {
+      isWarmingVideos = false;
+      return;
+    }
+
+    try {
+      await fetch(source, { cache: 'force-cache' });
+    } catch (error) {
+      // The <video> element still has its normal fallback/error handling.
+    }
+
+    window.setTimeout(warmNext, 180);
+  }
+
+  const startWarmup = () => warmNext();
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(startWarmup, { timeout: 1800 });
+  } else {
+    window.setTimeout(startWarmup, 450);
+  }
+}
+
+function sourcesForRound(questionOrder) {
+  if (!Array.isArray(questionOrder)) return [];
+
+  return questionOrder
+    .map((questionIndex) => QUESTIONS[Number(questionIndex)]?.id)
+    .filter(Boolean)
+    .map((questionId) => `/videos/${questionId}.mp4`);
+}
+
 function AvatarVideoPlayer({ state, socket }) {
   const videoRef = useRef(null);
   const videoCue = state?.phase === 'video' ? state?.videoCue : null;
@@ -29,6 +78,14 @@ function AvatarVideoPlayer({ state, socket }) {
   );
   const src = activeSources[sourceIndex] || IDLE_SOURCES[0];
   const loop = showIdle;
+
+  useEffect(() => {
+    enqueueVideoWarmup([
+      '/videos/Idle.mp4',
+      '/videos/Incorrecta.mp4',
+      ...sourcesForRound(state?.questionOrder),
+    ]);
+  }, [state?.questionOrder]);
 
   useEffect(() => {
     if (state?.phase !== 'video' || !videoCue?.nonce) {
@@ -48,6 +105,8 @@ function AvatarVideoPlayer({ state, socket }) {
     let cancelled = false;
 
     async function playVideo() {
+      video.pause();
+      video.load();
       video.currentTime = 0;
       video.volume = 1;
       video.muted = false;
@@ -56,8 +115,23 @@ function AvatarVideoPlayer({ state, socket }) {
         await video.play();
         return;
       } catch (error) {
-        // Some kiosk browsers reject audible autoplay. Keep playback alive and
-        // immediately restore audio; configured kiosks that allow autoplay will sound.
+        if (showIdle) {
+          video.muted = true;
+          try {
+            await video.play();
+            return;
+          } catch (mutedIdleError) {
+            // Retry below.
+          }
+
+          window.setTimeout(() => {
+            if (!cancelled) playVideo();
+          }, 650);
+          return;
+        }
+
+        // Kiosk Chrome should be launched with autoplay enabled. This fallback
+        // keeps the flow from getting stuck if a browser still blocks audio.
         video.muted = true;
       }
 
@@ -110,7 +184,6 @@ function AvatarVideoPlayer({ state, socket }) {
         ref={videoRef}
         key={src}
         src={src}
-        autoPlay
         playsInline
         preload="auto"
         loop={loop}

@@ -180,7 +180,14 @@ io.on('connection', (socket) => {
 
 const distPath = path.join(ROOT, 'dist');
 if (fs.existsSync(distPath)) {
-  app.use(express.static(distPath));
+  app.use(express.static(distPath, {
+    setHeaders(res, filePath) {
+      if (/\.(mp4|webm|mov)$/i.test(filePath)) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        res.setHeader('Accept-Ranges', 'bytes');
+      }
+    },
+  }));
   app.use((_req, res) => res.sendFile(path.join(distPath, 'index.html')));
 }
 
