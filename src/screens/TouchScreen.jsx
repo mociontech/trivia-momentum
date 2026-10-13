@@ -1,23 +1,77 @@
 import { useEffect, useMemo, useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
+import * as pdfjsLib from 'pdfjs-dist';
+import pdfWorkerUrl from 'pdfjs-dist/build/pdf.worker.mjs?url';
 import { APP_CONFIG } from '../../shared/config.js';
 import { getRoundQuestion, getRoundTotal } from '../../shared/triviaRound.js';
 import ConnectionBadge from '../components/ConnectionBadge.jsx';
 import ReferenceScreen from '../components/ReferenceScreen.jsx';
 import BrandScreen from '../components/BrandScreen.jsx';
 
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
+
 const PRIVACY_PDF_URL = '/assets/Autorizacion_Tratamiento_Datos_EnRuta_Cartagena.pdf';
 const optionLetter = (index) => ['A', 'B', 'C'][index] ?? '?';
 
 function PrivacyPdf({ onAccept }) {
+  const [pageImages, setPageImages] = useState([]);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadingTask = pdfjsLib.getDocument(PRIVACY_PDF_URL);
+
+    async function renderPdf() {
+      try {
+        const pdf = await loadingTask.promise;
+        const images = [];
+
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
+          const page = await pdf.getPage(pageNumber);
+          const viewport = page.getViewport({ scale: 1.65 });
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+          const outputScale = Math.min(window.devicePixelRatio || 1, 2);
+
+          canvas.width = Math.floor(viewport.width * outputScale);
+          canvas.height = Math.floor(viewport.height * outputScale);
+          context.setTransform(outputScale, 0, 0, outputScale, 0, 0);
+
+          await page.render({ canvasContext: context, viewport }).promise;
+          images.push(canvas.toDataURL('image/png'));
+        }
+
+        if (!cancelled) setPageImages(images);
+      } catch (renderError) {
+        console.error('No fue posible previsualizar el PDF:', renderError);
+        if (!cancelled) setError('No fue posible cargar el documento.');
+      }
+    }
+
+    renderPdf();
+
+    return () => {
+      cancelled = true;
+      loadingTask.destroy();
+    };
+  }, []);
+
   return (
     <div className="portrait-stage privacy-pdf-stage">
-      <h1>Politica de privacidad</h1>
+      <h1>Política de privacidad</h1>
       <div className="privacy-pdf-frame">
-        <iframe
-          title="Autorizacion tratamiento de datos"
-          src={`${PRIVACY_PDF_URL}#toolbar=0&navpanes=0`}
-        />
+        {pageImages.length > 0 ? (
+          <div className="privacy-pdf-pages">
+            {pageImages.map((pageSrc, index) => (
+              <img key={pageSrc} src={pageSrc} alt={`Pagina ${index + 1} del documento`} />
+            ))}
+          </div>
+        ) : (
+          <div className="privacy-pdf-loading">
+            <div className="spinner" />
+            <p>{error || 'Cargando documento...'}</p>
+          </div>
+        )}
       </div>
       <button className="privacy-accept-button" type="button" onClick={onAccept}>
         Aceptar
@@ -55,7 +109,7 @@ function Validation({ socket }) {
     }
 
     if (!cedula.trim()) {
-      setError('Ingresa una cedula para continuar.');
+      setError('Ingresa una cédula para continuar.');
       return;
     }
 
@@ -71,26 +125,68 @@ function Validation({ socket }) {
     return <PrivacyPdf onAccept={acceptPrivacy} />;
   }
 
-  return (
-    <ReferenceScreen src="/reference/22.png" alt={isRegister ? 'Registro' : 'Validacion'}>
-      <form className={`validation-overlay ${isRegister ? 'is-register' : ''}`} onSubmit={submit}>
-        {isRegister && (
-          <>
-            <span className="register-name-shell" aria-hidden="true" />
+  if (isRegister) {
+    return (
+      <div className="portrait-stage register-stage">
+        <img className="register-stage-logo" src="/assets/enruta-logo-combo.png" alt="EnRuta" draggable="false" />
+        <h1>REGÍSTRATE</h1>
+
+        <form className="register-form" onSubmit={submit}>
+          <label className="register-field">
+            <span aria-hidden="true" />
             <input
-              className="name-input"
+              inputMode="numeric"
+              autoComplete="off"
+              value={cedula}
+              placeholder="Cédula"
+              onChange={(event) => {
+                setCedula(event.target.value);
+                setError('');
+              }}
+              aria-label="Cédula"
+            />
+          </label>
+
+          <label className="register-field">
+            <span aria-hidden="true" />
+            <input
               autoComplete="name"
               value={name}
-              placeholder="Nombre"
+              placeholder="Nombre completo"
               onChange={(event) => {
                 setName(event.target.value);
                 setError('');
               }}
-              aria-label="Nombre"
+              aria-label="Nombre completo"
             />
-          </>
-        )}
+          </label>
 
+          <div className="register-consent-row">
+            <button
+              type="button"
+              className={`register-check ${accepted ? 'is-checked' : ''}`}
+              onClick={openPrivacy}
+              aria-label="Leer y aceptar política de privacidad"
+            >
+              <span />
+            </button>
+            <p>
+              Autorizo el tratamiento de mis datos personales (cédula y nombre) para participar en las experiencias del evento y asociar mi puntaje.
+              {' '}
+              <button type="button" onClick={openPrivacy}>Política de Privacidad.</button>
+            </p>
+          </div>
+
+          <button className="register-submit" type="submit">Continuar</button>
+          {error && <p className="register-error">{error}</p>}
+        </form>
+      </div>
+    );
+  }
+
+  return (
+    <ReferenceScreen src="/reference/22.png" alt="Validacion">
+      <form className="validation-overlay" onSubmit={submit}>
         {cedula && <span className="cedula-mask" aria-hidden="true" />}
         <input
           className="cedula-input"
@@ -101,14 +197,14 @@ function Validation({ socket }) {
             setCedula(event.target.value);
             setError('');
           }}
-          aria-label="Cedula"
+          aria-label="Cédula"
         />
 
         <button
           type="button"
           className={`privacy-check ${accepted ? 'is-checked' : ''}`}
           onClick={openPrivacy}
-          aria-label="Leer y aceptar politica de privacidad"
+          aria-label="Leer y aceptar política de privacidad"
         >
           <span />
         </button>
@@ -116,7 +212,7 @@ function Validation({ socket }) {
           type="button"
           className="privacy-link-hotspot"
           onClick={openPrivacy}
-          aria-label="Abrir politica de privacidad"
+          aria-label="Abrir política de privacidad"
         />
         <button className="validation-submit" type="submit" aria-label="Comenzar">Comenzar</button>
 
