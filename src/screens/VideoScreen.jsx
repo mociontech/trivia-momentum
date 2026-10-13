@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import BrandScreen from '../components/BrandScreen.jsx';
 import ConnectionBadge from '../components/ConnectionBadge.jsx';
+import ReferenceScreen from '../components/ReferenceScreen.jsx';
 
 const IDLE_SOURCES = ['/videos/Idle.mp4', '/videos/idle.mp4'];
 const INCORRECT_SOURCES = ['/videos/Incorrecta.mp4', '/videos/incorrecta.mp4', '/videos/incorrect.mp4'];
@@ -86,9 +86,9 @@ export default function VideoScreen({ socket, state, connected }) {
   return (
     <main className="display-root">
       <ConnectionBadge connected={connected} />
-      <BrandScreen className="avatar-video-screen">
+      <ReferenceScreen src="/Contenido/marcoAvatar.png" alt="Marco avatar" className="avatar-video-screen">
         <AvatarVideoPlayer socket={socket} state={state} />
-      </BrandScreen>
+      </ReferenceScreen>
     </main>
   );
 }

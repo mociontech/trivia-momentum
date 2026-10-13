@@ -6,31 +6,94 @@ import ConnectionBadge from '../components/ConnectionBadge.jsx';
 import ReferenceScreen from '../components/ReferenceScreen.jsx';
 import BrandScreen from '../components/BrandScreen.jsx';
 
+const PRIVACY_PDF_URL = '/assets/Autorizacion_Tratamiento_Datos_EnRuta_Cartagena.pdf';
 const optionLetter = (index) => ['A', 'B', 'C'][index] ?? '?';
+
+function PrivacyPdf({ onAccept }) {
+  return (
+    <div className="portrait-stage privacy-pdf-stage">
+      <h1>Politica de privacidad</h1>
+      <div className="privacy-pdf-frame">
+        <iframe
+          title="Autorizacion tratamiento de datos"
+          src={`${PRIVACY_PDF_URL}#toolbar=0&navpanes=0`}
+        />
+      </div>
+      <button className="privacy-accept-button" type="button" onClick={onAccept}>
+        Aceptar
+      </button>
+    </div>
+  );
+}
 
 function Validation({ socket }) {
   const [cedula, setCedula] = useState('');
+  const [name, setName] = useState('');
   const [accepted, setAccepted] = useState(false);
   const [error, setError] = useState('');
+  const [privacyOpen, setPrivacyOpen] = useState(false);
+  const [mode, setMode] = useState('validation');
+  const isRegister = mode === 'register';
+
+  const openPrivacy = () => {
+    setError('');
+    setPrivacyOpen(true);
+  };
+
+  const acceptPrivacy = () => {
+    setAccepted(true);
+    setPrivacyOpen(false);
+    setError('');
+  };
 
   const submit = (event) => {
     event.preventDefault();
-    if (!cedula.trim()) {
-      setError('Ingresa una cédula para continuar.');
+
+    if (isRegister && !name.trim()) {
+      setError('Ingresa tu nombre para continuar.');
       return;
     }
+
+    if (!cedula.trim()) {
+      setError('Ingresa una cedula para continuar.');
+      return;
+    }
+
     if (!accepted) {
       setError('Autoriza el tratamiento de datos para continuar.');
       return;
     }
-    socket.emit('touch:participant', { cedula });
+
+    socket.emit('touch:participant', { cedula, name: isRegister ? name : '' });
   };
 
+  if (privacyOpen) {
+    return <PrivacyPdf onAccept={acceptPrivacy} />;
+  }
+
   return (
-    <ReferenceScreen src="/reference/22.png" alt="Validación">
-      <form className="validation-overlay" onSubmit={submit}>
+    <ReferenceScreen src="/reference/22.png" alt={isRegister ? 'Registro' : 'Validacion'}>
+      <form className={`validation-overlay ${isRegister ? 'is-register' : ''}`} onSubmit={submit}>
+        {isRegister && (
+          <>
+            <span className="register-name-shell" aria-hidden="true" />
+            <input
+              className="name-input"
+              autoComplete="name"
+              value={name}
+              placeholder="Nombre"
+              onChange={(event) => {
+                setName(event.target.value);
+                setError('');
+              }}
+              aria-label="Nombre"
+            />
+          </>
+        )}
+
         {cedula && <span className="cedula-mask" aria-hidden="true" />}
         <input
+          className="cedula-input"
           inputMode="numeric"
           autoComplete="off"
           value={cedula}
@@ -38,21 +101,38 @@ function Validation({ socket }) {
             setCedula(event.target.value);
             setError('');
           }}
-          aria-label="Cédula"
+          aria-label="Cedula"
         />
-        <label className="privacy-check">
-          <input
-            type="checkbox"
-            checked={accepted}
-            onChange={(event) => {
-              setAccepted(event.target.checked);
+
+        <button
+          type="button"
+          className={`privacy-check ${accepted ? 'is-checked' : ''}`}
+          onClick={openPrivacy}
+          aria-label="Leer y aceptar politica de privacidad"
+        >
+          <span />
+        </button>
+        <button
+          type="button"
+          className="privacy-link-hotspot"
+          onClick={openPrivacy}
+          aria-label="Abrir politica de privacidad"
+        />
+        <button className="validation-submit" type="submit" aria-label="Comenzar">Comenzar</button>
+
+        {!isRegister && (
+          <button
+            type="button"
+            className="register-hotspot"
+            onClick={() => {
+              setMode('register');
+              setAccepted(false);
               setError('');
             }}
-            aria-label="Autorizar tratamiento de datos"
+            aria-label="Registrate"
           />
-          <span />
-        </label>
-        <button type="submit" aria-label="Comenzar">Comenzar</button>
+        )}
+
         {error && <p className="touch-error">{error}</p>}
       </form>
     </ReferenceScreen>
