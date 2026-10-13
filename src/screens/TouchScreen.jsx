@@ -236,9 +236,7 @@ function Validation({ socket }) {
               setError('');
             }}
             aria-label="Registrate"
-          >
-            Regístrate
-          </button>
+          />
         )}
 
         {error && <p className="touch-error">{error}</p>}

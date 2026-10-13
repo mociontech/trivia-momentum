@@ -280,10 +280,7 @@ button { -webkit-tap-highlight-color: transparent; }
   height: 6%;
   border: 0;
   background: transparent;
-  color: #fff;
-  font-size: clamp(24px, 3.3vh, 42px);
-  line-height: 1;
-  text-decoration: underline;
+  color: transparent;
   cursor: pointer;
 }
 .validation-overlay.is-register .privacy-check {
