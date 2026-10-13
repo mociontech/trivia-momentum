@@ -34,24 +34,19 @@ function PrivacyPdf({ onAccept }) {
     async function renderPdf() {
       try {
         const pdf = await loadingTask.promise;
-        const images = [];
+        const page = await pdf.getPage(1);
+        const viewport = page.getViewport({ scale: 1.65 });
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        const outputScale = Math.min(window.devicePixelRatio || 1, 2);
 
-        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
-          const page = await pdf.getPage(pageNumber);
-          const viewport = page.getViewport({ scale: 1.65 });
-          const canvas = document.createElement('canvas');
-          const context = canvas.getContext('2d');
-          const outputScale = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(viewport.width * outputScale);
+        canvas.height = Math.floor(viewport.height * outputScale);
+        context.setTransform(outputScale, 0, 0, outputScale, 0, 0);
 
-          canvas.width = Math.floor(viewport.width * outputScale);
-          canvas.height = Math.floor(viewport.height * outputScale);
-          context.setTransform(outputScale, 0, 0, outputScale, 0, 0);
+        await page.render({ canvasContext: context, viewport }).promise;
 
-          await page.render({ canvasContext: context, viewport }).promise;
-          images.push(canvas.toDataURL('image/png'));
-        }
-
-        if (!cancelled) setPageImages(images);
+        if (!cancelled) setPageImages([canvas.toDataURL('image/png')]);
       } catch (renderError) {
         console.error('No fue posible previsualizar el PDF:', renderError);
         if (!cancelled) setError('No fue posible cargar el documento.');

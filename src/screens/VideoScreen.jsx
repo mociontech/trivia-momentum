@@ -20,11 +20,9 @@ function sourcesForCue(videoCue) {
 
 function AvatarVideoPlayer({ state, socket }) {
   const videoRef = useRef(null);
-  const audioUnlockedRef = useRef(false);
   const videoCue = state?.phase === 'video' ? state?.videoCue : null;
   const [showIdle, setShowIdle] = useState(true);
   const [sourceIndex, setSourceIndex] = useState(0);
-  const [audioBlocked, setAudioBlocked] = useState(false);
   const activeSources = useMemo(
     () => (showIdle ? IDLE_SOURCES : sourcesForCue(videoCue)),
     [showIdle, videoCue],
@@ -52,21 +50,29 @@ function AvatarVideoPlayer({ state, socket }) {
     async function playVideo() {
       video.currentTime = 0;
       video.volume = 1;
-      video.muted = showIdle && !audioUnlockedRef.current;
+      video.muted = false;
 
       try {
         await video.play();
-        if (!cancelled) setAudioBlocked(false);
         return;
       } catch (error) {
+        // Some kiosk browsers reject audible autoplay. Keep playback alive and
+        // immediately restore audio; configured kiosks that allow autoplay will sound.
         video.muted = true;
       }
 
       try {
         await video.play();
-        if (!cancelled) setAudioBlocked(!showIdle);
+        window.setTimeout(() => {
+          if (!cancelled) {
+            video.muted = false;
+            video.volume = 1;
+          }
+        }, 120);
       } catch (mutedError) {
-        if (!cancelled) setAudioBlocked(true);
+        window.setTimeout(() => {
+          if (!cancelled) playVideo();
+        }, 450);
       }
     }
 
@@ -76,23 +82,6 @@ function AvatarVideoPlayer({ state, socket }) {
       cancelled = true;
     };
   }, [showIdle, src]);
-
-  const enableAudio = async () => {
-    const video = videoRef.current;
-    audioUnlockedRef.current = true;
-    setAudioBlocked(false);
-
-    if (!video) return;
-
-    video.muted = false;
-    video.volume = 1;
-
-    try {
-      await video.play();
-    } catch (error) {
-      setAudioBlocked(true);
-    }
-  };
 
   const handleEnded = () => {
     if (!showIdle) {
@@ -128,11 +117,6 @@ function AvatarVideoPlayer({ state, socket }) {
         onEnded={handleEnded}
         onError={handleError}
       />
-      {audioBlocked && (
-        <button className="video-audio-unlock" type="button" onClick={enableAudio}>
-          Activar sonido
-        </button>
-      )}
     </div>
   );
 }
