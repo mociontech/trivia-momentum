@@ -1,6 +1,6 @@
 export const APP_CONFIG = {
-  totalQuestions: 8,
-  passingScore: 7,
+  totalQuestions: 5,
+  passingScore: 4,
   showPreQuizQr: false,
   qrUrl: 'https://www.cccartagena.org.co/',
   feedbackAutoAdvanceMs: 0,

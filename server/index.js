@@ -4,8 +4,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Server } from 'socket.io';
-import { QUESTIONS } from '../shared/questions.js';
 import { APP_CONFIG } from '../shared/config.js';
+import { createQuestionOrder, getRoundQuestion, getRoundTotal } from '../shared/triviaRound.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,6 +26,7 @@ function freshState() {
     phase: 'welcome',
     participant: { cedula: '', name: '' },
     avatar: 'avatar-1',
+    questionOrder: createQuestionOrder(),
     currentQuestion: 0,
     selectedAnswer: null,
     lastAnswerCorrect: null,
@@ -33,6 +34,7 @@ function freshState() {
     startedAt: null,
     finishedAt: null,
     responseNonce: 0,
+    videoCue: null,
     qrUrl: APP_CONFIG.qrUrl,
   };
 }
@@ -68,7 +70,7 @@ function finishSession() {
   appendResult({
     participant: state.participant,
     score: state.score,
-    total: QUESTIONS.length,
+    total: getRoundTotal(state),
     durationMs,
     finishedAt: new Date(finishedAt).toISOString(),
   });
@@ -131,7 +133,7 @@ io.on('connection', (socket) => {
 
   socket.on('touch:answer', (answerIndex) => {
     if (state.phase !== 'question') return;
-    const question = QUESTIONS[state.currentQuestion];
+    const question = getRoundQuestion(state);
     if (!question) return;
 
     const normalized = Number(answerIndex);
@@ -155,7 +157,7 @@ io.on('connection', (socket) => {
 
   function advanceQuestion() {
     if (state.phase !== 'feedback') return;
-    const isLast = state.currentQuestion >= QUESTIONS.length - 1;
+    const isLast = state.currentQuestion >= getRoundTotal(state) - 1;
     if (isLast) {
       finishSession();
       return;
