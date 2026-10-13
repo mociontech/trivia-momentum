@@ -13,6 +13,16 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 const PRIVACY_PDF_URL = '/assets/Autorizacion_Tratamiento_Datos_EnRuta_Cartagena.pdf';
 const optionLetter = (index) => ['A', 'B', 'C'][index] ?? '?';
 
+function requestFullscreen() {
+  const element = document.documentElement;
+  const request =
+    element.requestFullscreen ||
+    element.webkitRequestFullscreen ||
+    element.msRequestFullscreen;
+
+  if (request) request.call(element).catch?.(() => {});
+}
+
 function PrivacyPdf({ onAccept }) {
   const [pageImages, setPageImages] = useState([]);
   const [error, setError] = useState('');
@@ -128,7 +138,7 @@ function Validation({ socket }) {
   if (isRegister) {
     return (
       <div className="portrait-stage register-stage">
-        <img className="register-stage-logo" src="/assets/enruta-logo-combo.png" alt="EnRuta" draggable="false" />
+        <img className="register-stage-logo" src="/assets/logo.png" alt="EnRuta" draggable="false" />
         <h1>REGÍSTRATE</h1>
 
         <form className="register-form" onSubmit={submit}>
@@ -226,7 +236,9 @@ function Validation({ socket }) {
               setError('');
             }}
             aria-label="Registrate"
-          />
+          >
+            Regístrate
+          </button>
         )}
 
         {error && <p className="touch-error">{error}</p>}
@@ -329,6 +341,9 @@ export default function TouchScreen({ socket, state, connected }) {
         return (
           <ReferenceScreen src="/reference/1.png" alt="Reta tu conocimiento" className="welcome-reference-stage">
             <button className="welcome-hotspot" aria-label="Iniciar" onClick={() => socket.emit('touch:welcome')} />
+            <button className="fullscreen-hotspot" aria-label="Pantalla completa" onClick={requestFullscreen}>
+              <span />
+            </button>
           </ReferenceScreen>
         );
       case 'validation':

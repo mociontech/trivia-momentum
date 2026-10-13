@@ -103,6 +103,41 @@ button { -webkit-tap-highlight-color: transparent; }
   background: transparent;
   cursor: pointer;
 }
+.fullscreen-hotspot {
+  position: absolute;
+  z-index: 6;
+  right: 5.2%;
+  bottom: 4.2%;
+  width: clamp(42px, 5.6vh, 68px);
+  height: clamp(42px, 5.6vh, 68px);
+  border: 2px solid rgba(255, 255, 255, .78);
+  border-radius: 10px;
+  background: rgba(3, 10, 43, .42);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+.fullscreen-hotspot span,
+.fullscreen-hotspot span::before,
+.fullscreen-hotspot span::after {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+.fullscreen-hotspot span::before,
+.fullscreen-hotspot span::after {
+  content: '';
+  margin: 22%;
+  border-color: #fff;
+  border-style: solid;
+}
+.fullscreen-hotspot span::before {
+  border-width: 3px 0 0 3px;
+  transform: translate(-4px, -4px);
+}
+.fullscreen-hotspot span::after {
+  border-width: 0 3px 3px 0;
+  transform: translate(4px, 4px);
+}
 .start-anywhere-hotspot {
   position: absolute;
   inset: 0;
@@ -239,12 +274,16 @@ button { -webkit-tap-highlight-color: transparent; }
 .register-hotspot {
   position: absolute;
   z-index: 4;
-  left: 29%;
-  top: 76.8%;
-  width: 42%;
-  height: 4.8%;
+  left: 24%;
+  top: 75.9%;
+  width: 52%;
+  height: 6%;
   border: 0;
   background: transparent;
+  color: #fff;
+  font-size: clamp(24px, 3.3vh, 42px);
+  line-height: 1;
+  text-decoration: underline;
   cursor: pointer;
 }
 .validation-overlay.is-register .privacy-check {
@@ -287,9 +326,9 @@ button { -webkit-tap-highlight-color: transparent; }
 }
 .register-stage-logo {
   position: absolute;
-  top: 5.2%;
-  left: 11%;
-  width: 78%;
+  top: 5.4%;
+  left: 9.8%;
+  width: 80.4%;
   height: auto;
   user-select: none;
   pointer-events: none;
